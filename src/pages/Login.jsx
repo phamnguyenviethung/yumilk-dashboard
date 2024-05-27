@@ -1,8 +1,19 @@
+import LoginForm from '@/features/Auth/LoginForm';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    return (
-        <div>Login</div>
-    )
-}
+  const authState = useSelector(state => state.auth);
+  const navigate = useNavigate();
 
-export default Login
+  useEffect(() => {
+    if (authState.isAuthenticated) {
+      navigate('/');
+    }
+  }, [authState.isAuthenticated, navigate]);
+
+  return <LoginForm />;
+};
+
+export default Login;
