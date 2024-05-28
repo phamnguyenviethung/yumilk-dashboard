@@ -6,22 +6,9 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-} from 'react-icons/fi';
 import NavItem from '../Navbar/NavItem';
-
-const LinkItems = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
-];
+import data from './data';
+import DropdownItem from '../Navbar/DropdownItem';
 
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
@@ -41,11 +28,17 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      {data.map(link => {
+        if (link.subItems) {
+          return <DropdownItem key={link.name} data={link} />;
+        } else {
+          return (
+            <NavItem key={link.name} icon={link.icon}>
+              {link.name}
+            </NavItem>
+          );
+        }
+      })}
     </Box>
   );
 };
