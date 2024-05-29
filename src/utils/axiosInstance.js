@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '@/redux/store';
+import store from '@/configs/store';
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + '/api',
 });
@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   config => {
-    const token = store.getState().auth.userToken.accessToken;
+    const token = store.getState().auth?.userToken?.accessToken;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,8 +28,6 @@ axiosInstance.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
-    // If the error status is 401 and there is no originalRequest._retry flag,
-    // it means the token has expired and we need to refresh it
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 

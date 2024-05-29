@@ -32,7 +32,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           return <DropdownItem key={link.name} data={link} />;
         } else {
           return (
-            <NavItem key={link.name} icon={link.icon}>
+            <NavItem key={link.name} icon={link.icon} path={link.path}>
               {link.name}
             </NavItem>
           );

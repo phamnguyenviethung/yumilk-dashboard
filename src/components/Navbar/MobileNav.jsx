@@ -1,3 +1,4 @@
+import { logout } from '@/features/Auth/authSlice';
 import {
   Avatar,
   Box,
@@ -14,8 +15,17 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const dispatch = useDispatch();
+  const authState = useSelector(state => state.auth);
+  const nav = useNavigate();
+  const handleLogout = () => {
+    dispatch(logout());
+    nav('/login');
+  };
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -72,7 +82,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing='1px'
                   ml='2'
                 >
-                  <Text fontSize='sm'>Justina Clark</Text>
+                  <Text fontSize='sm'>
+                    {authState.userData.firstName + authState.userData.lastName}
+                  </Text>
                   <Text fontSize='xs' color='gray.600'>
                     Admin
                   </Text>
@@ -90,7 +102,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={handleLogout}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
