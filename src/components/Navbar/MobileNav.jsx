@@ -83,7 +83,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   ml='2'
                 >
                   <Text fontSize='sm'>
-                    {authState.userData.firstName + authState.userData.lastName}
+                    {authState?.userData?.firstName +
+                      authState?.userData?.lastName}
                   </Text>
                   <Text fontSize='xs' color='gray.600'>
                     Admin
