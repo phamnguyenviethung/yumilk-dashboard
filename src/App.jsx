@@ -1,20 +1,38 @@
-import MainLayout from '@/components/Layout/MainLayout';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import routes from './configs/routes';
 import NotFound from './pages/NotFound';
-import SimpleLayout from './components/Layout/SimpleLayout';
-import CustomerList from './pages/Users/CustomerList';
-import Home from './pages/Home';
-import Login from './pages/Auth/Login';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 function App() {
+  const authState = useSelector(state => state.auth);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      nav('/login');
+    }
+  }, [nav, authState]);
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path='/manage/customers' element={<CustomerList />} />
-      </Route>
-      <Route element={<SimpleLayout />}>
-        <Route path='login' element={<Login />} />
-      </Route>
+      {routes.map((route, i) => {
+        const Layout = route.layout;
+
+        return (
+          <Route key={i} element={<Layout />}>
+            {route.data.map(item => {
+              const Component = item.component;
+
+              return (
+                <Route
+                  key={item.path}
+                  path={item.path}
+                  element={<Component />}
+                />
+              );
+            })}
+          </Route>
+        );
+      })}
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

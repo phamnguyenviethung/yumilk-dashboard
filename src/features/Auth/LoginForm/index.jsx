@@ -39,7 +39,6 @@ const LoginForm = () => {
             const res = await login(data);
             if (res.error) throw res.error.data;
             event.setSubmitting(false);
-            console.log(res.data);
             dispatch(loginSlice(res.data));
             toast({
               title: 'Đăng nhập thành công',
