@@ -1,13 +1,4 @@
-import { EditIcon } from '@chakra-ui/icons';
-import {
-  Icon,
-  Table,
-  TableContainer,
-  Tbody,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react';
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import CustomerRow from './CustomerRow';
 
 const CustomerTable = ({ data }) => {

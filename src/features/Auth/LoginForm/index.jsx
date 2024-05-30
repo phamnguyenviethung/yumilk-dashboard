@@ -11,11 +11,13 @@ import {
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import authServices from '@/services/authServices';
-import { login } from '@/features/Auth/authSlice';
+import { login as loginSlice } from '@/features/Auth/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '@/apis/auth';
 
 const LoginForm = () => {
+  const [login] = useLoginMutation();
+
   const navigate = useNavigate();
   const toast = useToast();
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const LoginForm = () => {
     username: yup.string().required('Vui lòng không bỏ trống'),
     password: yup.string().required('Vui lòng không bỏ trống'),
   });
+
   return (
     <Center flex='1'>
       <Formik
@@ -33,9 +36,11 @@ const LoginForm = () => {
         }}
         onSubmit={async (data, event) => {
           try {
-            const res = await authServices.login(data);
+            const res = await login(data);
+            if (res.error) throw res.error.data;
             event.setSubmitting(false);
-            dispatch(login(res.data.data));
+            console.log(res.data);
+            dispatch(loginSlice(res.data));
             toast({
               title: 'Đăng nhập thành công',
               status: 'success',
@@ -49,7 +54,7 @@ const LoginForm = () => {
           } catch (err) {
             console.log('Login error: ', err);
             toast({
-              title: err.serverMessage,
+              title: err.message,
               status: 'error',
               duration: 2500,
               isClosable: true,

@@ -7,7 +7,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_ENDPOINT + '/api',
   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
-    const token = getState().auth.userToken.accessToken;
+    const token = getState().auth?.userToken?.accessToken;
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }
@@ -38,7 +38,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
           extraOptions
         );
 
-        console.log(refreshResult.data.data);
         if (refreshResult.data) {
           api.dispatch(refreshToken(refreshResult.data.data));
           result = await baseQuery(args, api, extraOptions);
@@ -61,6 +60,6 @@ const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 2 });
 export const api = createApi({
   reducerPath: 'yumilkAPI',
   baseQuery: baseQueryWithRetry,
-  tagTypes: ['Customer'],
+  tagTypes: ['Customer', 'Auth'],
   endpoints: () => ({}),
 });

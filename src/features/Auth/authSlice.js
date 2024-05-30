@@ -22,8 +22,7 @@ const auth = createSlice({
         refreshToken,
       };
       state.isAuthenticated = true;
-      delete action.payload.accessToken;
-      delete action.payload.refreshToken;
+
       localStorage.setItem('userData', JSON.stringify(action.payload));
       localStorage.setItem(
         'userToken',
