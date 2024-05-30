@@ -1,4 +1,4 @@
-import { logout } from '@/features/Auth/authSlice';
+import { logout, refreshToken } from '@/features/Auth/authSlice';
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 
@@ -21,24 +21,29 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   // wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
+
   if (result.error && result.error.status === 401) {
+    const rfToken = api.getState().auth.userToken?.refreshToken;
+
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
         const refreshResult = await baseQuery(
-          '/authentication/refresh-token',
+          {
+            url: `/authentication/refresh-token?token=${rfToken}`,
+            method: 'POST',
+          },
           api,
           extraOptions
         );
 
-        console.log(refreshResult);
+        console.log(refreshResult.data.data);
         if (refreshResult.data) {
-          // api.dispatch();
+          api.dispatch(refreshToken(refreshResult.data.data));
           result = await baseQuery(args, api, extraOptions);
         } else {
-          console.log('logout');
-          // api.dispatch(logout());
+          api.dispatch(logout());
         }
       } finally {
         release();
@@ -51,7 +56,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   return result;
 };
 
-const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 3 });
+const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 2 });
 
 export const api = createApi({
   reducerPath: 'yumilkAPI',
