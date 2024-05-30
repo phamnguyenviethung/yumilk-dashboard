@@ -15,15 +15,14 @@ const auth = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.userData = action.payload;
-      const { accessToken, refreshToken } = action.payload;
+      const { accessToken, refreshToken, ...rest } = action.payload;
       state.userToken = {
         accessToken,
         refreshToken,
       };
+      state.userData = rest;
       state.isAuthenticated = true;
-
-      localStorage.setItem('userData', JSON.stringify(action.payload));
+      localStorage.setItem('userData', JSON.stringify(rest));
       localStorage.setItem(
         'userToken',
         JSON.stringify({
@@ -41,6 +40,14 @@ const auth = createSlice({
     },
     refreshToken: (state, action) => {
       state.userToken.accessToken = action.payload;
+      localStorage.setItem('userData', JSON.stringify(state.userData));
+      localStorage.setItem(
+        'userToken',
+        JSON.stringify({
+          accessToken: state.userToken.accessToken,
+          refreshToken: state.userToken.refreshToken,
+        })
+      );
     },
   },
 });
