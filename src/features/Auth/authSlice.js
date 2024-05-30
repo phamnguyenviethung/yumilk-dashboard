@@ -22,6 +22,8 @@ const auth = createSlice({
         refreshToken,
       };
       state.isAuthenticated = true;
+      delete action.payload.accessToken;
+      delete action.payload.refreshToken;
       localStorage.setItem('userData', JSON.stringify(action.payload));
       localStorage.setItem(
         'userToken',
@@ -39,11 +41,7 @@ const auth = createSlice({
       localStorage.setItem('userToken', null);
     },
     refreshToken: (state, action) => {
-      state.userData = {
-        ...state.userData,
-        ...action.payload,
-      };
-      state.userToken = action.payload;
+      state.userToken.accessToken = action.payload;
     },
   },
 });

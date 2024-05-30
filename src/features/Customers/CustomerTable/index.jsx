@@ -4,16 +4,13 @@ import {
   Table,
   TableContainer,
   Tbody,
-  Td,
   Th,
   Thead,
   Tr,
-  useDisclosure,
 } from '@chakra-ui/react';
-import CustomerEditModal from './CustomerEditModal';
+import CustomerRow from './CustomerRow';
 
 const CustomerTable = ({ data }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <TableContainer border='1'>
@@ -30,25 +27,11 @@ const CustomerTable = ({ data }) => {
           </Thead>
           <Tbody>
             {data.items.map(item => {
-              return (
-                <Tr key={item.phoneNumber}>
-                  <Td>{item.username}</Td>
-                  <Td>
-                    {item.firstName} {item.lastName}
-                  </Td>
-                  <Td>{item.email}</Td>
-                  <Td>{item.phoneNumber}</Td>
-                  <Td>{item.isActive ? 'Hoạt động' : 'Không hoạt động'}</Td>
-                  <Td>
-                    <Icon onClick={onOpen} as={EditIcon} />
-                  </Td>
-                </Tr>
-              );
+              return <CustomerRow key={item.userID} data={item} />;
             })}
           </Tbody>
         </Table>
       </TableContainer>
-      <CustomerEditModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
