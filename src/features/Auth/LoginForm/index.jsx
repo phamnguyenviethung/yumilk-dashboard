@@ -13,7 +13,7 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { login as loginSlice } from '@/features/Auth/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '@/apis/auth';
+import { useLoginMutation } from '@/apis/authApi';
 
 const LoginForm = () => {
   const [login] = useLoginMutation();

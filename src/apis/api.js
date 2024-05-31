@@ -32,7 +32,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         const refreshResult = await baseQuery(
           {
             url: `/authentication/refresh-token?token=${rfToken}`,
-          method: 'POST',
+            method: 'POST',
           },
           api,
           extraOptions
@@ -55,11 +55,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   return result;
 };
 
-const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 2 });
+const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 1 });
 
 export const api = createApi({
   reducerPath: 'yumilkAPI',
   baseQuery: baseQueryWithRetry,
-  tagTypes: ['Customer', 'Auth'],
+  tagTypes: ['Customer', 'Auth', 'User'],
   endpoints: () => ({}),
 });

@@ -1,12 +1,12 @@
 import { api } from './api';
-export const customerAPI = api.injectEndpoints({
+export const customerApi = api.injectEndpoints({
   endpoints: build => ({
     getAllCustomers: build.query({
       query: () => '/customers',
       transformResponse: res => res.data,
-      providesTags: ['Counter'],
+      providesTags: ['Customer'],
     }),
   }),
 });
 
-export const { useGetAllCustomersQuery } = customerAPI;
+export const { useGetAllCustomersQuery } = customerApi;

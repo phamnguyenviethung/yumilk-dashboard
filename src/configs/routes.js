@@ -2,7 +2,7 @@ import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
 import Login from '@/pages/Auth/Login';
 import Home from '@/pages/Home';
-import CustomerList from '@/pages/Users/CustomerList';
+import StaffList from '@/pages/Users/StaffList';
 
 const routes = [
   {
@@ -15,7 +15,7 @@ const routes = [
       },
       {
         path: '/manage/customers',
-        component: CustomerList,
+        component: StaffList,
       },
     ],
   },

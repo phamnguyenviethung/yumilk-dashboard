@@ -1,7 +1,7 @@
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
-import CustomerRow from './CustomerRow';
+import StaffRow from './StaffRow';
 
-const CustomerTable = ({ data }) => {
+const StaffTable = ({ data }) => {
   return (
     <>
       <TableContainer border='1'>
@@ -10,15 +10,13 @@ const CustomerTable = ({ data }) => {
             <Tr>
               <Th>Username</Th>
               <Th>Full Name</Th>
-              <Th>Email</Th>
-              <Th>Phone Number</Th>
+              <Th>Role</Th>
               <Th>Trạng thái</Th>
-              <Th>Action</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data.items.map(item => {
-              return <CustomerRow key={item.userID} data={item} />;
+              return <StaffRow key={item.userID} data={item} />;
             })}
           </Tbody>
         </Table>
@@ -27,4 +25,4 @@ const CustomerTable = ({ data }) => {
   );
 };
 
-export default CustomerTable;
+export default StaffTable;
