@@ -16,7 +16,7 @@ const StaffTable = ({ data }) => {
           </Thead>
           <Tbody>
             {data.items.map(item => {
-              return <StaffRow key={item.userID} data={item} />;
+              return <StaffRow key={item.id} data={item} />;
             })}
           </Tbody>
         </Table>
