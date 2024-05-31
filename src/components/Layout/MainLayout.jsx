@@ -25,7 +25,7 @@ export default function MainLayout() {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p='4'>
+      <Box ml={{ base: 0, md: 60 }} p='4' h='calc(100vh - 20px)'>
         <Outlet />
       </Box>
     </Box>

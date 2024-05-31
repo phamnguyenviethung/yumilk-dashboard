@@ -16,6 +16,7 @@ const routes = [
       {
         path: '/manage/customers',
         component: StaffList,
+        onlyAdmin: true,
       },
     ],
   },

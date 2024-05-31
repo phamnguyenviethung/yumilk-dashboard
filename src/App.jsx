@@ -1,8 +1,9 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import routes from './configs/routes';
-import NotFound from './pages/NotFound';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
+import AdminComponent from './components/NoPermission/AdminRoute';
+import NotFound from './components/NotFound';
 function App() {
   const authState = useSelector(state => state.auth);
   const nav = useNavigate();
@@ -21,12 +22,19 @@ function App() {
           <Route key={i} element={<Layout />}>
             {route.data.map(item => {
               const Component = item.component;
+              const PermissionComponent = item.onlyAdmin
+                ? AdminComponent
+                : Fragment;
 
               return (
                 <Route
                   key={item.path}
                   path={item.path}
-                  element={<Component />}
+                  element={
+                    <PermissionComponent>
+                      <Component />
+                    </PermissionComponent>
+                  }
                 />
               );
             })}
