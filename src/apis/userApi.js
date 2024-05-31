@@ -10,7 +10,7 @@ export const userApi = api.injectEndpoints({
     }),
     addNewUser: build.mutation({
       query: data => ({
-        url: '/authentication/create-user',
+        url: '/users/',
         method: 'post',
         body: data,
       }),

@@ -15,7 +15,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
-  Text,
   VStack,
   useDisclosure,
   useToast,
