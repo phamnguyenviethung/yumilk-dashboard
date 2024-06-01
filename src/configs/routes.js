@@ -18,10 +18,6 @@ const routes = [
         path: '/manage/customers',
         component: StaffList,
       },
-      {
-        path: '/MiniStats', 
-        component: MiniStats, 
-      },
     ],
   },
   {
