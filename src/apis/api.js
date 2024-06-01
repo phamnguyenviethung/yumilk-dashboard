@@ -8,6 +8,8 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
     const token = getState().auth?.userToken?.accessToken;
+    headers.set('content-type', `application/json`);
+
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }

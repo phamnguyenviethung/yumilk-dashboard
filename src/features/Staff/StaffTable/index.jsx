@@ -12,6 +12,7 @@ const StaffTable = ({ data }) => {
               <Th>Full Name</Th>
               <Th>Role</Th>
               <Th>Trạng thái</Th>
+              <Th>Hoạt động</Th>
             </Tr>
           </Thead>
           <Tbody>
