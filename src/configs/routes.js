@@ -3,6 +3,7 @@ import SimpleLayout from '@/components/Layout/SimpleLayout';
 import Login from '@/pages/Auth/Login';
 import Home from '@/pages/Home';
 import StaffList from '@/pages/Users/StaffList';
+import MiniStats from '@/pages/MiniStats';
 
 const routes = [
   {
