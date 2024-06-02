@@ -4,6 +4,8 @@ import Login from '@/pages/Auth/Login';
 import Home from '@/pages/Home';
 import StaffList from '@/pages/Users/StaffList';
 import MiniStats from '@/pages/MiniStats';
+import OrderTable from '@/pages/OrderTable';
+import AboveFooterCard from '@/pages/AboveFooterCard';
 
 const routes = [
   {
@@ -22,6 +24,14 @@ const routes = [
         path: '/MiniStats', 
         component: MiniStats, 
       },
+      {
+        path: '/ordertable', 
+        component: OrderTable, 
+      },
+      {
+        path: '/testpage',
+        component: AboveFooterCard,
+      }
     ],
   },
   {
