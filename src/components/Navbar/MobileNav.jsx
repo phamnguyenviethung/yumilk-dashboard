@@ -73,7 +73,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Avatar
                   colorScheme='pink'
                   size={'sm'}
-                  name={authState.userData.lastName}
+                  name={authState?.userData?.lastName}
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
