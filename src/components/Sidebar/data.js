@@ -3,19 +3,18 @@ import { FiHome, FiDatabase, FiSettings, FiUser } from 'react-icons/fi';
 const data = [
   { name: 'Home', icon: FiHome },
   {
-    name: 'Users',
+    name: 'Staff',
     icon: FiUser,
     subItems: [
       {
-        name: 'User List',
-        path: '/',
+        name: 'Staff List',
+        path: '/manage/staff',
         icon: FiDatabase,
       },
     ],
   },
 
-  { name: 'Customers', path: '/manage/customers', icon: FiUser },
-  { name: 'Staffs', icon: FiSettings },
+  { name: 'Customers', path: '/', icon: FiUser },
   { name: 'Settings', icon: FiSettings },
 ];
 

@@ -1,7 +1,35 @@
-import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Center,
+  Table,
+  TableContainer,
+  Tbody,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 import StaffRow from './StaffRow';
+import CircleLoading from '@/components/Loading/CircleLoading';
 
-const StaffTable = ({ data }) => {
+const StaffTable = ({ data, isLoading }) => {
+  if (isLoading) {
+    return (
+      <Center h='full'>
+        <CircleLoading />
+      </Center>
+    );
+  }
+
+  if (data.items.length === 0) {
+    return (
+      <Center>
+        <Text fontSize='1.4rem' fontWeight='bold'>
+          Không có dữ liệu
+        </Text>
+      </Center>
+    );
+  }
+
   return (
     <>
       <TableContainer border='1'>

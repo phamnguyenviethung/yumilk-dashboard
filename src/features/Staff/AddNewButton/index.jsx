@@ -77,8 +77,8 @@ const AddNewButton = () => {
 
   return (
     <>
-      <Button leftIcon={<FiPlus />} colorScheme='pink' onClick={onOpen}>
-        ADD
+      <Button leftIcon={<FiPlus />} colorScheme='pink' onClick={onOpen} ml={2}>
+        Add
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size='xl'>
