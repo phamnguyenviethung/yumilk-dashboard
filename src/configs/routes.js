@@ -3,7 +3,6 @@ import SimpleLayout from '@/components/Layout/SimpleLayout';
 import Login from '@/pages/Auth/Login';
 import Home from '@/pages/Home';
 import StaffList from '@/pages/Users/StaffList';
-import MiniStats from '@/pages/MiniStats';
 
 const routes = [
   {
@@ -15,7 +14,7 @@ const routes = [
         component: Home,
       },
       {
-        path: '/manage/customers',
+        path: '/manage/staff',
         component: StaffList,
         onlyAdmin: true,
       },
@@ -27,7 +26,6 @@ const routes = [
       {
         path: '/login',
         component: Login,
-        allowAnonymous: true,
       },
     ],
   },

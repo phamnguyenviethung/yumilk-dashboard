@@ -5,7 +5,7 @@ const NotFound = () => {
   return (
     <Container h='100vh' maxW='container.xl'>
       <Center h='full' flexDirection='column'>
-        <Image src={notfound} boxSize={['30rem', '35rem', '50rem']} mb={2} />
+        <Image src={notfound} boxSize={['20rem', '25rem', '30rem']} mb={2} />
         <Link to='/'>
           <Button colorScheme='pink' size='lg'>
             Back Home
