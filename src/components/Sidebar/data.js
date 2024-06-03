@@ -14,7 +14,18 @@ const data = [
     ],
   },
 
-  { name: 'Customers', path: '/', icon: FiUser },
+  {
+    name: 'Customers',
+    path: '/',
+    icon: FiUser,
+    subItems: [
+      {
+        name: 'Customer List',
+        path: '/manage/customer',
+        icon: FiDatabase,
+      },
+    ],
+  },
   { name: 'Settings', icon: FiSettings },
 ];
 

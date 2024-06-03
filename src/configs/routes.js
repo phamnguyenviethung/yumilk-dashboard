@@ -1,8 +1,9 @@
 import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
 import Login from '@/pages/Auth/Login';
+import CustomerProfile from '@/pages/Customer/CustomerProfile';
 import Home from '@/pages/Home';
-import StaffList from '@/pages/Users/StaffList';
+import StaffList from '@/pages/Staff/StaffList';
 
 const routes = [
   {
@@ -17,6 +18,10 @@ const routes = [
         path: '/manage/staff',
         component: StaffList,
         onlyAdmin: true,
+      },
+      {
+        path: '/customer/:id',
+        component: CustomerProfile,
       },
     ],
   },
