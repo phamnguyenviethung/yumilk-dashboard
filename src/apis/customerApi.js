@@ -6,7 +6,12 @@ export const customerApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Customer'],
     }),
+    getCustomerByID: build.query({
+      query: id => '/customers/' + id,
+      transformResponse: res => res.data,
+      providesTags: ['Customer'],
+    }),
   }),
 });
 
-export const { useGetAllCustomersQuery } = customerApi;
+export const { useGetAllCustomersQuery, useGetCustomerByIDQuery } = customerApi;
