@@ -55,7 +55,7 @@ const DropdownItem = ({ data, ...rest }) => {
               my={2}
               bg='gray.700'
               _hover={{
-                bg: 'pink.400',
+                bg: 'pink.600',
                 color: 'white',
               }}
             >
