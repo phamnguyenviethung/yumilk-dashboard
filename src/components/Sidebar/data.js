@@ -8,7 +8,7 @@ const data = [
     subItems: [
       {
         name: 'Product List',
-        path: '/',
+        path: '/manage/product',
         icon: FiDatabase,
       },
       {
