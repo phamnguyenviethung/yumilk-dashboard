@@ -1,5 +1,5 @@
 import { api } from './api';
-export const productBrandApi = api.injectEndpoints({
+export const brandApi = api.injectEndpoints({
   endpoints: build => ({
     getAllBrand: build.query({
       query: () => ({
@@ -19,7 +19,7 @@ export const productBrandApi = api.injectEndpoints({
       invalidatesTags: ['Brand'],
     }),
     updateBrand: build.mutation({
-      query: (id, data) => ({
+      query: ({ id, data }) => ({
         url: `/products/brands/${id}`,
         method: 'patch',
         body: data,
@@ -43,4 +43,4 @@ export const {
   useAddNewBrandMutation,
   useUpdateBrandMutation,
   useDeleteBrandMutation,
-} = productBrandApi;
+} = brandApi;

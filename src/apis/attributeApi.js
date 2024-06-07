@@ -1,6 +1,5 @@
-import { get } from 'http';
 import { api } from './api';
-export const productAttributeApi = api.injectEndpoints({
+export const attributeApi = api.injectEndpoints({
   endpoints: build => ({
     getAllAttribute: build.query({
       query: () => ({
@@ -45,7 +44,7 @@ export const productAttributeApi = api.injectEndpoints({
       providesTags: ['Attribute'],
     }),
     addNewAttributeValueById: build.mutation({
-      query: (id, data) => ({
+      query: ({ id, attributeId, data }) => ({
         url: `/products/${id}/attributes/${attributeId}/values`,
         method: 'post',
         body: data,
@@ -54,7 +53,7 @@ export const productAttributeApi = api.injectEndpoints({
       invalidatesTags: ['Attribute'],
     }),
     updateAttributeValueById: build.mutation({
-      query: (id, attributeId, data) => ({
+      query: ({ id, attributeId, data }) => ({
         url: `/products/${id}/attributes/${attributeId}/values`,
         method: 'patch',
         body: data,
@@ -63,7 +62,7 @@ export const productAttributeApi = api.injectEndpoints({
       invalidatesTags: ['Attribute'],
     }),
     deleteAttributeValueById: build.mutation({
-      query: (id, attributeId) => ({
+      query: ({ id, attributeId }) => ({
         url: `/products/${id}/attributes/${attributeId}/values`,
         method: 'delete',
       }),
@@ -82,4 +81,4 @@ export const {
   useAddNewAttributeValueByIdMutation,
   useUpdateAttributeValueByIdMutation,
   useDeleteAttributeValueByIdMutation,
-} = productAttributeApi;
+} = attributeApi;
