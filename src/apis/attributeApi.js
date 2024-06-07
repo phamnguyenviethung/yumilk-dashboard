@@ -25,7 +25,7 @@ export const attributeApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Attribute'],
+      invalidatesTags: ['Attribute', 'Product'],
     }),
     deleteAttribute: build.mutation({
       query: id => ({
@@ -33,7 +33,7 @@ export const attributeApi = api.injectEndpoints({
         method: 'delete',
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Attribute'],
+      invalidatesTags: ['Attribute', 'Product'],
     }),
     getAttributeValueById: build.query({
       query: id => ({
@@ -50,7 +50,7 @@ export const attributeApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Attribute'],
+      invalidatesTags: ['Attribute', 'Product'],
     }),
     updateAttributeValueById: build.mutation({
       query: ({ id, attributeId, data }) => ({
@@ -59,7 +59,7 @@ export const attributeApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Attribute'],
+      invalidatesTags: ['Attribute', 'Product'],
     }),
     deleteAttributeValueById: build.mutation({
       query: ({ id, attributeId }) => ({
@@ -67,7 +67,7 @@ export const attributeApi = api.injectEndpoints({
         method: 'delete',
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Attribute'],
+      invalidatesTags: ['Attribute', 'Product'],
     }),
   }),
 });

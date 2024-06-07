@@ -4,6 +4,8 @@ import Login from '@/pages/Auth/Login';
 import CustomerProfile from '@/pages/Customer/CustomerProfile';
 import Home from '@/pages/Home';
 import AddProduct from '@/pages/Product/AddProduct';
+import AttributeList from '@/pages/Product/AttributeList';
+import CategoryList from '@/pages/Product/CategoryList';
 import ProductList from '@/pages/Product/ProductList';
 import StaffList from '@/pages/Staff/StaffList';
 
@@ -32,6 +34,14 @@ const routes = [
       {
         path: '/manage/add-product',
         component: AddProduct,
+      },
+      {
+        path: '/manage/category',
+        component: CategoryList,
+      },
+      {
+        path: '/manage/attribute',
+        component: AttributeList,
       },
     ],
   },
