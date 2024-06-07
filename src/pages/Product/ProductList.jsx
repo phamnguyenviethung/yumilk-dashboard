@@ -4,7 +4,6 @@ import ProductTable from '@/features/Product/ProductTable';
 const ProductList = () => {
   const { data, isLoading } = useGetProductListQuery();
   if (isLoading) return <p>loading...........</p>;
-  console.log(data);
   return <ProductTable data={data} />;
 };
 
