@@ -1,12 +1,9 @@
-import { Box } from '@chakra-ui/react';
 import axios from 'axios';
 import ImageUploader from 'quill-image-uploader';
-import { useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
 Quill.register('modules/imageUploader', ImageUploader);
-
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -59,20 +56,17 @@ const formats = [
   'link',
   'image',
 ];
-const ProductEditor = () => {
-  const [value, setValue] = useState('');
-  console.log(value);
+
+const ProductEditor = ({ value, handleEditor }) => {
   return (
-    <Box w='full' minH='200px' border='1px solid' borderColor='pink.400'>
-      <ReactQuill
-        theme='bubble'
-        value={value}
-        onChange={setValue}
-        modules={modules}
-        formats={formats}
-        placeholder='Nhập nội dung....'
-      />
-    </Box>
+    <ReactQuill
+      theme='bubble'
+      value={value}
+      onChange={handleEditor}
+      modules={modules}
+      formats={formats}
+      placeholder='Nhập nội dung....'
+    />
   );
 };
 

@@ -10,6 +10,15 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    updateProduct: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/products/products/${id}`,
+        method: 'patch',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product'],
+    }),
     getCategory: build.query({
       query: params => ({
         url: '/products/categories',

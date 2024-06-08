@@ -1,9 +1,9 @@
-import ProductEditor from '@/features/Product/AddProduct/ProductEditor';
+import ProductInfo from '@/features/Product/AddProduct/ProductInfo';
 
 const AddProduct = () => {
   return (
     <>
-      <ProductEditor />
+      <ProductInfo />
     </>
   );
 };
