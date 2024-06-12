@@ -1,4 +1,3 @@
-
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import routes from './configs/routes';
 import { useSelector } from 'react-redux';
@@ -24,7 +23,7 @@ function App() {
           <Route key={i} element={<Layout />}>
             {route.data.map(item => {
               const Component = item.component;
-              const PermissionComponent = item.onlyAdmin
+              const PermissionComponent = item.needLogin
                 ? PermissionCheck
                 : Fragment;
 

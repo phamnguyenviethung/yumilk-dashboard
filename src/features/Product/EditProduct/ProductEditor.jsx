@@ -1,5 +1,7 @@
+import { Box } from '@chakra-ui/react';
 import axios from 'axios';
 import ImageUploader from 'quill-image-uploader';
+import { useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
@@ -58,15 +60,35 @@ const formats = [
 ];
 
 const ProductEditor = ({ value, handleEditor }) => {
+  const inputRef = useRef(null);
   return (
-    <ReactQuill
-      theme='bubble'
-      value={value}
-      onChange={handleEditor}
-      modules={modules}
-      formats={formats}
-      placeholder='Nhập nội dung....'
-    />
+    <Box
+      w='full'
+      minH='200px'
+      border='1px solid'
+      borderColor='gray.600'
+      borderRadius='6px'
+      _hover={{
+        borderColor: 'pink.400',
+        outline: 0,
+      }}
+      _focus={{
+        outline: 0,
+      }}
+      onClick={() => {
+        inputRef.current.focus();
+      }}
+    >
+      <ReactQuill
+        ref={inputRef}
+        theme='bubble'
+        value={value}
+        onChange={handleEditor}
+        modules={modules}
+        formats={formats}
+        placeholder='Nhập nội dung....'
+      />
+    </Box>
   );
 };
 

@@ -10,16 +10,24 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    getProductByID: build.query({
+      query: id => ({
+        url: `/products/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
     updateProduct: build.mutation({
       query: ({ id, data }) => ({
-        url: `/products/products/${id}`,
-        method: 'patch',
+        url: `/products/${id}`,
+        method: 'PATCH',
         body: data,
       }),
       transformResponse: res => res.data,
       invalidatesTags: ['Product'],
     }),
-    getCategory: build.query({
+    getAllCategory: build.query({
       query: params => ({
         url: '/products/categories',
         method: 'GET',
@@ -39,4 +47,9 @@ export const productApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetProductListQuery, useGetCategoryQuery } = productApi;
+export const {
+  useGetProductListQuery,
+  useGetAllCategoryQuery,
+  useGetProductByIDQuery,
+  useUpdateProductMutation,
+} = productApi;
