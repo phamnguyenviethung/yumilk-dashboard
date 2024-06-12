@@ -3,6 +3,7 @@ import ProductInformation from './ProductInformation';
 import ChangeThumbnail from './ChangeThumbnail';
 import { useGetProductByIDQuery } from '@/apis/productApi';
 import ChangePrice from './ChangePrice';
+import ChangeAttributes from './ChangeAttributes';
 
 const InfoSection = props => {
   const { children } = props;
@@ -46,6 +47,9 @@ const EditProduct = ({ id }) => {
           </InfoSection>
           <InfoSection title='Thumnail'>
             <ChangeThumbnail data={data} />
+          </InfoSection>
+          <InfoSection title='Mô tả'>
+            <ChangeAttributes data={data} />
           </InfoSection>
         </VStack>
         <InfoSection title='Price'>

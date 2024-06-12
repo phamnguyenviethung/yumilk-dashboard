@@ -90,7 +90,7 @@ const ChangeThumbnail = ({ data }) => {
           ref={hiddenFileInput}
           style={{ display: 'none' }}
         />
-        <ButtonGroup>
+        <ButtonGroup alignSelf='flex-end'>
           <Button
             colorScheme='pink'
             size='md'
