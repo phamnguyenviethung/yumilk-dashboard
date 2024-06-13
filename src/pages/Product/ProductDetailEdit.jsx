@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 
 const ProductDetailsEdit = () => {
   const { id } = useParams();
+  if (!id) {
+    return <p>Ko co id</p>;
+  }
 
   return (
     <>
