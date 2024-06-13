@@ -13,12 +13,12 @@ const data = [
       },
       {
         name: 'Attributes',
-        path: '/',
+        path: '/manage/attribute',
         icon: FiDatabase,
       },
       {
         name: 'Categories',
-        path: '/',
+        path: '/manage/category',
         icon: FiDatabase,
       },
     ],
