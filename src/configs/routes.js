@@ -5,7 +5,6 @@ import CustomerProfile from '@/pages/Customer/CustomerProfile';
 import Home from '@/pages/Home';
 import OrderDetail from '@/pages/Order/OrderDetail';
 import OrderList from '@/pages/Order/OrderList';
-import AddProduct from '@/pages/Product/AddProduct';
 import AttributeList from '@/pages/Product/AttributeList';
 import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';

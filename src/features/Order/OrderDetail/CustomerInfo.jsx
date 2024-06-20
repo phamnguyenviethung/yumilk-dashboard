@@ -1,7 +1,4 @@
-import order from '@/constants/order';
-import formatMoney from '@/utils/formatMoney';
 import { Box, HStack, Heading, Tag, Text, VStack } from '@chakra-ui/react';
-import dayjs from 'dayjs';
 const DetailsText = ({ data, isTag, tagColor, color }) => {
   return (
     <HStack
@@ -38,49 +35,28 @@ const DetailsText = ({ data, isTag, tagColor, color }) => {
   );
 };
 
-const OrderInfo = ({ data, id }) => {
-  const orderInfo = [
+const CustomerInfo = ({ data }) => {
+  const customerInfo = [
     {
-      name: 'Mã đơn hàng',
-      value: id,
+      name: 'Người nhận',
+      value: data.recieverName,
     },
     {
-      name: 'Ngày đặt hàng',
-      value: dayjs(data.createdAt).format('HH:mm DD/MM/YYYY'),
+      name: 'Số điện thoại',
+      value: data.phoneNumber,
     },
     {
-      name: 'Ghi chú',
-      value: data.note,
-      color: 'red.500',
-    },
-    {
-      name: 'Phương thức thanh toán',
-      value:
-        data.paymentMethod === order.COD_PAYMENT
-          ? 'Thanh toán bằng tiền mặt'
-          : 'Thanh toán qua ngân hàng',
-    },
-    {
-      name: 'Tổng tiền',
-      value: formatMoney(data.totalAmount),
-      isTag: true,
-      tagColor: 'pink',
-    },
-
-    {
-      name: 'Trạng thái',
-      value: order[data.orderStatus.toUpperCase()].text,
-      isTag: true,
-      tagColor: order[data.orderStatus.toUpperCase()].color,
+      name: 'Địa chỉ',
+      value: data.address,
     },
   ];
   return (
     <Box p='4' borderRadius='16px' boxSize='full' bgColor='brand.secondary'>
       <Heading as='h6' fontSize='1.2rem' fontWeight='600' mb='4'>
-        Thông tin đơn hàng
+        Thông tin khách hàng
       </Heading>
-      <VStack gap='4' w='full'>
-        {orderInfo.map(d => {
+      <VStack gap='4' w='full' flex='1'>
+        {customerInfo.map(d => {
           return <DetailsText key={d.name} data={d} {...d} />;
         })}
       </VStack>
@@ -88,4 +64,4 @@ const OrderInfo = ({ data, id }) => {
   );
 };
 
-export default OrderInfo;
+export default CustomerInfo;

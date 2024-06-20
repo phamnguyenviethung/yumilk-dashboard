@@ -11,6 +11,11 @@ const data = [
         path: '/manage/order',
         icon: FiDatabase,
       },
+      {
+        name: 'Stats',
+        path: '/manage/order/stats',
+        icon: FiDatabase,
+      },
     ],
   },
   {

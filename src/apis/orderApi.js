@@ -18,7 +18,31 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Order'],
     }),
+    cancelOrder: build.mutation({
+      query: id => ({
+        url: `/dashboard/orders/cancel/${id}`,
+        method: 'PATCH',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Order'],
+    }),
+    changeOrderStatus: build.mutation({
+      query: ({ id, statusId }) => ({
+        url: `/dashboard/orders/${id}/status`,
+        method: 'PATCH',
+        body: {
+          statusId,
+        },
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Order'],
+    }),
   }),
 });
 
-export const { useGetOrderListQuery, useGetOrderDetailQuery } = orderApi;
+export const {
+  useGetOrderListQuery,
+  useGetOrderDetailQuery,
+  useCancelOrderMutation,
+  useChangeOrderStatusMutation,
+} = orderApi;
