@@ -8,6 +8,7 @@ import OrderList from '@/pages/Order/OrderList';
 import AddProduct from '@/pages/Product/AddProduct';
 import AttributeList from '@/pages/Product/AttributeList';
 import CategoryList from '@/pages/Product/CategoryList';
+import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
 import StaffList from '@/pages/Staff/StaffList';
 
@@ -23,7 +24,7 @@ const routes = [
       {
         path: '/manage/staff',
         component: StaffList,
-        onlyAdmin: true,
+        needLogin: true,
       },
       {
         path: '/customer/:id',
@@ -34,8 +35,8 @@ const routes = [
         component: ProductList,
       },
       {
-        path: '/manage/add-product',
-        component: AddProduct,
+        path: '/manage/product/:id',
+        component: ProductDetailsEdit,
       },
       {
         path: '/manage/category',
