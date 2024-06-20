@@ -1,10 +1,4 @@
-import {
-  Box,
-  CloseButton,
-  Flex,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, CloseButton, Flex, Text } from '@chakra-ui/react';
 
 import NavItem from '../Navbar/NavItem';
 import data from './data';
@@ -13,9 +7,9 @@ import DropdownItem from '../Navbar/DropdownItem';
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
-      bg={useColorModeValue('white', 'gray.900')}
+      bg={'brand.secondary'}
       borderRight='1px'
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      borderRightColor='gray.600'
       w={{ base: 'full', md: 60 }}
       pos='fixed'
       h='full'

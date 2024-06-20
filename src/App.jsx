@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Fragment, useEffect } from 'react';
 import PermissionCheck from './components/NoPermission/PermissionCheck';
 import NotFound from './components/NotFound';
+
 function App() {
   const authState = useSelector(state => state.auth);
   const nav = useNavigate();
@@ -22,7 +23,7 @@ function App() {
           <Route key={i} element={<Layout />}>
             {route.data.map(item => {
               const Component = item.component;
-              const PermissionComponent = item.onlyAdmin
+              const PermissionComponent = item.needLogin
                 ? PermissionCheck
                 : Fragment;
 

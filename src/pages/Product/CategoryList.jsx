@@ -1,8 +1,8 @@
-import { useGetCategoryQuery } from '@/apis/productApi';
+import { useGetAllCategoryQuery } from '@/apis/productApi';
 import CategoryTable from '@/features/Product/Category/CategoryTable';
 
 const CategoryList = () => {
-  const { data, isLoading } = useGetCategoryQuery();
+  const { data, isLoading } = useGetAllCategoryQuery();
   if (isLoading) return <p>loading.......</p>;
 
   return (

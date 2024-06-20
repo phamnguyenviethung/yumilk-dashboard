@@ -25,25 +25,42 @@ InputField.propTypes = {
 };
 
 function InputField(props) {
-  const { field, form, type, label, placeholder, disabled, required, helper } =
-    props;
+  const {
+    field,
+    form,
+    type,
+    label,
+    placeholder,
+    disabled,
+    required,
+    helper,
+    content,
+  } = props;
   const { name } = field;
   const { errors, touched } = form;
   const showError = errors[name] && touched[name];
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   return (
-    <FormControl isInvalid={showError} isRequired={required}>
+    <FormControl w='full' isInvalid={showError} isRequired={required}>
       {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 
-      <InputGroup>
+      <InputGroup w='full' gap='2' alignItems='stretch'>
         <Input
+          flex={6}
           {...props}
           id={name}
           {...field}
           type={showPassword ? 'text' : type}
           disabled={disabled}
           placeholder={placeholder}
+          border='1px solid'
+          borderColor='gray.600'
+          _hover={{
+            borderColor: 'pink.400',
+            outline: 0,
+          }}
+          _focusVisible={{}}
           _focus={{
             outline: 0,
           }}
@@ -55,6 +72,7 @@ function InputField(props) {
             </Button>
           </InputRightElement>
         )}
+        {content}
       </InputGroup>
 
       {helper && <FormHelperText>{helper}</FormHelperText>}
