@@ -18,6 +18,14 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Order'],
     }),
+    getShippingDetail: build.query({
+      query: id => ({
+        url: `/shipping/order/detail/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Order'],
+    }),
     cancelOrder: build.mutation({
       query: id => ({
         url: `/dashboard/orders/cancel/${id}`,
@@ -45,4 +53,5 @@ export const {
   useGetOrderDetailQuery,
   useCancelOrderMutation,
   useChangeOrderStatusMutation,
+  useGetShippingDetailQuery,
 } = orderApi;
