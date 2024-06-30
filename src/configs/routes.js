@@ -2,11 +2,13 @@ import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
 import Login from '@/pages/Auth/Login';
 import CustomerProfile from '@/pages/Customer/CustomerProfile';
+import CustomerStats from '@/pages/Customer/CustomerStats';
 import Home from '@/pages/Home';
 import AttributeList from '@/pages/Product/AttributeList';
 import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
+import ProductStats from '@/pages/Product/ProductStats';
 import StaffList from '@/pages/Staff/StaffList';
 
 const routes = [
@@ -42,6 +44,14 @@ const routes = [
       {
         path: '/manage/attribute',
         component: AttributeList,
+      },
+      {
+        path: '/manage/stats',
+        component: ProductStats,
+      },
+      {
+        path: '/manage/customer/stats',
+        component: CustomerStats,
       },
     ],
   },

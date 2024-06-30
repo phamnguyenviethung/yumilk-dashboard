@@ -21,6 +21,11 @@ const data = [
         path: '/manage/category',
         icon: FiDatabase,
       },
+      {
+        name: 'Statistics',
+        path: '/manage/stats',
+        icon: FiDatabase,
+      },
     ],
   },
   {
@@ -43,6 +48,11 @@ const data = [
       {
         name: 'Customer List',
         path: '/manage/customer',
+        icon: FiDatabase,
+      },
+      {
+        name: 'Statistics',
+        path: '/manage/customer/stats',
         icon: FiDatabase,
       },
     ],
