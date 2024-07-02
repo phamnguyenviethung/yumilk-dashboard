@@ -2,9 +2,17 @@ import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
 import { Box, HStack, Heading, Tag, Text, VStack } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-const DetailsText = ({ data, isTag, tagColor, color }) => {
+const DetailsText = ({
+  data,
+  isTag,
+  tagColor,
+  color,
+  tagVariant,
+  needHide,
+}) => {
   return (
     <HStack
+      display={needHide ? 'none' : 'flex'}
       w='full'
       justifyContent='space-between'
       fontSize={{
@@ -17,7 +25,7 @@ const DetailsText = ({ data, isTag, tagColor, color }) => {
         {data.name}:
       </Text>
       {isTag ? (
-        <Tag size='md' colorScheme={tagColor}>
+        <Tag size='md' colorScheme={tagColor} variant={tagVariant ?? 'subtle'}>
           {data.value}
         </Tag>
       ) : (
@@ -66,12 +74,19 @@ const OrderInfo = ({ data, id }) => {
       isTag: true,
       tagColor: 'pink',
     },
-
     {
-      name: 'Trạng thái',
-      value: order[data.orderStatus.toUpperCase()].text,
+      name: 'Trạng thái thanh toán',
+      value: data?.paymentData?.status,
+      needHide: !data?.paymentData,
       isTag: true,
       tagColor: order[data.orderStatus.toUpperCase()].color,
+      tagVariant: 'outline',
+    },
+    {
+      name: 'Trạng thái đơn hàng',
+      value: order[data.orderStatus.toUpperCase()].text,
+      isTag: true,
+      tagColor: 'blue',
     },
   ];
   return (

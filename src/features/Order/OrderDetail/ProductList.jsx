@@ -1,5 +1,5 @@
 import formatMoney from '@/utils/formatMoney';
-import { Box, Flex, HStack, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react';
 
 const ProductList = ({ data }) => {
   return (
@@ -22,8 +22,20 @@ const ProductList = ({ data }) => {
             borderRadius='10px'
             alignItems='center'
           >
-            <HStack flex='3'>
-              <Box boxSize='40px'>
+            <Stack
+              flexDirection={{
+                base: 'column',
+                lg: 'row',
+              }}
+              flex='3'
+              alignItems='center'
+            >
+              <Box
+                boxSize={{
+                  base: '90px',
+                  lg: '60px',
+                }}
+              >
                 <Image
                   boxSize='full'
                   src={product.thumbnail}
@@ -31,8 +43,16 @@ const ProductList = ({ data }) => {
                   borderRadius='4px'
                 />
               </Box>
-              <Text fontWeight='600'>{product.productName}</Text>
-            </HStack>
+              <Text
+                fontWeight='600'
+                fontSize={{
+                  base: '0.85rem',
+                  lg: '0.95rem',
+                }}
+              >
+                {product.productName}
+              </Text>
+            </Stack>
             <Box textAlign='right' flex='1'>
               x{product.quantity}
             </Box>

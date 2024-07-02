@@ -46,6 +46,10 @@ const CustomerInfo = ({ data }) => {
       value: data.phoneNumber,
     },
     {
+      name: 'Email',
+      value: data.email,
+    },
+    {
       name: 'Địa chỉ',
       value: data.address,
     },
