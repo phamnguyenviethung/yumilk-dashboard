@@ -62,6 +62,23 @@ const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 1 });
 export const api = createApi({
   reducerPath: 'yumilkAPI',
   baseQuery: baseQueryWithRetry,
-  tagTypes: ['Customer', 'Auth', 'User', 'Brand', 'Attribute', 'Category'],
+  tagTypes: [
+
+    'Customer',
+
+    'Auth',
+
+    'User',
+
+    'Brand',
+
+    'Attribute',
+
+    'Category',
+    'Product',
+    'Stat',
+  ,
+    'Order',
+  ],
   endpoints: () => ({}),
 });

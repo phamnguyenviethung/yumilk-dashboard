@@ -1,5 +1,4 @@
 import { Box, Flex, Icon, Link } from '@chakra-ui/react';
-
 const NavItem = ({ path, icon, children, ...rest }) => {
   return (
     <Link
