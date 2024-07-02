@@ -44,6 +44,32 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product', 'Category'],
     }),
+    getProductImages: build.query({
+      query: id => ({
+        url: `/products/${id}/images`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
+
+    changeStatusProductImage: build.mutation({
+      query: ({ id, body }) => ({
+        url: `/products/images/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product'],
+    }),
+    deleteProductImages: build.mutation({
+      query: imageID => ({
+        url: `/products/images/${imageID}`,
+        method: 'DELETE',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product'],
+    }),
   }),
 });
 
@@ -52,4 +78,7 @@ export const {
   useGetAllCategoryQuery,
   useGetProductByIDQuery,
   useUpdateProductMutation,
+  useGetProductImagesQuery,
+  useChangeStatusProductImageMutation,
+  useDeleteProductImagesMutation,
 } = productApi;

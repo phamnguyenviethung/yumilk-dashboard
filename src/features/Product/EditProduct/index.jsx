@@ -4,6 +4,7 @@ import ChangeThumbnail from './ChangeThumbnail';
 import { useGetProductByIDQuery } from '@/apis/productApi';
 import ChangePrice from './ChangePrice';
 import ChangeAttributes from './ChangeAttributes';
+import ChangeImages from './ChangeImages';
 
 const InfoSection = props => {
   const { children } = props;
@@ -42,17 +43,20 @@ const EditProduct = ({ id }) => {
         }}
       >
         <VStack flex='2' w='full' gap='6'>
-          <InfoSection title='Product Information'>
+          <InfoSection title='Thông tin sản phẩm'>
             <ProductInformation data={data} />
           </InfoSection>
-          <InfoSection title='Thumnail'>
+          <InfoSection title='Ảnh thu nhỏ'>
             <ChangeThumbnail data={data} />
           </InfoSection>
-          <InfoSection title='Mô tả'>
+          <InfoSection title='Ảnh sản phẩm'>
+            <ChangeImages id={id} />
+          </InfoSection>
+          <InfoSection title='Mô tả sản phẩm'>
             <ChangeAttributes data={data} />
           </InfoSection>
         </VStack>
-        <InfoSection title='Price'>
+        <InfoSection title='Giá sản phẩm'>
           <ChangePrice data={data} />
         </InfoSection>
       </Stack>
