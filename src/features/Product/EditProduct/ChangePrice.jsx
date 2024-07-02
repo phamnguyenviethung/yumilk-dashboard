@@ -75,6 +75,7 @@ const ChangePrice = ({ data }) => {
                 required={true}
                 size='lg'
                 mb={2}
+                helper='Để giá trị là 0 nếu như không muốn giảm giá'
               />
               <Button
                 type='submit'
