@@ -4,7 +4,6 @@ import CustomerInfo from '@/features/Order/OrderDetail/CustomerInfo';
 import OrderInfo from '@/features/Order/OrderDetail/OrderInfo';
 import PriceInfo from '@/features/Order/OrderDetail/PriceInfo';
 import ProductList from '@/features/Order/OrderDetail/ProductList';
-import ShippingTracking from '@/features/Order/OrderDetail/ShippingTracking';
 import {
   Box,
   Container,
@@ -85,9 +84,7 @@ const OrderDetail = () => {
           </VStack>
         </Box>
       </Stack>
-      <Box>
-        <ShippingTracking id={id} />
-      </Box>
+      <Box>{/* <ShippingTracking id={id} /> */}</Box>
     </Container>
   );
 };
