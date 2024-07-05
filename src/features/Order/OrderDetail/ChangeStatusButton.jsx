@@ -68,7 +68,7 @@ const ChangeStatusButton = ({ data, id }) => {
           }}
           w='full'
           colorScheme='pink'
-          onClick={() => handleChangeStatus(order.SHIPPING.id)}
+          onClick={() => handleChangeStatus(order.SHIPPED.id)}
         >
           Tạo đơn vận chuyển
         </Button>

@@ -1,6 +1,6 @@
 import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
-import { Link as ChakraLink, Flex, Tag } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Flex, Tag } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
@@ -62,14 +62,18 @@ const OrderTable = ({ data }) => {
     },
   ]);
   return (
-    <div className='ag-theme-quartz-auto-dark' style={{ height: 500 }}>
+    <Box className='ag-theme-quartz-auto-dark' boxSize='full'>
       <AgGridReact
+        defaultColDef={{
+          filter: true,
+        }}
         rowData={data.items}
         columnDefs={colDefs}
         pagination
-        paginationAutoPageSize
+        paginationPageSize={25}
+        paginationPageSizeSelector={[25, 50, 75, 100]}
       />
-    </div>
+    </Box>
   );
 };
 

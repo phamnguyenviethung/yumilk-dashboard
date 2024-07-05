@@ -13,9 +13,9 @@ export default {
     text: 'Đang xử lý',
     color: 'purple',
   },
-  SHIPPING: {
+  SHIPPED: {
     id: 3,
-    name: 'Shipping',
+    name: 'Shipped',
     text: 'Đang trên đường vận chuyển',
     color: 'yellow',
   },
