@@ -27,7 +27,7 @@ const statList = [
   {
     name: 'Đang giao',
     color: 'pink',
-    statName: 'SHIPPING',
+    statName: 'SHIPPED',
     icon: TbTruckDelivery,
   },
   {
@@ -73,7 +73,7 @@ const OrderList = () => {
               color={s.color}
               stat={
                 stats.totalOrdersPerStatus.find(
-                  item => item.status === s.statName
+                  item => item.status.toUpperCase() === s.statName.toUpperCase()
                 )?.count
               }
               icon={s.icon}

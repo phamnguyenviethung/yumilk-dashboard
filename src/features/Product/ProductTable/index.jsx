@@ -3,7 +3,7 @@ import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the 
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { useState } from 'react';
 import formatMoney from '@/utils/formatMoney';
-import { Link as ChakraLink } from '@chakra-ui/react';
+import { Link as ChakraLink, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 const ProductTable = ({ data }) => {
   const [colDefs] = useState([
@@ -30,7 +30,15 @@ const ProductTable = ({ data }) => {
     {
       field: 'salePrice',
       headerName: 'Giá khuyến mãi',
-      valueFormatter: p => (p.value === 0 ? 'Không có' : formatMoney(p.value)),
+      cellRenderer: p => (
+        <Text
+          color={p.value !== 0 ? 'pink.300' : 'gray.400'}
+          fontWeight={p.value !== 0 ? '600' : '500'}
+          fontSize={p.value !== 0 ? '1rem' : 'inherit'}
+        >
+          {p.value === 0 ? 'N/A' : formatMoney(p.value)}
+        </Text>
+      ),
     },
     { field: 'status', headerName: 'Trạng thái' },
     {
@@ -51,10 +59,12 @@ const ProductTable = ({ data }) => {
     },
   ]);
   return (
-    <div className='ag-theme-quartz-auto-dark' style={{ height: 500 }}>
+    <div className='ag-theme-quartz-auto-dark' style={{ height: '95%' }}>
       <AgGridReact
         rowData={data.items}
         columnDefs={colDefs}
+        pagination
+        paginationAutoPageSize
         autoSizeStrategy={{
           type: 'fitGridWidth',
         }}

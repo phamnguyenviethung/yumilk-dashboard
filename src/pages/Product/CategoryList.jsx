@@ -2,7 +2,9 @@ import { useGetAllCategoryQuery } from '@/apis/productApi';
 import CategoryTable from '@/features/Product/Category/CategoryTable';
 
 const CategoryList = () => {
-  const { data, isLoading } = useGetAllCategoryQuery();
+  const { data, isLoading } = useGetAllCategoryQuery({
+    pageSize: 10000,
+  });
   if (isLoading) return <p>loading.......</p>;
 
   return (
