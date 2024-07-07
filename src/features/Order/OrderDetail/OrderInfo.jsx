@@ -70,7 +70,7 @@ const OrderInfo = ({ data, id }) => {
     },
     {
       name: 'Tổng tiền',
-      value: formatMoney(data.totalAmount),
+      value: formatMoney(data.totalPrice),
       isTag: true,
       tagColor: 'pink',
     },
@@ -86,7 +86,8 @@ const OrderInfo = ({ data, id }) => {
       name: 'Trạng thái đơn hàng',
       value: order[data.orderStatus.toUpperCase()].text,
       isTag: true,
-      tagColor: 'blue',
+      tagColor:
+        order[data.orderStatus.toUpperCase()].id === 4 ? 'green' : 'cyan',
     },
   ];
   return (

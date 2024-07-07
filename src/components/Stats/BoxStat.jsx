@@ -11,7 +11,7 @@ const BoxStats = ({ color, icon, stat, name }) => {
       borderColor={color + '.400'}
       borderRadius='4px'
     >
-      <HStack gap={[4, 4, 8]} w='full' fontWeight='600'>
+      <HStack gap={4} w='full' fontWeight='600'>
         <Icon
           as={icon}
           fontSize='3rem'
