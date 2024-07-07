@@ -42,7 +42,8 @@ const HomePageBoxStats = () => {
         name='Chờ xác nhận'
         stat={
           data?.totalOrdersPerStatus.find(
-            item => item.status === order.PENDING.name.toUpperCase()
+            item =>
+              item.status.toUpperCase() === order.PENDING.name.toUpperCase()
           )?.count
         }
         color='teal'
@@ -52,7 +53,8 @@ const HomePageBoxStats = () => {
         name='Đang xử lý'
         stat={
           data?.totalOrdersPerStatus.find(
-            item => item.status === order.PROCESSING.name.toUpperCase()
+            item =>
+              item.status.toUpperCase() === order.PROCESSING.name.toUpperCase()
           )?.count
         }
         color='pink'

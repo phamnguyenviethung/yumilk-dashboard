@@ -2,7 +2,7 @@ import { useGetOrderListQuery } from '@/apis/orderApi';
 import HomePageBoxStats from '@/features/Widget/HomePageBoxStats';
 import PaymentPieChart from '@/features/Widget/PaymentPieChart';
 import RecentOrder from '@/features/Widget/RecentOrder';
-import { Box, Heading, HStack, Stack, VStack } from '@chakra-ui/react';
+import { Box, Heading, Stack, VStack } from '@chakra-ui/react';
 const Home = () => {
   const { data, isLoading } = useGetOrderListQuery({
     pageSize: 5,
