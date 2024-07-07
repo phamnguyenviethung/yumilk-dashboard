@@ -1,7 +1,7 @@
 import { FiHome, FiDatabase, FiSettings, FiUser } from 'react-icons/fi';
 
 const data = [
-  { name: 'Home', icon: FiHome },
+  { name: 'Home', icon: FiHome, path: '/' },
   {
     name: 'Order',
     icon: FiUser,
@@ -9,11 +9,6 @@ const data = [
       {
         name: 'Order List',
         path: '/manage/order',
-        icon: FiDatabase,
-      },
-      {
-        name: 'Stats',
-        path: '/manage/order/stats',
         icon: FiDatabase,
       },
     ],
@@ -35,11 +30,6 @@ const data = [
       {
         name: 'Categories',
         path: '/manage/category',
-        icon: FiDatabase,
-      },
-      {
-        name: 'Statistics',
-        path: '/manage/stats',
         icon: FiDatabase,
       },
     ],
@@ -64,11 +54,6 @@ const data = [
       {
         name: 'Customer List',
         path: '/manage/customer',
-        icon: FiDatabase,
-      },
-      {
-        name: 'Statistics',
-        path: '/manage/customer/stats',
         icon: FiDatabase,
       },
     ],

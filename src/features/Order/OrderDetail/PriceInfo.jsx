@@ -24,7 +24,7 @@ const PriceInfo = ({ data }) => {
         <Flex w='full' justifyContent='space-between'>
           <Text fontWeight='600'>Tổng tiền:</Text>
           <Text fontSize='1.4rem' fontWeight='700' color='pink.400'>
-            {formatMoney(data.totalAmount)}
+            {formatMoney(data.totalPrice)}
           </Text>
         </Flex>
       </VStack>

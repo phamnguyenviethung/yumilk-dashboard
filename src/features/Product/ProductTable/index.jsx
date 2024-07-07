@@ -52,7 +52,13 @@ const ProductTable = ({ data }) => {
   ]);
   return (
     <div className='ag-theme-quartz-auto-dark' style={{ height: 500 }}>
-      <AgGridReact rowData={data.items} columnDefs={colDefs} />
+      <AgGridReact
+        rowData={data.items}
+        columnDefs={colDefs}
+        autoSizeStrategy={{
+          type: 'fitGridWidth',
+        }}
+      />
     </div>
   );
 };

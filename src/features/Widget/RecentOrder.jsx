@@ -21,7 +21,7 @@ const Status = ({ data }) => {
   );
 };
 
-const OrderTable = ({ data }) => {
+const RecentOrder = ({ data }) => {
   const [colDefs] = useState([
     {
       field: 'id',
@@ -69,9 +69,6 @@ const OrderTable = ({ data }) => {
         }}
         rowData={data.items}
         columnDefs={colDefs}
-        pagination
-        paginationPageSize={25}
-        paginationPageSizeSelector={[25, 50, 75, 100]}
         autoSizeStrategy={{
           type: 'fitGridWidth',
         }}
@@ -80,4 +77,4 @@ const OrderTable = ({ data }) => {
   );
 };
 
-export default OrderTable;
+export default RecentOrder;

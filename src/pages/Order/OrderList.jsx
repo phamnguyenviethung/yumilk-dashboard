@@ -4,10 +4,11 @@ import BoxStats from '@/components/Stats/BoxStat';
 import OrderTable from '@/features/Order/OrderTable';
 import { Box, Stack, VStack } from '@chakra-ui/react';
 import {
+  TbPackage,
   TbShoppingBagEdit,
   TbShoppingBagX,
   TbTruckDelivery,
-  TbPackage,
+  TbShoppingBagCheck,
 } from 'react-icons/tb';
 
 const statList = [
@@ -33,7 +34,7 @@ const statList = [
     name: 'Thành công',
     color: 'green',
     statName: 'DELIVERED',
-    icon: TbShoppingBagX,
+    icon: TbShoppingBagCheck,
   },
   {
     name: 'Đã huỷ',
@@ -48,7 +49,7 @@ const OrderList = () => {
     params: {},
   });
   const { data, isLoading } = useGetOrderListQuery({
-    pageSize: 100,
+    pageSize: 999999,
     sortColumn: 'createdAt',
     sortOrder: 'desc',
   });
@@ -70,7 +71,11 @@ const OrderList = () => {
               key={s.name}
               name={s.name}
               color={s.color}
-              stat={stats.totalOrdersPerStatus[s.statName]}
+              stat={
+                stats.totalOrdersPerStatus.find(
+                  item => item.status === s.statName
+                )?.count
+              }
               icon={s.icon}
             />
           );
