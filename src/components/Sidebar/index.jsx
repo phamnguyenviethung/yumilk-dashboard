@@ -1,9 +1,9 @@
-import { Box, CloseButton, Flex, Text } from '@chakra-ui/react';
+import { Box, CloseButton, Flex, Image, Text } from '@chakra-ui/react';
 
 import NavItem from '../Navbar/NavItem';
 import data from './data';
 import DropdownItem from '../Navbar/DropdownItem';
-
+import logo from '@/assets/logo.png';
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
@@ -16,9 +16,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
-          Logo
-        </Text>
+        <Image src={logo} boxSize='150px' />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {data.map(link => {

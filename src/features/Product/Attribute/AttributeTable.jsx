@@ -11,12 +11,15 @@ const AttributeTable = ({ data }) => {
     { field: 'isActive' },
   ]);
   return (
-    <div className='ag-theme-quartz-auto-dark' style={{ height: 500 }}>
+    <div className='ag-theme-quartz-auto-dark' style={{ height: '95%' }}>
       <AgGridReact
         rowData={data.items}
         columnDefs={colDefs}
         pagination
         paginationAutoPageSize
+        autoSizeStrategy={{
+          type: 'fitGridWidth',
+        }}
       />
     </div>
   );
