@@ -19,8 +19,8 @@ export const productApi = api.injectEndpoints({
       providesTags: ['Product'],
     }),
     updateProduct: build.mutation({
-      query: ({ id, data }) => ({
-        url: `/products/${id}`,
+      query: data => ({
+        url: `/products/${data.id}`,
         method: 'PATCH',
         body: data,
       }),

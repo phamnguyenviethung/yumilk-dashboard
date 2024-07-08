@@ -5,6 +5,7 @@ import { useGetProductByIDQuery } from '@/apis/productApi';
 import ChangePrice from './ChangePrice';
 import ChangeAttributes from './ChangeAttributes';
 import ChangeImages from './ChangeImages';
+import ChangeStatus from './ChangeStatus';
 
 const InfoSection = props => {
   const { children } = props;
@@ -56,9 +57,14 @@ const EditProduct = ({ id }) => {
             <ChangeAttributes data={data} />
           </InfoSection>
         </VStack>
-        <InfoSection title='Giá sản phẩm'>
-          <ChangePrice data={data} />
-        </InfoSection>
+        <VStack gap='4'>
+          <InfoSection title='Giá sản phẩm'>
+            <ChangePrice data={data} />
+          </InfoSection>
+          <InfoSection title='Trạng thái sản phẩm'>
+            <ChangeStatus data={data} />
+          </InfoSection>
+        </VStack>
       </Stack>
     </Container>
   );
