@@ -30,8 +30,15 @@ import { useRef } from 'react';
 import * as yup from 'yup';
 
 const AddAttribute = ({ productAttributeIDData, productId }) => {
-  const { data: attributeData, isLoading } = useGetAllAttributeQuery();
-  const [addNewAttributeToProduct] = useAddNewAttributeValueByIdMutation();
+  const {
+    data: attributeData,
+    isLoading,
+    refetch,
+  } = useGetAllAttributeQuery(productAttributeIDData, {
+    refetchOnMountOrArgChange: true,
+  });
+  const [addNewAttributeToProduct, { isLoading: addLoading }] =
+    useAddNewAttributeValueByIdMutation();
   const toast = useToast();
 
   if (isLoading) return <p>Loading...</p>;
@@ -59,6 +66,7 @@ const AddAttribute = ({ productAttributeIDData, productId }) => {
           });
 
           if (res.error) throw res.error.data;
+          refetch();
           toast({
             title: 'Tạo thành công',
             status: 'success',
@@ -115,6 +123,7 @@ const AddAttribute = ({ productAttributeIDData, productId }) => {
                 base: 'full',
                 lg: 'auto',
               }}
+              isLoading={addLoading}
             >
               Thêm
             </Button>

@@ -3,7 +3,6 @@ import {
   useDeleteProductImagesMutation,
   useGetProductImagesQuery,
 } from '@/apis/productApi';
-import axiosInstance from '@/utils/axiosInstance';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -220,10 +219,22 @@ const ChangeImages = ({ id }) => {
   const { data, isLoading, refetch } = useGetProductImagesQuery(id);
   const [index, setIndex] = useState(0);
   if (isLoading) return <p>loading...</p>;
+
+  if (!data) {
+    return (
+      <Box>
+        <Text>Chưa có hình ảnh</Text>
+        <Center w='full'>
+          <UploadImg productID={id} refetch={refetch} />
+        </Center>
+      </Box>
+    );
+  }
+
   return (
     <VStack gap='6' boxSize='full'>
       <Center w='full' h='250px'>
-        <Image h='full' src={data[index].imageUrl} borderRadius='10px' />
+        <Image h='full' src={data[index]?.imageUrl} borderRadius='10px' />
       </Center>
       <Box w='full' textAlign='center'>
         <Text color='gray.400'>
