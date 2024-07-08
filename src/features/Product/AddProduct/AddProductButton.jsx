@@ -9,7 +9,7 @@ const AddProductButton = () => {
   const handleClick = async () => {
     try {
       const res = await addProductAPI({
-        name: 'Tên sản phẩm' + Math.random() * 100,
+        name: 'Tên sản phẩm' + Math.random() * 10,
         description: 'string',
         quantity: 1,
         originalPrice: 10000,

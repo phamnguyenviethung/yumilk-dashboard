@@ -18,6 +18,7 @@ const ProductInformation = ({ data }) => {
     });
   const { data: brandData, isLoading: brandLoading } = useGetAllBrandQuery({
     isActive: true,
+    pageSize: 1000000,
   });
   const [updateProductAPI, { isLoading: updateLoading }] =
     useUpdateProductMutation();
@@ -42,7 +43,6 @@ const ProductInformation = ({ data }) => {
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
-              id: data.id,
               data: d,
             });
             if (res.error) throw res.error.data;
@@ -145,7 +145,7 @@ const ProductInformation = ({ data }) => {
                   colorScheme='pink'
                   isLoading={updateLoading}
                 >
-                  Save
+                  Gửi
                 </Button>
               </VStack>
             </Form>
