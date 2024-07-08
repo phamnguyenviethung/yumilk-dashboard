@@ -1,9 +1,9 @@
-import { Box, CloseButton, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, CloseButton, Flex, Image } from '@chakra-ui/react';
 
+import logo from '@/assets/logo.png';
+import DropdownItem from '../Navbar/DropdownItem';
 import NavItem from '../Navbar/NavItem';
 import data from './data';
-import DropdownItem from '../Navbar/DropdownItem';
-import logo from '@/assets/logo.png';
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box

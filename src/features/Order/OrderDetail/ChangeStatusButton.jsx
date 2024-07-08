@@ -8,8 +8,10 @@ const shouldCancel = [order.PENDING.name, order.PROCESSING.name];
 const shouldConfirm = [order.PENDING.name];
 
 const ChangeStatusButton = ({ data, id }) => {
-  const [cancelOrderAPI] = useCancelOrderMutation();
-  const [changeOrderStatusAPI] = useChangeOrderStatusMutation();
+  const [cancelOrderAPI, { isLoading: cancelLoading }] =
+    useCancelOrderMutation();
+  const [changeOrderStatusAPI, { isLoading: changeLoading }] =
+    useChangeOrderStatusMutation();
   const handleCancel = async () => {
     try {
       const res = await cancelOrderAPI(id);
@@ -40,6 +42,7 @@ const ChangeStatusButton = ({ data, id }) => {
           variant='outline'
           colorScheme='red'
           onClick={handleCancel}
+          isLoading={changeLoading || cancelLoading}
         >
           Hủy
         </Button>
@@ -55,6 +58,7 @@ const ChangeStatusButton = ({ data, id }) => {
             w='full'
             colorScheme='pink'
             onClick={() => handleChangeStatus(order.PROCESSING.id)}
+            isLoading={changeLoading || cancelLoading}
           >
             Xác nhận đơn hàng
           </Button>
@@ -69,6 +73,7 @@ const ChangeStatusButton = ({ data, id }) => {
           w='full'
           colorScheme='pink'
           onClick={() => handleChangeStatus(order.SHIPPED.id)}
+          isLoading={changeLoading || cancelLoading}
         >
           Tạo đơn vận chuyển
         </Button>

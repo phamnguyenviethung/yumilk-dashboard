@@ -14,6 +14,7 @@ const ProductInformation = ({ data }) => {
   const { data: categoryData, isLoading: categoryLoading } =
     useGetAllCategoryQuery({
       isActive: true,
+      pageSize: 1000000,
     });
   const { data: brandData, isLoading: brandLoading } = useGetAllBrandQuery({
     isActive: true,
