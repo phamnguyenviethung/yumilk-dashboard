@@ -5,7 +5,7 @@ import { Flex } from '@chakra-ui/react';
 
 const ProductList = () => {
   const { data, isLoading } = useGetProductListQuery({
-    pageSize: 30,
+    pageSize: 9999999,
   });
   if (isLoading) return <p>loading...........</p>;
   return (

@@ -4,8 +4,9 @@ import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the 
 import '@/assets/table.css';
 import { useState } from 'react';
 import formatMoney from '@/utils/formatMoney';
-import { Link as ChakraLink, Text } from '@chakra-ui/react';
+import { Link as ChakraLink, Tag, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { PRODUCT_STATUS } from '@/constants/product';
 const ProductTable = ({ data }) => {
   const [colDefs] = useState([
     {
@@ -58,7 +59,18 @@ const ProductTable = ({ data }) => {
         </Text>
       ),
     },
-    { field: 'status', headerName: 'Trạng thái' },
+    {
+      field: 'statusId',
+      headerName: 'Trạng thái',
+      cellRenderer: props => {
+        const info = PRODUCT_STATUS.find(p => p.id === props.value);
+        return (
+          <Tag mt={2} size='md' variant='solid' colorScheme={info.tagColor}>
+            {info.name}
+          </Tag>
+        );
+      },
+    },
     {
       field: 'id',
       headerName: 'Chi tiết',
