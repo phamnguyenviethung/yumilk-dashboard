@@ -28,7 +28,7 @@ export const productApi = api.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
     updatePreOrderProduct: build.mutation({
-      query: ({ data }) => ({
+      query: (data) => ({
         url: `/products/${data.id}/preorder`,
         method: 'PATCH',
         body: data,

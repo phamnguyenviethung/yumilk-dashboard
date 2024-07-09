@@ -48,20 +48,20 @@ const ProductInformation = ({ data }) => {
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
-              data: {
-                ...d,
-                quantity: d.quantity * 1,
-              },
+              ...d,
+              quantity: d.quantity * 1,
+              id: data.id,
             });
 
             if (res.error) throw res.error.data;
             // Pre order - Status ID = 2
             if (data.statusId === 2) {
               const res = await updatePreOrderProductAPI({
-                data: {
-                  ...d,
-                  expectedPreOrderDays: 30,
-                },
+                id: data.id,
+                startDate: d.startDate,
+                endDate: d.endDate,
+                maxPreOrderQuantity: d.maxPreOrderQuantity,
+                expectedPreOrderDays: 30,
               });
 
               if (res.error) throw res.error.data;
