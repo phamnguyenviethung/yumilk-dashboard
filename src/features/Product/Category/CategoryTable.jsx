@@ -29,7 +29,7 @@ const CategoryTable = ({ data }) => {
     },
     {
       field: 'id',
-      headerName: 'ID',
+      headerName: 'Chi tiết',
       cellRenderer: props => <CategoryModal id={props.value} />,
     },
   ]);

@@ -1,4 +1,5 @@
 import {
+  useAddCategoryMutation,
   useGetCategoryByIDQuery,
   useUpdateCategoryByIDMutation,
 } from '@/apis/productApi';
@@ -16,6 +17,7 @@ import {
   Switch,
   Text,
   useDisclosure,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
@@ -28,15 +30,21 @@ function CategoryModal({ id, isAdd }) {
   });
   const [updateCategoryAPI, { isLoading: updateLoading }] =
     useUpdateCategoryByIDMutation();
+  const [addCatrogyAPI, { isLoaidng: addLoading }] = useAddCategoryMutation();
+  const toast = useToast();
+
   if (isLoading) return <p>Loading...</p>;
 
   const validationSchema = yup.object().shape({
     name: yup.string().required('Vui lòng không bỏ trống'),
     description: yup.string(),
   });
-  const handleSubmit = async (val, event) => {
+  const handleSubmit = async val => {
     try {
       if (isAdd) {
+        const res = await addCatrogyAPI(val);
+        if (res.error) throw res.error.data;
+        onClose();
       } else {
         const res = await updateCategoryAPI({
           id,
@@ -45,14 +53,34 @@ function CategoryModal({ id, isAdd }) {
         if (res.error) throw res.error.data;
         onClose();
       }
+      toast({
+        title: 'Thành công',
+        status: 'success',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
     } catch (error) {
       console.log(error);
+      toast({
+        title: 'Thất bại',
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
   };
   return (
     <>
-      <Button size='sm' colorScheme='pink' variant='ghost' onClick={onOpen}>
-        Xem chi tiết
+      <Button
+        size={isAdd ? 'md' : 'sm'}
+        colorScheme='pink'
+        variant={isAdd ? 'solid' : 'ghost'}
+        onClick={onOpen}
+        my={isAdd ? 2 : 0}
+      >
+        {isAdd ? 'Thêm mới' : ' Xem chi tiết'}
       </Button>
 
       <Modal
@@ -119,16 +147,16 @@ function CategoryModal({ id, isAdd }) {
                       variant='outline'
                       mr={3}
                       onClick={onClose}
-                      isDisabled={updateLoading}
+                      isDisabled={updateLoading || addLoading}
                     >
-                      Close
+                      Huỷ
                     </Button>
                     <Button
                       type='submit'
                       colorScheme='pink'
-                      isLoading={updateLoading}
+                      isLoading={updateLoading || addLoading}
                     >
-                      Xác nhận
+                      {isAdd ? 'Thêm' : 'Cập nhật'}
                     </Button>
                   </ModalFooter>
                 </Form>

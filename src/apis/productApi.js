@@ -53,6 +53,15 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product', 'Category'],
     }),
+    addCategory: build.mutation({
+      query: body => ({
+        url: `/products/categories/`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product', 'Category'],
+    }),
     updateCategoryByID: build.mutation({
       query: ({ id, body }) => ({
         url: `/products/categories/${id}`,
@@ -101,5 +110,6 @@ export const {
   useChangeStatusProductImageMutation,
   useDeleteProductImagesMutation,
   useUpdateCategoryByIDMutation,
+  useAddCategoryMutation,
   useAddProductMutation,
 } = productApi;
