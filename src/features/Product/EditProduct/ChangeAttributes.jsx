@@ -248,7 +248,13 @@ const AttributeList = ({ data }) => {
                           size='lg'
                           mb={2}
                           content={
-                            <Flex h='full' alignItems='center' gap='2' flex='1'>
+                            <Flex
+                              ml={2}
+                              h='full'
+                              alignItems='center'
+                              gap='2'
+                              flex='1'
+                            >
                               <Button
                                 isDisabled={!formikProps.dirty}
                                 type='submit'

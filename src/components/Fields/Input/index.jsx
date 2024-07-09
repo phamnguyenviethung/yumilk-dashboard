@@ -28,8 +28,17 @@ InputField.propTypes = {
 };
 
 function InputField(props) {
-  const { field, form, type, label, placeholder, disabled, required, helper } =
-    props;
+  const {
+    field,
+    form,
+    type,
+    label,
+    placeholder,
+    disabled,
+    required,
+    helper,
+    content,
+  } = props;
   const { name } = field;
   const { errors, touched } = form;
   const showError = errors[name] && touched[name];
@@ -93,6 +102,7 @@ function InputField(props) {
             </Button>
           </InputRightElement>
         )}
+        {content}
       </InputGroup>
 
       {helper && <FormHelperText>{helper}</FormHelperText>}
