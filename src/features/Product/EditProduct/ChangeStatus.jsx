@@ -29,7 +29,7 @@ const ChangeStatus = ({ data }) => {
         }}
         onSubmit={async val => {
           try {
-            const res = await updateProductAPI({ data: val });
+            const res = await updateProductAPI(val);
             if (res.error) throw res.error.data;
             toast({
               title: 'Thành công',
