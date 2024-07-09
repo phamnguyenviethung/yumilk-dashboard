@@ -2,8 +2,20 @@ import { api } from './api';
 export const attributeApi = api.injectEndpoints({
   endpoints: build => ({
     getAllAttribute: build.query({
-      query: () => ({
+      query: params => ({
         url: '/products/attributes',
+        method: 'GET',
+        params: {
+          pageSize: 1000000,
+          ...params,
+        },
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Attribute'],
+    }),
+    getAttributeByID: build.query({
+      query: id => ({
+        url: `/products/attributes/${id}`,
         method: 'GET',
       }),
       transformResponse: res => res.data,
@@ -19,10 +31,10 @@ export const attributeApi = api.injectEndpoints({
       invalidatesTags: ['Attribute'],
     }),
     updateAttribute: build.mutation({
-      query: (id, data) => ({
+      query: ({ id, body }) => ({
         url: `/products/attributes/${id}`,
         method: 'patch',
-        body: data,
+        body,
       }),
       transformResponse: res => res.data,
       invalidatesTags: ['Attribute', 'Product'],
@@ -77,6 +89,7 @@ export const {
   useAddNewAttributeMutation,
   useUpdateAttributeMutation,
   useDeleteAttributeMutation,
+  useGetAttributeByIDQuery,
   useGetAttributeValueByIdQuery,
   useAddNewAttributeValueByIdMutation,
   useUpdateAttributeValueByIdMutation,

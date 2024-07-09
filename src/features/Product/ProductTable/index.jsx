@@ -11,7 +11,6 @@ const ProductTable = ({ data }) => {
     {
       field: 'id',
       headerName: 'ID',
-      valueFormatter: p => '...' + p.value.slice(-5),
     },
     {
       field: 'name',
@@ -22,15 +21,33 @@ const ProductTable = ({ data }) => {
     {
       field: 'quantity',
       headerName: 'Tồn kho',
+      filter: 'agNumberColumnFilter',
+      cellRenderer: p => (
+        <Text
+          color={
+            p.value === 0
+              ? 'red.400'
+              : p.value <= 10
+              ? 'yellow.400'
+              : 'green.400'
+          }
+          fontWeight={600}
+        >
+          {p.value}
+        </Text>
+      ),
     },
     {
       field: 'originalPrice',
       headerName: 'Giá gốc',
+      filter: 'agNumberColumnFilter',
+
       valueFormatter: p => formatMoney(p.value),
     },
     {
       field: 'salePrice',
       headerName: 'Giá khuyến mãi',
+      filter: 'agNumberColumnFilter',
       cellRenderer: p => (
         <Text
           color={p.value !== 0 ? 'pink.300' : 'gray.400'}

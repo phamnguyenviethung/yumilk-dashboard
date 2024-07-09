@@ -1,8 +1,8 @@
 import {
-  useAddCategoryMutation,
-  useGetCategoryByIDQuery,
-  useUpdateCategoryByIDMutation,
-} from '@/apis/productApi';
+  useAddNewAttributeMutation,
+  useGetAttributeByIDQuery,
+  useUpdateAttributeMutation,
+} from '@/apis/attributeApi';
 import InputField from '@/components/Fields/Input';
 import {
   Button,
@@ -23,14 +23,15 @@ import {
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-function CategoryModal({ id, isAdd }) {
+function AttributeModal({ id, isAdd }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, isLoading } = useGetCategoryByIDQuery(id, {
+  const { data, isLoading } = useGetAttributeByIDQuery(id, {
     skip: isAdd,
   });
-  const [updateCategoryAPI, { isLoading: updateLoading }] =
-    useUpdateCategoryByIDMutation();
-  const [addCatrogyAPI, { isLoading: addLoading }] = useAddCategoryMutation();
+  const [updateAttributeAPI, { isLoading: updateLoading }] =
+    useUpdateAttributeMutation();
+  const [addAttributeAPI, { isLoading: addLoading }] =
+    useAddNewAttributeMutation();
   const toast = useToast();
 
   if (isLoading) return <p>Loading...</p>;
@@ -42,11 +43,11 @@ function CategoryModal({ id, isAdd }) {
   const handleSubmit = async val => {
     try {
       if (isAdd) {
-        const res = await addCatrogyAPI(val);
+        const res = await addAttributeAPI(val);
         if (res.error) throw res.error.data;
         onClose();
       } else {
-        const res = await updateCategoryAPI({
+        const res = await updateAttributeAPI({
           id,
           body: val,
         });
@@ -104,14 +105,14 @@ function CategoryModal({ id, isAdd }) {
             {formik => {
               return (
                 <Form>
-                  <ModalHeader>Danh mục</ModalHeader>
+                  <ModalHeader>Thuộc tính</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
                     <VStack w='full' p={2}>
                       <FastField
                         component={InputField}
-                        placeholder='name'
-                        label='Tên danh mục'
+                        placeholder='Tên'
+                        label='Tên thuộc tính'
                         name='name'
                         required={true}
                         size='lg'
@@ -168,4 +169,4 @@ function CategoryModal({ id, isAdd }) {
     </>
   );
 }
-export default CategoryModal;
+export default AttributeModal;
