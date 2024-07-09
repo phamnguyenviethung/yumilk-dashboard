@@ -1,6 +1,6 @@
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
-import 'ag-grid-community/styles/ag-theme-quartz.css';
+import '@/assets/table.css';
 import { useState } from 'react';
 import { Tag } from '@chakra-ui/react';
 import CategoryModal from './CategoryModal';
@@ -34,7 +34,7 @@ const CategoryTable = ({ data }) => {
     },
   ]);
   return (
-    <div className='ag-theme-quartz-auto-dark' style={{ height: '95%' }}>
+    <div className='ag-theme-yumilk' style={{ height: '95%' }}>
       <AgGridReact
         rowData={data.items}
         columnDefs={colDefs}

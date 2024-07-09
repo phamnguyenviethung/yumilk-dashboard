@@ -51,7 +51,10 @@ const OrderDetail = () => {
             </Heading>
             <Text>Mã đơn hàng: {id}</Text>
             <Text>
-              Ngày tạo: {dayjs(data.createdAt).format('HH:mm DD/MM/YYYY')}
+              Ngày tạo:{' '}
+              {dayjs(data.createdAt)
+                .add(dayjs().utcOffset(), 'minutes')
+                .format('HH:mm DD/MM/YYYY')}
             </Text>
           </Box>
           <Flex

@@ -88,8 +88,7 @@ const OrderInfo = ({ data, id }) => {
       name: 'Trạng thái đơn hàng',
       value: order[data.orderStatus.toUpperCase()].text,
       isTag: true,
-      tagColor:
-        order[data.orderStatus.toUpperCase()].id === 4 ? 'green' : 'cyan',
+      tagColor: order[data.orderStatus.toUpperCase()]?.color ?? 'cyan',
     },
   ];
   return (

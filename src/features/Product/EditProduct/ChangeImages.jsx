@@ -74,8 +74,8 @@ function UpdateStatusImage({ currentStatus, id }) {
           <AlertDialogHeader>Thông báo</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            Ảnh sẽ được {currentStatus ? 'ẩn' : 'hiện'} khỏi trang thông tin của
-            sản phẩm
+            Ảnh sẽ được {currentStatus ? 'ẩn khỏi ' : 'hiện trên'} trang thông
+            tin của sản phẩm
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button colorScheme='pink' onClick={handeClick}>

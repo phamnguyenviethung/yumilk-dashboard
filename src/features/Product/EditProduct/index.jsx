@@ -14,7 +14,7 @@ const InfoSection = props => {
       w='full'
       flex='1'
       bgColor='brand.secondary'
-      minH='400px'
+      minH='250px'
       borderRadius='8px'
       p={8}
       {...props}
@@ -57,7 +57,7 @@ const EditProduct = ({ id }) => {
             <ChangeAttributes data={data} />
           </InfoSection>
         </VStack>
-        <VStack gap='4'>
+        <VStack gap='4' flex='1' w='full'>
           <InfoSection title='Giá sản phẩm'>
             <ChangePrice data={data} />
           </InfoSection>

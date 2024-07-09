@@ -9,7 +9,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
     <Box
       bg={'brand.secondary'}
       borderRight='1px'
-      borderRightColor='gray.600'
+      borderRightColor='brand.secondary'
       w={{ base: 'full', md: 60 }}
       pos='fixed'
       h='full'

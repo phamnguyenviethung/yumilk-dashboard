@@ -1,6 +1,6 @@
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
-import 'ag-grid-community/styles/ag-theme-quartz.css';
+import '@/assets/table.css';
 import { useState } from 'react';
 
 const AttributeTable = ({ data }) => {
@@ -11,7 +11,7 @@ const AttributeTable = ({ data }) => {
     { field: 'isActive' },
   ]);
   return (
-    <div className='ag-theme-quartz-auto-dark' style={{ height: '95%' }}>
+    <div className='ag-theme-yumilk' style={{ height: '95%' }}>
       <AgGridReact
         rowData={data.items}
         columnDefs={colDefs}

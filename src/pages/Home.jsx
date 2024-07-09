@@ -5,9 +5,7 @@ import RecentOrder from '@/features/Widget/RecentOrder';
 import { Box, Heading, Stack, VStack } from '@chakra-ui/react';
 const Home = () => {
   const { data, isLoading } = useGetOrderListQuery({
-    pageSize: 5,
-    sortColumn: 'createdAt',
-    sortOrder: 'desc',
+    pageSize: 10,
   });
   if (isLoading) return <p>loading..</p>;
   return (
@@ -25,7 +23,7 @@ const Home = () => {
         </Box>
         <Box flex='4'>s</Box>
       </Stack>
-      <Box h='300px' w='full'>
+      <Box h='600px' w='full'>
         <Heading as='h4' fontSize='1.4rem' color='pink.400' my={4}>
           Đơn hàng gần đây
         </Heading>

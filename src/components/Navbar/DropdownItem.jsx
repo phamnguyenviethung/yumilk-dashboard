@@ -53,7 +53,7 @@ const DropdownItem = ({ data, ...rest }) => {
               path={item.path}
               fontSize='14'
               my={2}
-              bg='gray.700'
+              bg='blackAlpha.400'
               _hover={{
                 bg: 'pink.600',
                 color: 'white',

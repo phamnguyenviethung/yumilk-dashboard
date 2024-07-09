@@ -20,46 +20,46 @@ const ChangeStatus = ({ data }) => {
   const [updateProductAPI, { isLoading }] = useUpdateProductMutation();
   const toast = useToast();
   return (
-    <Formik
-      initialValues={{
-        isActive: data.isActive,
-        id: data.id,
-        statusId: data.statusId,
-      }}
-      onSubmit={async val => {
-        try {
-          const res = await updateProductAPI(val);
-          if (res.error) throw res.error.data;
-          toast({
-            title: 'Thành công',
-            status: 'success',
-            duration: 1000,
-            isClosable: true,
-            position: 'top-right',
-          });
-        } catch (err) {
-          console.log(err);
-          toast({
-            title: 'Thất bại',
-            status: 'error',
-            duration: 1000,
-            isClosable: true,
-            position: 'top-right',
-          });
-        }
-      }}
-    >
-      {formikProps => {
-        return (
-          <VStack
-            as={Form}
-            boxSize='full'
-            alignItems='flex-start'
-            mt={4}
-            gap='4'
-            justifyContent='space-between'
-          >
-            <Box>
+    <Box w='full'>
+      <Formik
+        initialValues={{
+          isActive: data.isActive,
+          id: data.id,
+          statusId: data.statusId,
+        }}
+        onSubmit={async val => {
+          try {
+            const res = await updateProductAPI({ data: val });
+            if (res.error) throw res.error.data;
+            toast({
+              title: 'Thành công',
+              status: 'success',
+              duration: 1000,
+              isClosable: true,
+              position: 'top-right',
+            });
+          } catch (err) {
+            console.log(err);
+            toast({
+              title: 'Thất bại',
+              status: 'error',
+              duration: 1000,
+              isClosable: true,
+              position: 'top-right',
+            });
+          }
+        }}
+      >
+        {formikProps => {
+          return (
+            <VStack
+              as={Form}
+              boxSize='full'
+              alignItems='flex-start'
+              mt={4}
+              gap='4'
+              w='full'
+            >
               <FastField
                 component={SelectField}
                 value={formikProps.values.statusId}
@@ -71,12 +71,12 @@ const ChangeStatus = ({ data }) => {
                 required={true}
                 size='lg'
                 mb={2}
-                w='98%'
                 options={options}
               />
-              <Box>
+              <Box my={4}>
                 Công khai:{' '}
                 <Switch
+                  colorScheme='pink'
                   onChange={() =>
                     formikProps.setFieldValue(
                       'isActive',
@@ -86,21 +86,21 @@ const ChangeStatus = ({ data }) => {
                   isChecked={formikProps.values.isActive}
                 />
               </Box>
-            </Box>
-            <Flex justifyContent='flex-end' w='full'>
-              <Button
-                type='submit'
-                colorScheme='pink'
-                w='full'
-                isLoading={isLoading}
-              >
-                Gửi
-              </Button>
-            </Flex>
-          </VStack>
-        );
-      }}
-    </Formik>
+              <Flex justifyContent='flex-end' w='full'>
+                <Button
+                  type='submit'
+                  colorScheme='pink'
+                  w='full'
+                  isLoading={isLoading}
+                >
+                  Gửi
+                </Button>
+              </Flex>
+            </VStack>
+          );
+        }}
+      </Formik>
+    </Box>
   );
 };
 
