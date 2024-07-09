@@ -19,8 +19,17 @@ export const productApi = api.injectEndpoints({
       providesTags: ['Product'],
     }),
     updateProduct: build.mutation({
-      query: ({ data }) => ({
+      query: data => ({
         url: `/products/${data.id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product'],
+    }),
+    updatePreOrderProduct: build.mutation({
+      query: ({ data }) => ({
+        url: `/products/${data.id}/preorder`,
         method: 'PATCH',
         body: data,
       }),
@@ -112,4 +121,5 @@ export const {
   useUpdateCategoryByIDMutation,
   useAddCategoryMutation,
   useAddProductMutation,
+  useUpdatePreOrderProductMutation,
 } = productApi;

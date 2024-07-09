@@ -1,14 +1,15 @@
 import { useGetAllBrandQuery } from '@/apis/brandApi';
 import {
   useGetAllCategoryQuery,
+  useUpdatePreOrderProductMutation,
   useUpdateProductMutation,
 } from '@/apis/productApi';
 import InputField from '@/components/Fields/Input';
+import SelectField from '@/components/Fields/Select';
 import { Box, Button, InputGroup, VStack, useToast } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
-import ProductEditor from './ProductEditor';
-import SelectField from '@/components/Fields/Select';
 import * as yup from 'yup';
+import ProductEditor from './ProductEditor';
 
 const ProductInformation = ({ data }) => {
   const { data: categoryData, isLoading: categoryLoading } =
@@ -22,6 +23,8 @@ const ProductInformation = ({ data }) => {
   });
   const [updateProductAPI, { isLoading: updateLoading }] =
     useUpdateProductMutation();
+  const [updatePreOrderProductAPI, { isLoading: updatePreOrderLoading }] =
+    useUpdatePreOrderProductMutation();
   const toast = useToast();
   if (categoryLoading || brandLoading) return <p>Loading...</p>;
 
@@ -31,6 +34,8 @@ const ProductInformation = ({ data }) => {
       .number('Vui lòng nhập vào 1 số')
       .min(0, 'Vui lòng nhập 1 số từ 0 trở lên')
       .required('Vui lòng không bỏ trống'),
+    startDate: yup.date(),
+    endDate: yup.date().min(yup.ref('startDate')),
   });
 
   return (
@@ -43,9 +48,25 @@ const ProductInformation = ({ data }) => {
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
-              data: d,
+              data: {
+                ...d,
+                quantity: d.quantity * 1,
+              },
             });
+
             if (res.error) throw res.error.data;
+            // Pre order - Status ID = 2
+            if (data.statusId === 2) {
+              const res = await updatePreOrderProductAPI({
+                data: {
+                  ...d,
+                  expectedPreOrderDays: 30,
+                },
+              });
+
+              if (res.error) throw res.error.data;
+            }
+
             toast({
               title: 'Cập nhật thông tin thành công',
               status: 'success',
@@ -81,6 +102,7 @@ const ProductInformation = ({ data }) => {
                   size='lg'
                   mb={2}
                 />
+
                 <FastField
                   component={InputField}
                   placeholder='Số lượng'
@@ -90,6 +112,42 @@ const ProductInformation = ({ data }) => {
                   size='lg'
                   mb={2}
                 />
+                {data.statusId === 2 && (
+                  <>
+                    <FastField
+                      component={InputField}
+                      placeholder='Số lượt đặt'
+                      label='Số lượt đặt'
+                      name='maxPreOrderQuantity'
+                      required={true}
+                      size='lg'
+                      mb={2}
+                    />
+                    <InputGroup>
+                      <FastField
+                        component={InputField}
+                        placeholder='Ngày bắt đầu'
+                        label='Ngày bắt đầu'
+                        name='startDate'
+                        required={true}
+                        size='lg'
+                        type='datetime-local'
+                        mb={2}
+                      />
+                      <FastField
+                        component={InputField}
+                        placeholder='Ngày kết thúc'
+                        label='Ngày kết thúc'
+                        name='endDate'
+                        required={true}
+                        size='lg'
+                        type='datetime-local'
+                        mb={2}
+                      />
+                    </InputGroup>
+                  </>
+                )}
+
                 <InputGroup>
                   <FastField
                     component={SelectField}
@@ -143,7 +201,7 @@ const ProductInformation = ({ data }) => {
                   mt='4'
                   alignSelf='flex-end'
                   colorScheme='pink'
-                  isLoading={updateLoading}
+                  isLoading={updateLoading || updatePreOrderLoading}
                 >
                   Gửi
                 </Button>
