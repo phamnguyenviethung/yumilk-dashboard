@@ -18,17 +18,22 @@ const data = [
     icon: FiUser,
     subItems: [
       {
-        name: 'Product List',
+        name: 'Danh sách',
         path: '/manage/product',
         icon: FiDatabase,
       },
       {
-        name: 'Attributes',
+        name: 'Thuộc tính',
         path: '/manage/attribute',
         icon: FiDatabase,
       },
       {
-        name: 'Categories',
+        name: 'Nhãn hàng',
+        path: '/manage/brand',
+        icon: FiDatabase,
+      },
+      {
+        name: 'Danh mục',
         path: '/manage/category',
         icon: FiDatabase,
       },

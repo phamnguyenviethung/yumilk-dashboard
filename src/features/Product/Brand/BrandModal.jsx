@@ -1,8 +1,8 @@
 import {
-  useAddNewAttributeMutation,
-  useGetAttributeByIDQuery,
-  useUpdateAttributeMutation,
-} from '@/apis/attributeApi';
+  useAddNewBrandMutation,
+  useGetBrandByIDQuery,
+  useUpdateBrandMutation,
+} from '@/apis/brandApi';
 import InputField from '@/components/Fields/Input';
 import {
   Button,
@@ -23,15 +23,14 @@ import {
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-function AttributeModal({ id, isAdd }) {
+function BrandModal({ id, isAdd }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, isLoading } = useGetAttributeByIDQuery(id, {
+  const { data, isLoading } = useGetBrandByIDQuery(id, {
     skip: isAdd || !isOpen,
   });
-  const [updateAttributeAPI, { isLoading: updateLoading }] =
-    useUpdateAttributeMutation();
-  const [addAttributeAPI, { isLoading: addLoading }] =
-    useAddNewAttributeMutation();
+  const [updateBrandAPI, { isLoading: updateLoading }] =
+    useUpdateBrandMutation();
+  const [addNewBrandAPI, { isLoading: addLoading }] = useAddNewBrandMutation();
   const toast = useToast();
 
   if (isLoading) return <p>Loading...</p>;
@@ -43,11 +42,11 @@ function AttributeModal({ id, isAdd }) {
   const handleSubmit = async val => {
     try {
       if (isAdd) {
-        const res = await addAttributeAPI(val);
+        const res = await addNewBrandAPI(val);
         if (res.error) throw res.error.data;
         onClose();
       } else {
-        const res = await updateAttributeAPI({
+        const res = await updateBrandAPI({
           id,
           body: val,
         });
@@ -105,14 +104,14 @@ function AttributeModal({ id, isAdd }) {
             {formik => {
               return (
                 <Form>
-                  <ModalHeader>Thuộc tính</ModalHeader>
+                  <ModalHeader>Danh mục</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
                     <VStack w='full' p={2}>
                       <FastField
                         component={InputField}
-                        placeholder='Tên'
-                        label='Tên thuộc tính'
+                        placeholder='name'
+                        label='Tên danh mục'
                         name='name'
                         required={true}
                         size='lg'
@@ -169,4 +168,4 @@ function AttributeModal({ id, isAdd }) {
     </>
   );
 }
-export default AttributeModal;
+export default BrandModal;

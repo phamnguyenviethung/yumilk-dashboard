@@ -1,56 +1,106 @@
-import {
-  Center,
-  Table,
-  TableContainer,
-  Tbody,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react';
-import StaffRow from './StaffRow';
-import CircleLoading from '@/components/Loading/CircleLoading';
+import { useUpdateUserMutation } from '@/apis/userApi';
+import '@/assets/table.css';
+import CONSTANST from '@/constants';
+import { Switch, Tag } from '@chakra-ui/react';
+import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
+import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
+import { useState } from 'react';
 
-const StaffTable = ({ data, isLoading }) => {
-  if (isLoading) {
-    return (
-      <Center h='full'>
-        <CircleLoading />
-      </Center>
-    );
-  }
-
-  if (data.items.length === 0) {
-    return (
-      <Center>
-        <Text fontSize='1.4rem' fontWeight='bold'>
-          Không có dữ liệu
-        </Text>
-      </Center>
-    );
-  }
+const StaffStatus = ({ id, isBanned }) => {
+  const [updateStaffStatusAPI, { isLoading }] = useUpdateUserMutation();
 
   return (
-    <>
-      <TableContainer border='1'>
-        <Table size='lg'>
-          <Thead>
-            <Tr>
-              <Th>Username</Th>
-              <Th>Full Name</Th>
-              <Th>Role</Th>
-              <Th>Trạng thái</Th>
-              <Th>Hoạt động</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data.items.map(item => {
-              return <StaffRow key={item.id} data={item} />;
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </>
+    <Switch
+      colorScheme='pink'
+      isChecked={isBanned}
+      isDisabled={isLoading}
+      onChange={async () => {
+        try {
+          const res = await updateStaffStatusAPI({
+            id,
+            data: {
+              isBanned: !isBanned,
+            },
+          });
+          if (res.error) throw res.error.data;
+        } catch (err) {
+          console.log(err);
+        }
+      }}
+    />
+  );
+};
+
+const StaffTable = ({ data }) => {
+  const [colDefs] = useState([
+    {
+      field: 'id',
+      headerName: 'ID',
+    },
+    {
+      field: 'firstName',
+      headerName: 'Họ',
+    },
+    {
+      field: 'lastName',
+      headerName: 'Tên',
+    },
+    {
+      field: 'username',
+      headerName: 'Tên người dùng',
+    },
+    {
+      field: 'role',
+      headerName: 'Vai trò',
+      cellRenderer: props => {
+        return (
+          <Tag
+            mt={2}
+            colorScheme={
+              props.value.toLowerCase() === CONSTANST.ROLE_ADMIN
+                ? 'pink'
+                : 'purple'
+            }
+          >
+            {props.value}
+          </Tag>
+        );
+      },
+    },
+    {
+      field: 'isBanned',
+      headerName: 'Trạng thái',
+      cellRenderer: props => {
+        return (
+          <Tag mt={2} colorScheme={!props.value ? 'green' : 'red'}>
+            {!props.value ? 'Hoạt động' : 'Không hoạt động'}
+          </Tag>
+        );
+      },
+    },
+    {
+      field: 'isBanned',
+      headerName: 'Khoá tài khoản',
+      cellRenderer: props => {
+        return <StaffStatus id={props.data.id} isBanned={props.value} />;
+      },
+    },
+  ]);
+  return (
+    <div className='ag-theme-yumilk' style={{ height: '95%' }}>
+      <AgGridReact
+        rowData={data.items}
+        columnDefs={colDefs}
+        defaultColDef={{
+          filter: true,
+        }}
+        pagination
+        paginationAutoPageSize
+        autoSizeStrategy={{
+          type: 'fitGridWidth',
+        }}
+      />
+    </div>
   );
 };
 

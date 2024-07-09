@@ -26,7 +26,7 @@ import * as yup from 'yup';
 function CategoryModal({ id, isAdd }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data, isLoading } = useGetCategoryByIDQuery(id, {
-    skip: isAdd,
+    skip: isAdd || !isOpen,
   });
   const [updateCategoryAPI, { isLoading: updateLoading }] =
     useUpdateCategoryByIDMutation();

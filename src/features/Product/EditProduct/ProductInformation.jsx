@@ -43,7 +43,17 @@ const ProductInformation = ({ data }) => {
       <Formik
         validationSchema={validationSchema}
         initialValues={{
-          ...data,
+          name: data.name,
+          description: data.description ?? '',
+          quantity: data.quantity,
+          originalPrice: data.originalPrice,
+          salePrice: data.salePrice,
+          categoryId: data.categoryId,
+          brandId: data.brandId,
+          maxPreOrderQuantity: data.maxPreOrderQuantity,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          expectedPreOrderDays: data.expectedPreOrderDays,
         }}
         onSubmit={async d => {
           try {

@@ -7,6 +7,7 @@ import Home from '@/pages/Home';
 import OrderDetail from '@/pages/Order/OrderDetail';
 import OrderList from '@/pages/Order/OrderList';
 import AttributeList from '@/pages/Product/AttributeList';
+import BrandList from '@/pages/Product/BrandList';
 import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
@@ -46,6 +47,10 @@ const routes = [
       {
         path: '/manage/attribute',
         component: AttributeList,
+      },
+      {
+        path: '/manage/brand',
+        component: BrandList,
       },
       {
         path: '/manage/stats',

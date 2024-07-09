@@ -21,7 +21,6 @@ import {
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { FiPlus } from 'react-icons/fi';
 import * as yup from 'yup';
 
 const AddNewButton = () => {
@@ -77,8 +76,8 @@ const AddNewButton = () => {
 
   return (
     <>
-      <Button leftIcon={<FiPlus />} colorScheme='pink' onClick={onOpen} ml={2}>
-        Add
+      <Button colorScheme='pink' onClick={onOpen} ml={2}>
+        Thêm mới tài khoản
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size='xl'>

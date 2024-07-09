@@ -3,7 +3,7 @@ import NoPermission from '.';
 
 const PermissionCheck = ({ children }) => {
   const authState = useSelector(state => state.auth);
-  if (authState.userData.roleId == 1) return children;
+  if (authState.userData.role === 'Admin') return children;
 
   return <NoPermission />;
 };

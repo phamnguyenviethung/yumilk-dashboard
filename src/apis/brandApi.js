@@ -9,6 +9,14 @@ export const brandApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Brand'],
     }),
+    getBrandByID: build.query({
+      query: id => ({
+        url: `/products/brands/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Brand'],
+    }),
     addNewBrand: build.mutation({
       query: data => ({
         url: '/products/brands',
@@ -43,4 +51,5 @@ export const {
   useAddNewBrandMutation,
   useUpdateBrandMutation,
   useDeleteBrandMutation,
+  useGetBrandByIDQuery,
 } = brandApi;
