@@ -41,7 +41,7 @@ const ChangeStatus = ({ data }) => {
           } catch (err) {
             console.log(err);
             toast({
-              title: 'Thất bại',
+              title: err.message ?? 'Cập nhật thông tin thất bại',
               status: 'error',
               duration: 1000,
               isClosable: true,

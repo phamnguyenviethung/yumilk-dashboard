@@ -74,7 +74,7 @@ const ChangeThumbnail = ({ data }) => {
   return (
     <Box w='full'>
       <VStack gap={8}>
-        <Box>
+        <Box boxSize='250px'>
           <Image
             w='full'
             src={url}

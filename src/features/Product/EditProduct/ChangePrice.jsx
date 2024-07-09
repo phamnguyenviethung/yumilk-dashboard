@@ -33,7 +33,7 @@ const ChangePrice = ({ data }) => {
           try {
             const res = await updateProductAPI({
               id: data.id,
-              data: d,
+              ...d,
             });
             if (res.error) throw res.error.data;
             toast({

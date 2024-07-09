@@ -88,7 +88,7 @@ function UpdateStatusImage({ currentStatus, id }) {
   );
 }
 
-function DeleteImage({ id }) {
+function DeleteImage({ id, refetch }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteImgStatus] = useDeleteProductImagesMutation();
   const cancelRef = useRef();
@@ -97,6 +97,7 @@ function DeleteImage({ id }) {
     try {
       const res = await deleteImgStatus(id);
       if (res.error) throw res.error.data;
+      refetch();
       onClose();
       toast({
         title: 'Thành công',
@@ -244,10 +245,10 @@ const ChangeImages = ({ id }) => {
 
       <HStack as={Center} gap='2' w='full'>
         <UpdateStatusImage
-          currentStatus={data[index].isActive}
-          id={data[index].id}
+          currentStatus={data[index]?.isActive}
+          id={data[index]?.id}
         />
-        <DeleteImage id={data[index].id} />
+        <DeleteImage id={data[index]?.id} refetch={refetch} />
       </HStack>
       <Center w='full'>
         <UploadImg productID={id} refetch={refetch} />

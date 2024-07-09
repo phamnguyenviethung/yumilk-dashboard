@@ -50,21 +50,23 @@ const ProductInformation = ({ data }) => {
             const res = await updateProductAPI({
               ...d,
               quantity: d.quantity * 1,
+              salePrice: d.salePrice * 1,
+              originalPrice: d.originalPrice * 1,
               id: data.id,
             });
 
             if (res.error) throw res.error.data;
             // Pre order - Status ID = 2
             if (data.statusId === 2) {
-              const res = await updatePreOrderProductAPI({
+              const resPreOrder = await updatePreOrderProductAPI({
                 id: data.id,
                 startDate: d.startDate,
                 endDate: d.endDate,
-                maxPreOrderQuantity: d.maxPreOrderQuantity,
+                maxPreOrderQuantity: d.maxPreOrderQuantity * 1,
                 expectedPreOrderDays: 30,
               });
 
-              if (res.error) throw res.error.data;
+              if (resPreOrder.error) throw resPreOrder.error.data;
             }
 
             toast({
@@ -77,7 +79,7 @@ const ProductInformation = ({ data }) => {
           } catch (err) {
             console.log(err);
             toast({
-              title: 'Cập nhật thông tin thất bại',
+              title: err.message ?? 'Cập nhật thông tin thất bại',
               status: 'error',
               duration: 1000,
               isClosable: true,
