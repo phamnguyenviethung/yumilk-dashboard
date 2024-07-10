@@ -2,6 +2,7 @@ import { useGetOrderListQuery } from '@/apis/orderApi';
 import HomePageBoxStats from '@/features/Widget/HomePageBoxStats';
 import PaymentPieChart from '@/features/Widget/PaymentPieChart';
 import RecentOrder from '@/features/Widget/RecentOrder';
+import WeeklyChart from '@/features/Widget/WeeklyChart';
 import { Box, Heading, Stack, VStack } from '@chakra-ui/react';
 const Home = () => {
   const { data, isLoading } = useGetOrderListQuery({
@@ -21,7 +22,9 @@ const Home = () => {
         <Box flex='1'>
           <PaymentPieChart />
         </Box>
-        <Box flex='4'>s</Box>
+        <Box flex='4'>
+          <WeeklyChart />
+        </Box>
       </Stack>
       <Box h='600px' w='full'>
         <Heading as='h4' fontSize='1.4rem' color='pink.400' my={4}>
