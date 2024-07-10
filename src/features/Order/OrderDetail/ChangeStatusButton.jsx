@@ -4,7 +4,11 @@ import {
 } from '@/apis/orderApi';
 import order from '@/constants/order';
 import { Button, ButtonGroup } from '@chakra-ui/react';
-const shouldCancel = [order.PENDING.name, order.PROCESSING.name];
+const shouldCancel = [
+  order.PENDING.name,
+  order.PROCESSING.name,
+  order.SHIPPED.name,
+];
 const shouldConfirm = [order.PENDING.name];
 
 const ChangeStatusButton = ({ data, id }) => {
@@ -29,6 +33,7 @@ const ChangeStatusButton = ({ data, id }) => {
       console.log(error);
     }
   };
+
   return (
     <ButtonGroup w='full'>
       {shouldCancel.includes(data.orderStatus) && (

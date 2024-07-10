@@ -37,7 +37,7 @@ const infoData = [
     name: 'Trạng thái',
     field: 'isBanned',
     badge: {
-      greenValue: true,
+      greenValue: false,
       badgeGreenText: 'Hoạt động',
       badgeRedText: 'Không hoạt động',
     },

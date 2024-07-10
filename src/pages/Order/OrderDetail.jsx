@@ -93,7 +93,6 @@ const OrderDetail = () => {
           </VStack>
         </Box>
       </Stack>
-      <Box>{/* <ShippingTracking id={id} /> */}</Box>
     </Container>
   );
 };

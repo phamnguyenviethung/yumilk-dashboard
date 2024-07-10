@@ -1,8 +1,9 @@
 import CONSTANST from '@/constants';
-import { Tag } from '@chakra-ui/react';
+import { Button, Tag } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const CustomerTable = ({ data }) => {
   const [colDefs] = useState([
@@ -51,6 +52,22 @@ const CustomerTable = ({ data }) => {
           <Tag mt={2} colorScheme={!props.value ? 'green' : 'red'}>
             {!props.value ? 'Hoạt động' : 'Không hoạt động'}
           </Tag>
+        );
+      },
+    },
+    {
+      field: 'userID',
+      headerName: 'ID',
+      cellRenderer: props => {
+        return (
+          <Button
+            as={Link}
+            to={`/manage/customer/${props.value}`}
+            variant='ghost'
+            colorScheme='pink'
+          >
+            Xem chi tiết
+          </Button>
         );
       },
     },
