@@ -25,7 +25,7 @@ const NavItem = ({ path, icon, children, ...rest }) => {
           {icon && (
             <Icon
               mr='4'
-              fontSize='16'
+              fontSize='1.4rem'
               _groupHover={{
                 color: 'white',
               }}

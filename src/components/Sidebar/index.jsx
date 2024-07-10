@@ -1,9 +1,10 @@
-import { Box, CloseButton, Flex, Image } from '@chakra-ui/react';
+import { Box, CloseButton, Flex, Image, VStack } from '@chakra-ui/react';
 
 import logo from '@/assets/logo.png';
 import DropdownItem from '../Navbar/DropdownItem';
 import NavItem from '../Navbar/NavItem';
 import data from './data';
+import { matchRoutes } from 'react-router-dom';
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
@@ -24,7 +25,23 @@ const SidebarContent = ({ onClose, ...rest }) => {
           return <DropdownItem key={link.name} data={link} />;
         } else {
           return (
-            <NavItem key={link.name} icon={link.icon} path={link.path}>
+            <NavItem
+              key={link.name}
+              icon={link.icon}
+              path={link.path}
+              bg={
+                matchRoutes(
+                  [
+                    {
+                      path: link.path,
+                    },
+                  ],
+                  location
+                )
+                  ? 'pink.500'
+                  : 'inherit'
+              }
+            >
               {link.name}
             </NavItem>
           );

@@ -1,69 +1,80 @@
-import { FiHome, FiDatabase, FiSettings, FiUser } from 'react-icons/fi';
+import {
+  TbCategory,
+  TbColorSwatch,
+  TbDashboard,
+  TbInfoCircle,
+  TbLayoutList,
+  TbMilk,
+  TbReceipt,
+  TbSettings,
+  TbUser,
+  TbUserHeart,
+} from 'react-icons/tb';
 
 const data = [
-  { name: 'Home', icon: FiHome, path: '/' },
+  { name: 'Trang chủ', icon: TbDashboard, path: '/' },
   {
-    name: 'Order',
-    icon: FiUser,
+    name: 'Đơn hàng',
+    icon: TbReceipt,
     subItems: [
       {
-        name: 'Order List',
+        name: 'Danh sách',
         path: '/manage/order',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
   {
-    name: 'Product',
-    icon: FiUser,
+    name: 'Sản phẩm',
+    icon: TbMilk,
     subItems: [
       {
         name: 'Danh sách',
         path: '/manage/product',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
       {
         name: 'Thuộc tính',
         path: '/manage/attribute',
-        icon: FiDatabase,
+        icon: TbInfoCircle,
       },
       {
         name: 'Nhãn hàng',
         path: '/manage/brand',
-        icon: FiDatabase,
+        icon: TbColorSwatch,
       },
       {
         name: 'Danh mục',
         path: '/manage/category',
-        icon: FiDatabase,
+        icon: TbCategory,
       },
     ],
   },
   {
-    name: 'Staff',
-    icon: FiUser,
+    name: 'Nhân viên',
+    icon: TbUser,
     subItems: [
       {
-        name: 'Staff List',
+        name: 'Danh sách',
         path: '/manage/staff',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
 
   {
-    name: 'Customers',
+    name: 'Khách hàng',
     path: '/',
-    icon: FiUser,
+    icon: TbUserHeart,
     subItems: [
       {
-        name: 'Customer List',
+        name: 'Danh sách',
         path: '/manage/customer',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Cài đặt', icon: TbSettings },
 ];
 
 export default data;
