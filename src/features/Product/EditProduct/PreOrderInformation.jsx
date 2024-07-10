@@ -1,0 +1,130 @@
+import { useUpdatePreOrderProductMutation } from '@/apis/productApi';
+import InputField from '@/components/Fields/Input';
+import { Box, Button, InputGroup, VStack, useToast } from '@chakra-ui/react';
+import { FastField, Form, Formik } from 'formik';
+import * as yup from 'yup';
+
+const PreOrderInformation = ({ data }) => {
+  const [updatePreOrderProductAPI, { isLoading: updatePreOrderLoading }] =
+    useUpdatePreOrderProductMutation();
+  const toast = useToast();
+
+  const validationSchema = yup.object().shape({
+    maxPreOrderQuantity: yup
+      .number()
+      .min(0)
+      .required('Vui lòng không bỏ trống'),
+    expectedPreOrderDays: yup
+      .number()
+      .min(0)
+      .max(30)
+      .required('Vui lòng không bỏ trống'),
+    startDate: yup.date(),
+    endDate: yup.date().min(yup.ref('startDate')),
+  });
+
+  return (
+    <Box w='full'>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={{
+          maxPreOrderQuantity: data.maxPreOrderQuantity,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          expectedPreOrderDays: data.expectedPreOrderDays,
+        }}
+        onSubmit={async d => {
+          try {
+            const resPreOrder = await updatePreOrderProductAPI({
+              id: data.id,
+              startDate: d.startDate,
+              endDate: d.endDate,
+              maxPreOrderQuantity: d.maxPreOrderQuantity * 1,
+              expectedPreOrderDays: 30,
+            });
+
+            if (resPreOrder.error) throw resPreOrder.error.data;
+
+            toast({
+              title: 'Cập nhật thông tin thành công',
+              status: 'success',
+              duration: 1000,
+              isClosable: true,
+              position: 'top-right',
+            });
+          } catch (err) {
+            console.log(err);
+            toast({
+              title: err.message ?? 'Cập nhật thông tin thất bại',
+              status: 'error',
+              duration: 1000,
+              isClosable: true,
+              position: 'top-right',
+            });
+          }
+        }}
+      >
+        {formik => {
+          return (
+            <Form>
+              <VStack>
+                <FastField
+                  component={InputField}
+                  placeholder='Số ngày dự kiến có hàng'
+                  label='Số ngày dự kiến có hàng'
+                  name='expectedPreOrderDays'
+                  required={true}
+                  size='lg'
+                  mb={2}
+                />
+                <FastField
+                  component={InputField}
+                  placeholder='Số lượt đặt'
+                  label='Số lượt đặt'
+                  name='maxPreOrderQuantity'
+                  required={true}
+                  size='lg'
+                  mb={2}
+                />
+                <InputGroup gap='2'>
+                  <FastField
+                    component={InputField}
+                    placeholder='Ngày bắt đầu'
+                    label='Ngày bắt đầu'
+                    name='startDate'
+                    required={true}
+                    size='lg'
+                    type='datetime-local'
+                    mb={2}
+                  />
+                  <FastField
+                    component={InputField}
+                    placeholder='Ngày kết thúc'
+                    label='Ngày kết thúc'
+                    name='endDate'
+                    required={true}
+                    size='lg'
+                    type='datetime-local'
+                    mb={2}
+                  />
+                </InputGroup>
+                <Button
+                  type='submit'
+                  onClick={formik.handleSubmit}
+                  mt='4'
+                  alignSelf='flex-end'
+                  colorScheme='pink'
+                  isLoading={updatePreOrderLoading}
+                >
+                  Gửi
+                </Button>
+              </VStack>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Box>
+  );
+};
+
+export default PreOrderInformation;

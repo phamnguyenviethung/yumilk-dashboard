@@ -6,6 +6,7 @@ import ChangePrice from './ChangePrice';
 import ChangeAttributes from './ChangeAttributes';
 import ChangeImages from './ChangeImages';
 import ChangeStatus from './ChangeStatus';
+import PreOrderInformation from './PreOrderInformation';
 
 const InfoSection = props => {
   const { children } = props;
@@ -46,6 +47,9 @@ const EditProduct = ({ id }) => {
         <VStack flex='2' w='full' gap='6'>
           <InfoSection title='Thông tin sản phẩm'>
             <ProductInformation data={data} />
+          </InfoSection>
+          <InfoSection title='Đặt trước'>
+            <PreOrderInformation data={data} />
           </InfoSection>
           <InfoSection title='Ảnh thu nhỏ'>
             <ChangeThumbnail data={data} />

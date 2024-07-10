@@ -1,7 +1,6 @@
 import { useGetAllBrandQuery } from '@/apis/brandApi';
 import {
   useGetAllCategoryQuery,
-  useUpdatePreOrderProductMutation,
   useUpdateProductMutation,
 } from '@/apis/productApi';
 import InputField from '@/components/Fields/Input';
@@ -23,8 +22,7 @@ const ProductInformation = ({ data }) => {
   });
   const [updateProductAPI, { isLoading: updateLoading }] =
     useUpdateProductMutation();
-  const [updatePreOrderProductAPI, { isLoading: updatePreOrderLoading }] =
-    useUpdatePreOrderProductMutation();
+
   const toast = useToast();
   if (categoryLoading || brandLoading) return <p>Loading...</p>;
 
@@ -50,10 +48,6 @@ const ProductInformation = ({ data }) => {
           salePrice: data.salePrice,
           categoryId: data.categoryId,
           brandId: data.brandId,
-          maxPreOrderQuantity: data.maxPreOrderQuantity,
-          startDate: data.startDate,
-          endDate: data.endDate,
-          expectedPreOrderDays: data.expectedPreOrderDays,
         }}
         onSubmit={async d => {
           try {
@@ -66,18 +60,6 @@ const ProductInformation = ({ data }) => {
             });
 
             if (res.error) throw res.error.data;
-            // Pre order - Status ID = 2
-            if (data.statusId === 2) {
-              const resPreOrder = await updatePreOrderProductAPI({
-                id: data.id,
-                startDate: d.startDate,
-                endDate: d.endDate,
-                maxPreOrderQuantity: d.maxPreOrderQuantity * 1,
-                expectedPreOrderDays: 30,
-              });
-
-              if (resPreOrder.error) throw resPreOrder.error.data;
-            }
 
             toast({
               title: 'Cập nhật thông tin thành công',
@@ -124,41 +106,6 @@ const ProductInformation = ({ data }) => {
                   size='lg'
                   mb={2}
                 />
-                {data.statusId === 2 && (
-                  <>
-                    <FastField
-                      component={InputField}
-                      placeholder='Số lượt đặt'
-                      label='Số lượt đặt'
-                      name='maxPreOrderQuantity'
-                      required={true}
-                      size='lg'
-                      mb={2}
-                    />
-                    <InputGroup>
-                      <FastField
-                        component={InputField}
-                        placeholder='Ngày bắt đầu'
-                        label='Ngày bắt đầu'
-                        name='startDate'
-                        required={true}
-                        size='lg'
-                        type='datetime-local'
-                        mb={2}
-                      />
-                      <FastField
-                        component={InputField}
-                        placeholder='Ngày kết thúc'
-                        label='Ngày kết thúc'
-                        name='endDate'
-                        required={true}
-                        size='lg'
-                        type='datetime-local'
-                        mb={2}
-                      />
-                    </InputGroup>
-                  </>
-                )}
 
                 <InputGroup>
                   <FastField
@@ -213,7 +160,7 @@ const ProductInformation = ({ data }) => {
                   mt='4'
                   alignSelf='flex-end'
                   colorScheme='pink'
-                  isLoading={updateLoading || updatePreOrderLoading}
+                  isLoading={updateLoading}
                 >
                   Gửi
                 </Button>
