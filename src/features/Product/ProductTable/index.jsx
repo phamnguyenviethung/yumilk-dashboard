@@ -71,6 +71,17 @@ const ProductTable = ({ data }) => {
       },
     },
     {
+      field: 'isActive',
+      headerName: 'Công khai',
+      cellRenderer: props => {
+        return (
+          <Tag mt={2} size='md' colorScheme={props.value ? 'blue' : 'purple'}>
+            {props.value ? 'Công khai' : 'Không công khai'}
+          </Tag>
+        );
+      },
+    },
+    {
       field: 'id',
       headerName: 'Chi tiết',
 
