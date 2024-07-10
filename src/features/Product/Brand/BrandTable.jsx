@@ -1,4 +1,3 @@
-import '@/assets/table.css';
 import { Tag } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component

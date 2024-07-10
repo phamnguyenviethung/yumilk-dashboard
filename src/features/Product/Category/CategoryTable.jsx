@@ -1,6 +1,5 @@
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
-import '@/assets/table.css';
 import { useState } from 'react';
 import { Tag } from '@chakra-ui/react';
 import CategoryModal from './CategoryModal';

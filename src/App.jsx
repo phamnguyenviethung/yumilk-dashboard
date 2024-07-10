@@ -5,6 +5,8 @@ import { Fragment, useEffect } from 'react';
 import PermissionCheck from './components/NoPermission/PermissionCheck';
 import NotFound from './components/NotFound';
 import '@/assets/default.css';
+import '@/assets/table.css';
+
 function App() {
   const authState = useSelector(state => state.auth);
   const nav = useNavigate();

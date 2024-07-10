@@ -1,27 +1,28 @@
+import formatMoney from '@/utils/formatMoney';
 import {
   Avatar,
-  Badge,
   Box,
   Divider,
   Flex,
   Icon,
+  Tag,
   Text,
+  VStack,
 } from '@chakra-ui/react';
-import { MdOutlineShoppingCart } from 'react-icons/md';
-import { MdOutlineAttachMoney } from 'react-icons/md';
+import { MdOutlineAttachMoney, MdOutlineShoppingCart } from 'react-icons/md';
 
 const infoData = [
   {
-    name: 'Username',
+    name: 'Tên người dùng',
     field: 'username',
   },
 
   {
-    name: 'First Name',
+    name: 'Họ',
     field: 'firstName',
   },
   {
-    name: 'Last Name',
+    name: 'Tên',
     field: 'lastName',
   },
   {
@@ -29,11 +30,11 @@ const infoData = [
     field: 'email',
   },
   {
-    name: 'Phone Number',
+    name: 'Số điện thoại',
     field: 'phoneNumber',
   },
   {
-    name: 'Status',
+    name: 'Trạng thái',
     field: 'isBanned',
     badge: {
       greenValue: true,
@@ -45,18 +46,22 @@ const infoData = [
 
 const CustomerInfo = ({ name, value, badge }) => {
   return (
-    <Flex my={2} alignItems='center'>
-      <Text fontWeight='bold' mr={1} color='gray.400'>
+    <Flex my={2} alignItems='center' justifyContent='space-between' w='full'>
+      <Text fontWeight='bold' mr={1} color='gray.400' fontSize='1rem'>
         {name}:
       </Text>
       {badge ? (
-        <Badge colorScheme={value === badge.greenValue ? 'green' : 'red'}>
+        <Tag
+          size='md'
+          variant='solid'
+          colorScheme={value === badge.greenValue ? 'green' : 'red'}
+        >
           {value === badge.greenValue
             ? badge.badgeGreenText
             : badge.badgeRedText}
-        </Badge>
+        </Tag>
       ) : (
-        <Text color='gray.300' fontWeight='600'>
+        <Text color='gray.300' fontWeight='600' fontSize='1.2rem'>
           {value}
         </Text>
       )}
@@ -64,22 +69,38 @@ const CustomerInfo = ({ name, value, badge }) => {
   );
 };
 
-const CustomerStat = ({ number, name, icon }) => {
+const CustomerStat = ({ number, name, icon, bgColor }) => {
   return (
-    <Flex alignItems='center' mx={2}>
+    <Flex gap='2' alignItems='center' mx={2}>
       <Icon
         as={icon}
-        color='pink.400'
-        fontSize='2.6rem'
-        bgColor='gray.600'
+        color='white'
+        fontSize={{
+          base: '2.6rem',
+          lg: '3rem',
+        }}
+        bgColor={bgColor}
         px={2}
         borderRadius='6px'
       />
-      <Flex ml={2} direction='column' justifyContent='space-between'>
-        <Text fontWeight='bold' fontSize='18px'>
+      <Flex direction='column' justifyContent='space-between'>
+        <Text
+          fontWeight='bold'
+          fontSize={{
+            base: '0.8rem',
+            lg: '1rem',
+          }}
+        >
           {number}
         </Text>
-        <Text fontWeight='600' color='gray.400' fontSize='14px'>
+        <Text
+          fontWeight='600'
+          color='gray.400'
+          fontSize={{
+            base: '0.75rem',
+            lg: '0.9remrem',
+          }}
+        >
           {name}
         </Text>
       </Flex>
@@ -99,9 +120,19 @@ const ProfileBox = ({ data }) => {
       <Text fontSize='14px' fontWeight='600' color='gray.400' my={4}>
         Customer ID: {data.userID}
       </Text>
-      <Flex justifyContent='space-between' w='50%'>
-        <CustomerStat icon={MdOutlineShoppingCart} name='Orders' number='100' />
-        <CustomerStat icon={MdOutlineAttachMoney} name='Spent' number='100' />
+      <Flex justifyContent='space-between'>
+        <CustomerStat
+          icon={MdOutlineShoppingCart}
+          name='Đơn hàng'
+          number='100'
+          bgColor='pink.400'
+        />
+        <CustomerStat
+          icon={MdOutlineAttachMoney}
+          name='Chi tiêu'
+          number={formatMoney(1000000)}
+          bgColor='green.400'
+        />
       </Flex>
       <Box w='full' mt={2}>
         <Text fontSize='22px' fontWeight='bold'>
@@ -109,7 +140,7 @@ const ProfileBox = ({ data }) => {
         </Text>
       </Box>
       <Divider mb={2} mt={1} />
-      <Box w='full'>
+      <VStack w='full' spacing='2'>
         {infoData.map(info => {
           return (
             <CustomerInfo
@@ -120,7 +151,7 @@ const ProfileBox = ({ data }) => {
             />
           );
         })}
-      </Box>
+      </VStack>
     </Flex>
   );
 };

@@ -1,39 +1,13 @@
-import { useUpdateUserMutation } from '@/apis/userApi';
 import CONSTANST from '@/constants';
-import { Switch, Tag } from '@chakra-ui/react';
+import { Tag } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import { useState } from 'react';
 
-const StaffStatus = ({ id, isBanned }) => {
-  const [updateStaffStatusAPI, { isLoading }] = useUpdateUserMutation();
-
-  return (
-    <Switch
-      colorScheme='pink'
-      isChecked={isBanned}
-      isDisabled={isLoading}
-      onChange={async () => {
-        try {
-          const res = await updateStaffStatusAPI({
-            id,
-            data: {
-              isBanned: !isBanned,
-            },
-          });
-          if (res.error) throw res.error.data;
-        } catch (err) {
-          console.log(err);
-        }
-      }}
-    />
-  );
-};
-
-const StaffTable = ({ data }) => {
+const CustomerTable = ({ data }) => {
   const [colDefs] = useState([
     {
-      field: 'id',
+      field: 'userID',
       headerName: 'ID',
     },
     {
@@ -47,6 +21,9 @@ const StaffTable = ({ data }) => {
     {
       field: 'username',
       headerName: 'Tên người dùng',
+    },
+    {
+      field: 'email',
     },
     {
       field: 'role',
@@ -77,13 +54,6 @@ const StaffTable = ({ data }) => {
         );
       },
     },
-    {
-      field: 'isBanned',
-      headerName: 'Khoá tài khoản',
-      cellRenderer: props => {
-        return <StaffStatus id={props.data.id} isBanned={props.value} />;
-      },
-    },
   ]);
   return (
     <div className='ag-theme-yumilk' style={{ height: '95%' }}>
@@ -103,4 +73,4 @@ const StaffTable = ({ data }) => {
   );
 };
 
-export default StaffTable;
+export default CustomerTable;

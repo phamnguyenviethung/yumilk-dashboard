@@ -42,7 +42,7 @@ const CustomerProfile = () => {
       >
         <Box
           flex='3'
-          bgColor='gray.700'
+          bgColor='brand.secondary'
           p={2}
           borderRadius='10px'
           mr={[0, 0, 1]}

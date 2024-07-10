@@ -3,7 +3,6 @@ import formatMoney from '@/utils/formatMoney';
 import { Box, Link as ChakraLink, Flex, Tag } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 // import 'ag-grid-community/styles/ag-theme-quartz.css';
-import '@/assets/table.css';
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
