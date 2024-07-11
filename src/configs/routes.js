@@ -6,6 +6,9 @@ import CustomerProfile from '@/pages/Customer/CustomerProfile';
 import Home from '@/pages/Home';
 import OrderDetail from '@/pages/Order/OrderDetail';
 import OrderList from '@/pages/Order/OrderList';
+import CreatePost from '@/pages/Post/CreatePost';
+import PostContentEditor from '@/pages/Post/PostContentEditor';
+import PostList from '@/pages/Post/PostList';
 import AttributeList from '@/pages/Product/AttributeList';
 import BrandList from '@/pages/Product/BrandList';
 import CategoryList from '@/pages/Product/CategoryList';
@@ -68,6 +71,18 @@ const routes = [
       {
         path: '/manage/order/:id',
         component: OrderDetail,
+      },
+      {
+        path: '/manage/post',
+        component: PostList,
+      },
+      {
+        path: '/manage/post/:id',
+        component: PostContentEditor,
+      },
+      {
+        path: '/manage/post/create',
+        component: CreatePost,
       },
     ],
   },

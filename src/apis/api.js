@@ -63,21 +63,15 @@ export const api = createApi({
   reducerPath: 'yumilkAPI',
   baseQuery: baseQueryWithRetry,
   tagTypes: [
-
     'Customer',
-
     'Auth',
-
     'User',
-
     'Brand',
-
     'Attribute',
-
     'Category',
     'Product',
     'Stat',
-  ,
+    'Post',
     'Order',
   ],
   endpoints: () => ({}),

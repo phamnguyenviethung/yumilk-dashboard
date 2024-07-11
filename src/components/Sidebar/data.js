@@ -80,6 +80,20 @@ const data = [
       },
     ],
   },
+
+  {
+    name: 'Posts',
+    icon: FiUser,
+    subItems: [
+      {
+        name: 'Post List',
+        path: '/manage/post',
+        icon: FiDatabase,
+      },
+    ],
+  },
+
+
   { name: 'Cài đặt', icon: TbSettings },
 ];
 
