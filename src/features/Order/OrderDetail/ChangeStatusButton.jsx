@@ -1,4 +1,5 @@
 import {
+  useCancelGHNOrderMutation,
   useCancelOrderMutation,
   useChangeOrderStatusMutation,
 } from '@/apis/orderApi';
@@ -14,10 +15,17 @@ const shouldConfirm = [order.PENDING.name];
 const ChangeStatusButton = ({ data, id }) => {
   const [cancelOrderAPI, { isLoading: cancelLoading }] =
     useCancelOrderMutation();
+  const [cancelGHNOrderAPI, { isLoading: cancelGHNLoading }] =
+    useCancelGHNOrderMutation();
   const [changeOrderStatusAPI, { isLoading: changeLoading }] =
     useChangeOrderStatusMutation();
   const handleCancel = async () => {
     try {
+      if (data.orderStatus === order.SHIPPED.name) {
+        const resGHN = await cancelGHNOrderAPI(id);
+        if (resGHN.error) throw resGHN.error.data;
+      }
+
       const res = await cancelOrderAPI(id);
       if (res.error) throw res.error.data;
     } catch (error) {
@@ -47,7 +55,7 @@ const ChangeStatusButton = ({ data, id }) => {
           variant='outline'
           colorScheme='red'
           onClick={handleCancel}
-          isLoading={changeLoading || cancelLoading}
+          isLoading={changeLoading || cancelLoading || cancelGHNLoading}
         >
           Hủy
         </Button>

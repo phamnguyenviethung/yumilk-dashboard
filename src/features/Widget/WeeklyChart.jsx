@@ -5,11 +5,18 @@ import { useState } from 'react';
 function formatNumber(value) {
   return `${value}`;
 }
+
 const WeeklyChart = () => {
   const theme = useTheme();
 
   const [options] = useState({
     container: document.getElementById('myChart'),
+    theme: {
+      palette: {
+        fills: ['#21B372'],
+        strokes: ['gray'],
+      },
+    },
     data: [
       { year: 'Thứ 2', visitors: 200 },
       { year: 'Thứ 3', visitors: 215 },
@@ -26,7 +33,19 @@ const WeeklyChart = () => {
       text: 'Lượt mua sản phẩm theo các ngày trong tuần',
       color: 'white',
     },
-
+    legend: {
+      item: {
+        label: {
+          fontSize: 14,
+          color: 'white',
+          maxLength: 12,
+          formatter: props => {
+            console.log(props);
+            return props.value;
+          },
+        },
+      },
+    },
     series: [
       {
         type: 'bar',
@@ -51,6 +70,9 @@ const WeeklyChart = () => {
           text: 'Ngày trong tuần',
           color: 'white',
         },
+        label: {
+          color: 'white',
+        },
       },
       {
         type: 'number',
@@ -66,6 +88,7 @@ const WeeklyChart = () => {
         crosshair: {
           label: {
             renderer: ({ value }) => <Text color='white'>{value}</Text>,
+            color: 'white',
           },
         },
       },

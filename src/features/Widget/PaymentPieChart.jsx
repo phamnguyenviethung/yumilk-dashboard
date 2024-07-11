@@ -10,11 +10,21 @@ const PaymentPieChart = () => {
       { name: 'Ngân hàng', percent: 40 },
     ],
     title: {
-      text: 'Tỷ lệ dùng các phương thức thanh toán',
+      text: 'Phương thức thanh toán',
       color: 'white',
+      fontSize: 14,
     },
     background: {
       fill: theme.colors.brand.secondary,
+    },
+    legend: {
+      item: {
+        label: {
+          fontSize: 12,
+          color: 'white',
+          maxLength: 12,
+        },
+      },
     },
     series: [
       {

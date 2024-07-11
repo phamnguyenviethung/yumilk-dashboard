@@ -15,7 +15,7 @@ const Status = ({ data }) => {
   return (
     <Flex alignItems='center' boxSize='full'>
       <Tag colorScheme={order[data.value.toUpperCase()].color}>
-        {data.value}
+        {order[data.value.toUpperCase()].text}
       </Tag>
     </Flex>
   );
@@ -25,6 +25,7 @@ const OrderTable = ({ data }) => {
   const [colDefs] = useState([
     {
       field: 'id',
+      filter: true,
       headerName: 'ID',
       valueFormatter: p => '...' + p.value.slice(-5),
     },

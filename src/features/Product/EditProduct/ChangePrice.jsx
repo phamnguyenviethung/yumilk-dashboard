@@ -28,7 +28,10 @@ const ChangePrice = ({ data }) => {
     <VStack>
       <Formik
         validationSchema={validationSchema}
-        initialValues={{ ...data }}
+        initialValues={{
+          originalPrice: data.originalPrice,
+          salePrice: data.salePrice,
+        }}
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({

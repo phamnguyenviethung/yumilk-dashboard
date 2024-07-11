@@ -11,6 +11,7 @@ const ProductTable = ({ data }) => {
     {
       field: 'id',
       headerName: 'ID',
+      filter: true,
     },
     {
       field: 'name',
