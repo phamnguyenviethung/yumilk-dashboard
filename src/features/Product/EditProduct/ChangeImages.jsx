@@ -3,6 +3,7 @@ import {
   useDeleteProductImagesMutation,
   useGetProductImagesQuery,
 } from '@/apis/productApi';
+import CircleLoading from '@/components/Loading/CircleLoading';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -219,7 +220,12 @@ const UploadImg = ({ productID, refetch }) => {
 const ChangeImages = ({ id }) => {
   const { data, isLoading, refetch } = useGetProductImagesQuery(id);
   const [index, setIndex] = useState(0);
-  if (isLoading) return <p>loading...</p>;
+  if (isLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
 
   if (!data) {
     return (

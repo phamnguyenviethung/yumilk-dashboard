@@ -28,7 +28,7 @@ export const productApi = api.injectEndpoints({
       invalidatesTags: ['Product'],
     }),
     updatePreOrderProduct: build.mutation({
-      query: (data) => ({
+      query: data => ({
         url: `/products/${data.id}/preorder`,
         method: 'PATCH',
         body: data,
@@ -80,6 +80,43 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Product', 'Category'],
     }),
+
+    getAllUnit: build.query({
+      query: params => ({
+        url: '/products/units',
+        method: 'GET',
+        params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product', 'Units'],
+    }),
+    getUnitByID: build.query({
+      query: id => ({
+        url: `/products/units/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product', 'Units'],
+    }),
+    addUnit: build.mutation({
+      query: body => ({
+        url: `/products/units`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product', 'Units'],
+    }),
+    updateUnit: build.mutation({
+      query: ({ id, body }) => ({
+        url: `/products/units/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product', 'Units'],
+    }),
+
     getProductImages: build.query({
       query: id => ({
         url: `/products/${id}/images`,
@@ -122,4 +159,8 @@ export const {
   useAddCategoryMutation,
   useAddProductMutation,
   useUpdatePreOrderProductMutation,
+  useAddUnitMutation,
+  useUpdateUnitMutation,
+  useGetAllUnitQuery,
+  useGetUnitByIDQuery,
 } = productApi;

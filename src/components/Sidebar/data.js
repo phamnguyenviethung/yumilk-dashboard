@@ -9,6 +9,7 @@ import {
   TbSettings,
   TbUser,
   TbUserHeart,
+  TbWeight,
 } from 'react-icons/tb';
 
 const data = [
@@ -47,6 +48,11 @@ const data = [
         name: 'Danh mục',
         path: '/manage/category',
         icon: TbCategory,
+      },
+      {
+        name: 'Đơn vị',
+        path: '/manage/unit',
+        icon: TbWeight,
       },
     ],
   },

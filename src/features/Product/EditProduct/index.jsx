@@ -1,13 +1,12 @@
-import { Box, Container, Stack, Text, VStack } from '@chakra-ui/react';
-import ProductInformation from './ProductInformation';
-import ChangeThumbnail from './ChangeThumbnail';
 import { useGetProductByIDQuery } from '@/apis/productApi';
-import ChangePrice from './ChangePrice';
+import { Box, Container, Stack, Text, VStack } from '@chakra-ui/react';
 import ChangeAttributes from './ChangeAttributes';
 import ChangeImages from './ChangeImages';
+import ChangePrice from './ChangePrice';
 import ChangeStatus from './ChangeStatus';
+import ChangeThumbnail from './ChangeThumbnail';
 import PreOrderInformation from './PreOrderInformation';
-import { PRODUCT_STATUS } from '@/constants/product';
+import ProductInformation from './ProductInformation';
 
 const InfoSection = props => {
   const { children } = props;

@@ -1,14 +1,23 @@
 import { useGetAllBrandQuery } from '@/apis/brandApi';
 import {
   useGetAllCategoryQuery,
+  useGetAllUnitQuery,
   useUpdateProductMutation,
 } from '@/apis/productApi';
 import InputField from '@/components/Fields/Input';
 import SelectField from '@/components/Fields/Select';
-import { Box, Button, InputGroup, VStack, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  InputGroup,
+  VStack,
+  useToast,
+} from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import ProductEditor from './ProductEditor';
+import CircleLoading from '@/components/Loading/CircleLoading';
 
 const ProductInformation = ({ data }) => {
   const { data: categoryData, isLoading: categoryLoading } =
@@ -20,11 +29,20 @@ const ProductInformation = ({ data }) => {
     isActive: true,
     pageSize: 1000000,
   });
+  const { data: unitData, isLoading: unitLoading } = useGetAllUnitQuery({
+    isActive: true,
+    pageSize: 1000000,
+  });
   const [updateProductAPI, { isLoading: updateLoading }] =
     useUpdateProductMutation();
 
   const toast = useToast();
-  if (categoryLoading || brandLoading) return <p>Loading...</p>;
+  if (categoryLoading || brandLoading || unitLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
 
   const validationSchema = yup.object().shape({
     name: yup.string().required('Vui lòng không bỏ trống'),
@@ -46,6 +64,7 @@ const ProductInformation = ({ data }) => {
           quantity: data.quantity,
           categoryId: data.categoryId,
           brandId: data.brandId,
+          unitId: data.unitId,
         }}
         onSubmit={async d => {
           try {
@@ -146,6 +165,26 @@ const ProductInformation = ({ data }) => {
                     })}
                   />
                 </InputGroup>
+
+                <FastField
+                  component={SelectField}
+                  value={formikProps.values.unitId}
+                  onChange={e =>
+                    formikProps.setFieldValue('unitId', e.target.value * 1)
+                  }
+                  label='Danh mục'
+                  name='unitId'
+                  required={true}
+                  size='lg'
+                  mb={2}
+                  w='98%'
+                  options={unitData.items.map(unit => {
+                    return {
+                      name: unit.name,
+                      value: String(unit.id),
+                    };
+                  })}
+                />
 
                 <ProductEditor
                   value={formikProps.values.description}

@@ -1,6 +1,6 @@
 import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
-import { Box, Link as ChakraLink, Flex, Tag } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Flex, Tag, Text } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 // import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
@@ -43,7 +43,18 @@ const OrderTable = ({ data }) => {
       headerName: 'Tổng tiền',
       valueFormatter: p => formatMoney(p.value),
     },
-    { field: 'paymentMethod', headerName: 'Thanh toán' },
+    {
+      field: 'paymentMethod',
+      headerName: 'Thanh toán',
+      cellRenderer: p => (
+        <Text
+          color={p.value === 'COD' ? 'green.400' : 'blue.400'}
+          fontWeight={600}
+        >
+          {p.value}
+        </Text>
+      ),
+    },
     {
       field: 'orderStatus',
       headerName: 'Trạng thái',

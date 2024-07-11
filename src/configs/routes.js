@@ -11,6 +11,7 @@ import BrandList from '@/pages/Product/BrandList';
 import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
+import UnitList from '@/pages/Product/UnitList';
 import StaffList from '@/pages/Staff/StaffList';
 
 const routes = [
@@ -55,6 +56,10 @@ const routes = [
       {
         path: '/manage/customer',
         component: CustomerList,
+      },
+      {
+        path: '/manage/unit',
+        component: UnitList,
       },
       {
         path: '/manage/order',
