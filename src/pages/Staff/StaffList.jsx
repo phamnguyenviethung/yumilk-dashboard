@@ -1,40 +1,22 @@
 import { useGetAllUsersQuery } from '@/apis/userApi';
 import AddNewButton from '@/features/Staff/AddNewButton';
 import StaffTable from '@/features/Staff/StaffTable';
-import Search from '@/features/Staff/StaffTable/Search';
-import { Box, Container, Flex } from '@chakra-ui/react';
-import queryString from 'query-string';
-import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { Flex } from '@chakra-ui/react';
+
 const StaffList = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const { data, isLoading } = useGetAllUsersQuery(
-    queryString.stringify({
-      role: '1,2',
-      searchTerm,
-    })
-  );
-
-  const debounced = useDebouncedCallback(value => {
-    setSearchTerm(value);
-  }, 300);
-
-  const handleChange = e => {
-    debounced(e.target.value);
-  };
-
+  const { data, isLoading } = useGetAllUsersQuery({
+    pageSize: 9999999,
+    RoleIds: '1,2',
+    SortColumn: 'createdAt',
+  });
+  if (isLoading) return <p>loading...........</p>;
   return (
-    <Container maxW='container.xl' h='full'>
-      <Flex justifyContent='space-between' w='full' my={4} py={2}>
-        <Box>sort</Box>
-        <Flex justifyContent='flex-end' alignItems='center' px={4}>
-          <Search handleSearch={handleChange} />
-          <AddNewButton />
-        </Flex>
+    <>
+      <Flex my={4} justifyContent='flex-end'>
+        <AddNewButton />
       </Flex>
-      <StaffTable data={data} isLoading={isLoading} />
-    </Container>
+      <StaffTable data={data} />
+    </>
   );
 };
 

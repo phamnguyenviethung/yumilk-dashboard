@@ -3,7 +3,7 @@ import {
   useDeleteProductImagesMutation,
   useGetProductImagesQuery,
 } from '@/apis/productApi';
-import axiosInstance from '@/utils/axiosInstance';
+import CircleLoading from '@/components/Loading/CircleLoading';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -75,8 +75,8 @@ function UpdateStatusImage({ currentStatus, id }) {
           <AlertDialogHeader>Thông báo</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            Ảnh sẽ được {currentStatus ? 'ẩn' : 'hiện'} khỏi trang thông tin của
-            sản phẩm
+            Ảnh sẽ được {currentStatus ? 'ẩn khỏi ' : 'hiện trên'} trang thông
+            tin của sản phẩm
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button colorScheme='pink' onClick={handeClick}>
@@ -89,7 +89,7 @@ function UpdateStatusImage({ currentStatus, id }) {
   );
 }
 
-function DeleteImage({ id }) {
+function DeleteImage({ id, refetch }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteImgStatus] = useDeleteProductImagesMutation();
   const cancelRef = useRef();
@@ -98,6 +98,7 @@ function DeleteImage({ id }) {
     try {
       const res = await deleteImgStatus(id);
       if (res.error) throw res.error.data;
+      refetch();
       onClose();
       toast({
         title: 'Thành công',
@@ -219,11 +220,28 @@ const UploadImg = ({ productID, refetch }) => {
 const ChangeImages = ({ id }) => {
   const { data, isLoading, refetch } = useGetProductImagesQuery(id);
   const [index, setIndex] = useState(0);
-  if (isLoading) return <p>loading...</p>;
+  if (isLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
+
+  if (!data) {
+    return (
+      <Box>
+        <Text>Chưa có hình ảnh</Text>
+        <Center w='full'>
+          <UploadImg productID={id} refetch={refetch} />
+        </Center>
+      </Box>
+    );
+  }
+
   return (
     <VStack gap='6' boxSize='full'>
       <Center w='full' h='250px'>
-        <Image h='full' src={data[index].imageUrl} borderRadius='10px' />
+        <Image h='full' src={data[index]?.imageUrl} borderRadius='10px' />
       </Center>
       <Box w='full' textAlign='center'>
         <Text color='gray.400'>
@@ -233,10 +251,10 @@ const ChangeImages = ({ id }) => {
 
       <HStack as={Center} gap='2' w='full'>
         <UpdateStatusImage
-          currentStatus={data[index].isActive}
-          id={data[index].id}
+          currentStatus={data[index]?.isActive}
+          id={data[index]?.id}
         />
-        <DeleteImage id={data[index].id} />
+        <DeleteImage id={data[index]?.id} refetch={refetch} />
       </HStack>
       <Center w='full'>
         <UploadImg productID={id} refetch={refetch} />

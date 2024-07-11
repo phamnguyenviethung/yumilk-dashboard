@@ -12,8 +12,8 @@ const theme = extendTheme({
   },
   colors: {
     brand: {
-      primary: '#25293c',
-      secondary: '#2f3349',
+      primary: '#0f0f0f',
+      secondary: '#161616',
       highlight: '#444655',
     },
   },

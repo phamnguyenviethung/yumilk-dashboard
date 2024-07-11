@@ -1,8 +1,8 @@
 import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
 import Login from '@/pages/Auth/Login';
+import CustomerList from '@/pages/Customer/CustomerList';
 import CustomerProfile from '@/pages/Customer/CustomerProfile';
-import CustomerStats from '@/pages/Customer/CustomerStats';
 import Home from '@/pages/Home';
 import OrderDetail from '@/pages/Order/OrderDetail';
 import OrderList from '@/pages/Order/OrderList';
@@ -10,10 +10,11 @@ import CreatePost from '@/pages/Post/CreatePost';
 import PostContentEditor from '@/pages/Post/PostContentEditor';
 import PostList from '@/pages/Post/PostList';
 import AttributeList from '@/pages/Product/AttributeList';
+import BrandList from '@/pages/Product/BrandList';
 import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
-import ProductStats from '@/pages/Product/ProductStats';
+import UnitList from '@/pages/Product/UnitList';
 import StaffList from '@/pages/Staff/StaffList';
 
 const routes = [
@@ -31,7 +32,7 @@ const routes = [
         needLogin: true,
       },
       {
-        path: '/customer/:id',
+        path: 'manage/customer/:id',
         component: CustomerProfile,
       },
       {
@@ -51,12 +52,17 @@ const routes = [
         component: AttributeList,
       },
       {
-        path: '/manage/stats',
-        component: ProductStats,
+        path: '/manage/brand',
+        component: BrandList,
+      },
+
+      {
+        path: '/manage/customer',
+        component: CustomerList,
       },
       {
-        path: '/manage/customer/stats',
-        component: CustomerStats,
+        path: '/manage/unit',
+        component: UnitList,
       },
       {
         path: '/manage/order',

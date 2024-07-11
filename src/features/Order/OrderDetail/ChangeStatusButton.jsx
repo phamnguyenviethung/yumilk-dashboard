@@ -1,17 +1,31 @@
 import {
+  useCancelGHNOrderMutation,
   useCancelOrderMutation,
   useChangeOrderStatusMutation,
 } from '@/apis/orderApi';
 import order from '@/constants/order';
 import { Button, ButtonGroup } from '@chakra-ui/react';
-const shouldCancel = [order.PENDING.name, order.PROCESSING.name];
+const shouldCancel = [
+  order.PENDING.name,
+  order.PROCESSING.name,
+  order.SHIPPED.name,
+];
 const shouldConfirm = [order.PENDING.name];
 
 const ChangeStatusButton = ({ data, id }) => {
-  const [cancelOrderAPI] = useCancelOrderMutation();
-  const [changeOrderStatusAPI] = useChangeOrderStatusMutation();
+  const [cancelOrderAPI, { isLoading: cancelLoading }] =
+    useCancelOrderMutation();
+  const [cancelGHNOrderAPI, { isLoading: cancelGHNLoading }] =
+    useCancelGHNOrderMutation();
+  const [changeOrderStatusAPI, { isLoading: changeLoading }] =
+    useChangeOrderStatusMutation();
   const handleCancel = async () => {
     try {
+      if (data.orderStatus === order.SHIPPED.name) {
+        const resGHN = await cancelGHNOrderAPI(id);
+        if (resGHN.error) throw resGHN.error.data;
+      }
+
       const res = await cancelOrderAPI(id);
       if (res.error) throw res.error.data;
     } catch (error) {
@@ -27,6 +41,7 @@ const ChangeStatusButton = ({ data, id }) => {
       console.log(error);
     }
   };
+
   return (
     <ButtonGroup w='full'>
       {shouldCancel.includes(data.orderStatus) && (
@@ -40,6 +55,7 @@ const ChangeStatusButton = ({ data, id }) => {
           variant='outline'
           colorScheme='red'
           onClick={handleCancel}
+          isLoading={changeLoading || cancelLoading || cancelGHNLoading}
         >
           Hủy
         </Button>
@@ -55,6 +71,7 @@ const ChangeStatusButton = ({ data, id }) => {
             w='full'
             colorScheme='pink'
             onClick={() => handleChangeStatus(order.PROCESSING.id)}
+            isLoading={changeLoading || cancelLoading}
           >
             Xác nhận đơn hàng
           </Button>
@@ -68,7 +85,8 @@ const ChangeStatusButton = ({ data, id }) => {
           }}
           w='full'
           colorScheme='pink'
-          onClick={() => handleChangeStatus(order.SHIPPING.id)}
+          onClick={() => handleChangeStatus(order.SHIPPED.id)}
+          isLoading={changeLoading || cancelLoading}
         >
           Tạo đơn vận chuyển
         </Button>

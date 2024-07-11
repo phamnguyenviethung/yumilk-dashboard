@@ -1,10 +1,11 @@
 import { useGetOrderDetailQuery } from '@/apis/orderApi';
+import { useGetAllReviewsQuery } from '@/apis/reviewApi';
 import ChangeStatusButton from '@/features/Order/OrderDetail/ChangeStatusButton';
 import CustomerInfo from '@/features/Order/OrderDetail/CustomerInfo';
 import OrderInfo from '@/features/Order/OrderDetail/OrderInfo';
 import PriceInfo from '@/features/Order/OrderDetail/PriceInfo';
 import ProductList from '@/features/Order/OrderDetail/ProductList';
-import ShippingTracking from '@/features/Order/OrderDetail/ShippingTracking';
+import ReviewDetail from '@/features/Order/OrderDetail/ReviewDetail';
 import {
   Box,
   Container,
@@ -20,7 +21,10 @@ import { useParams } from 'react-router-dom';
 const OrderDetail = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetOrderDetailQuery(id);
-  if (isLoading) return <p>loading</p>;
+  const { data: reviewData, isLoading: loadingReview } = useGetAllReviewsQuery({
+    OrderId: id,
+  });
+  if (isLoading || loadingReview) return <p>loading</p>;
   return (
     <Container maxW='container.xl' pb='16'>
       <Box w='full' p='2' mb='4'>
@@ -47,7 +51,10 @@ const OrderDetail = () => {
             </Heading>
             <Text>Mã đơn hàng: {id}</Text>
             <Text>
-              Ngày tạo: {dayjs(data.createdAt).format('HH:mm DD/MM/YYYY')}
+              Ngày tạo:{' '}
+              {dayjs(data.createdAt)
+                .add(dayjs().utcOffset(), 'minutes')
+                .format('HH:mm DD/MM/YYYY')}
             </Text>
           </Box>
           <Flex
@@ -76,6 +83,7 @@ const OrderDetail = () => {
           <VStack gap='4' boxSize='full'>
             <ProductList data={data} />
             <PriceInfo data={data} />
+            <ReviewDetail data={reviewData} />
           </VStack>
         </Box>
         <Box flex='3' w='full'>
@@ -85,9 +93,6 @@ const OrderDetail = () => {
           </VStack>
         </Box>
       </Stack>
-      <Box>
-        <ShippingTracking id={id} />
-      </Box>
     </Container>
   );
 };

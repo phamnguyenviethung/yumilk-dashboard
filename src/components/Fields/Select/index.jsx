@@ -30,6 +30,7 @@ function SelectField(props) {
       <Select
         {...props}
         id={name}
+        colorScheme='pink'
         disabled={disabled}
         placeholder={placeholder}
         _hover={{

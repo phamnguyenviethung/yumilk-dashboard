@@ -22,9 +22,7 @@ const ChangeThumbnail = ({ data }) => {
 
       const res = await updateProductAPI({
         id: data.id,
-        data: {
-          thumbnail: url,
-        },
+        thumbnail: url,
       });
       if (res.error) throw res.error.data;
       toast({
@@ -76,7 +74,7 @@ const ChangeThumbnail = ({ data }) => {
   return (
     <Box w='full'>
       <VStack gap={8}>
-        <Box>
+        <Box boxSize='250px'>
           <Image
             w='full'
             src={url}

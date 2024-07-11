@@ -1,8 +1,8 @@
 import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
-import { Link as ChakraLink, Flex, Tag } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Flex, Tag, Text } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
-import 'ag-grid-community/styles/ag-theme-quartz.css';
+// import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
@@ -15,7 +15,7 @@ const Status = ({ data }) => {
   return (
     <Flex alignItems='center' boxSize='full'>
       <Tag colorScheme={order[data.value.toUpperCase()].color}>
-        {data.value}
+        {order[data.value.toUpperCase()].text}
       </Tag>
     </Flex>
   );
@@ -25,6 +25,7 @@ const OrderTable = ({ data }) => {
   const [colDefs] = useState([
     {
       field: 'id',
+      filter: true,
       headerName: 'ID',
       valueFormatter: p => '...' + p.value.slice(-5),
     },
@@ -32,14 +33,28 @@ const OrderTable = ({ data }) => {
       field: 'createdDate',
       headerName: 'Ngày tạo',
       filter: true,
-      valueFormatter: p => dayjs(p.value).format('HH:mm DD/MM/YYYY'),
+      valueFormatter: p =>
+        dayjs(p.value)
+          .add(dayjs().utcOffset(), 'minutes')
+          .format('HH:mm DD/MM/YYYY'),
     },
     {
       field: 'totalAmount',
       headerName: 'Tổng tiền',
       valueFormatter: p => formatMoney(p.value),
     },
-    { field: 'paymentMethod', headerName: 'Thanh toán' },
+    {
+      field: 'paymentMethod',
+      headerName: 'Thanh toán',
+      cellRenderer: p => (
+        <Text
+          color={p.value === 'COD' ? 'green.400' : 'blue.400'}
+          fontWeight={600}
+        >
+          {p.value}
+        </Text>
+      ),
+    },
     {
       field: 'orderStatus',
       headerName: 'Trạng thái',
@@ -62,14 +77,21 @@ const OrderTable = ({ data }) => {
     },
   ]);
   return (
-    <div className='ag-theme-quartz-auto-dark' style={{ height: 500 }}>
+    <Box className='ag-theme-yumilk' boxSize='full'>
       <AgGridReact
+        defaultColDef={{
+          filter: true,
+        }}
         rowData={data.items}
         columnDefs={colDefs}
         pagination
-        paginationAutoPageSize
+        paginationPageSize={25}
+        paginationPageSizeSelector={[25, 50, 75, 100]}
+        autoSizeStrategy={{
+          type: 'fitGridWidth',
+        }}
       />
-    </div>
+    </Box>
   );
 };
 

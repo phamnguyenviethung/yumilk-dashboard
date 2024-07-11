@@ -54,7 +54,9 @@ const OrderInfo = ({ data, id }) => {
     },
     {
       name: 'Ngày đặt hàng',
-      value: dayjs(data.createdAt).format('HH:mm DD/MM/YYYY'),
+      value: dayjs(data.createdAt)
+        .add(dayjs().utcOffset(), 'minutes')
+        .format('HH:mm DD/MM/YYYY'),
     },
     {
       name: 'Ghi chú',
@@ -70,7 +72,7 @@ const OrderInfo = ({ data, id }) => {
     },
     {
       name: 'Tổng tiền',
-      value: formatMoney(data.totalAmount),
+      value: formatMoney(data.totalPrice),
       isTag: true,
       tagColor: 'pink',
     },
@@ -86,7 +88,7 @@ const OrderInfo = ({ data, id }) => {
       name: 'Trạng thái đơn hàng',
       value: order[data.orderStatus.toUpperCase()].text,
       isTag: true,
-      tagColor: 'blue',
+      tagColor: order[data.orderStatus.toUpperCase()]?.color ?? 'cyan',
     },
   ];
   return (

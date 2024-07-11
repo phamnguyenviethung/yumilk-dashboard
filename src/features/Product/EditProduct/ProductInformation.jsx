@@ -1,27 +1,48 @@
 import { useGetAllBrandQuery } from '@/apis/brandApi';
 import {
   useGetAllCategoryQuery,
+  useGetAllUnitQuery,
   useUpdateProductMutation,
 } from '@/apis/productApi';
 import InputField from '@/components/Fields/Input';
-import { Box, Button, InputGroup, VStack, useToast } from '@chakra-ui/react';
-import { FastField, Form, Formik } from 'formik';
-import ProductEditor from './ProductEditor';
 import SelectField from '@/components/Fields/Select';
+import {
+  Box,
+  Button,
+  Center,
+  InputGroup,
+  VStack,
+  useToast,
+} from '@chakra-ui/react';
+import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import ProductEditor from './ProductEditor';
+import CircleLoading from '@/components/Loading/CircleLoading';
 
 const ProductInformation = ({ data }) => {
   const { data: categoryData, isLoading: categoryLoading } =
     useGetAllCategoryQuery({
       isActive: true,
+      pageSize: 1000000,
     });
   const { data: brandData, isLoading: brandLoading } = useGetAllBrandQuery({
     isActive: true,
+    pageSize: 1000000,
+  });
+  const { data: unitData, isLoading: unitLoading } = useGetAllUnitQuery({
+    isActive: true,
+    pageSize: 1000000,
   });
   const [updateProductAPI, { isLoading: updateLoading }] =
     useUpdateProductMutation();
+
   const toast = useToast();
-  if (categoryLoading || brandLoading) return <p>Loading...</p>;
+  if (categoryLoading || brandLoading || unitLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
 
   const validationSchema = yup.object().shape({
     name: yup.string().required('Vui lòng không bỏ trống'),
@@ -29,6 +50,8 @@ const ProductInformation = ({ data }) => {
       .number('Vui lòng nhập vào 1 số')
       .min(0, 'Vui lòng nhập 1 số từ 0 trở lên')
       .required('Vui lòng không bỏ trống'),
+    startDate: yup.date(),
+    endDate: yup.date().min(yup.ref('startDate')),
   });
 
   return (
@@ -36,15 +59,24 @@ const ProductInformation = ({ data }) => {
       <Formik
         validationSchema={validationSchema}
         initialValues={{
-          ...data,
+          name: data.name,
+          description: data.description ?? '',
+          quantity: data.quantity,
+          categoryId: data.categoryId,
+          brandId: data.brandId,
+          unitId: data.unitId,
         }}
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
+              ...d,
+              quantity: d.quantity * 1,
+
               id: data.id,
-              data: d,
             });
+
             if (res.error) throw res.error.data;
+
             toast({
               title: 'Cập nhật thông tin thành công',
               status: 'success',
@@ -55,7 +87,7 @@ const ProductInformation = ({ data }) => {
           } catch (err) {
             console.log(err);
             toast({
-              title: 'Cập nhật thông tin thất bại',
+              title: err.message ?? 'Cập nhật thông tin thất bại',
               status: 'error',
               duration: 1000,
               isClosable: true,
@@ -80,6 +112,7 @@ const ProductInformation = ({ data }) => {
                   size='lg'
                   mb={2}
                 />
+
                 <FastField
                   component={InputField}
                   placeholder='Số lượng'
@@ -89,6 +122,7 @@ const ProductInformation = ({ data }) => {
                   size='lg'
                   mb={2}
                 />
+
                 <InputGroup>
                   <FastField
                     component={SelectField}
@@ -107,7 +141,10 @@ const ProductInformation = ({ data }) => {
                     w='98%'
                     options={categoryData.items.map(category => {
                       return {
-                        name: category.name,
+                        name:
+                          (category?.parentName
+                            ? category?.parentName + ' / '
+                            : ' - ') + category.name,
                         value: String(category.id),
                       };
                     })}
@@ -132,19 +169,40 @@ const ProductInformation = ({ data }) => {
                   />
                 </InputGroup>
 
+                <FastField
+                  component={SelectField}
+                  value={formikProps.values.unitId}
+                  onChange={e =>
+                    formikProps.setFieldValue('unitId', e.target.value * 1)
+                  }
+                  label='Danh mục'
+                  name='unitId'
+                  required={true}
+                  size='lg'
+                  mb={2}
+                  w='98%'
+                  options={unitData.items.map(unit => {
+                    return {
+                      name: unit.name,
+                      value: String(unit.id),
+                    };
+                  })}
+                />
+
                 <ProductEditor
                   value={formikProps.values.description}
                   handleEditor={handleEditor}
                 />
 
                 <Button
+                  w='full'
                   type='submit'
                   mt='4'
                   alignSelf='flex-end'
                   colorScheme='pink'
                   isLoading={updateLoading}
                 >
-                  Save
+                  Cập nhật thông tin
                 </Button>
               </VStack>
             </Form>

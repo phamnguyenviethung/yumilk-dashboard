@@ -1,75 +1,82 @@
-import { FiHome, FiDatabase, FiSettings, FiUser } from 'react-icons/fi';
+import {
+  TbCategory,
+  TbColorSwatch,
+  TbDashboard,
+  TbInfoCircle,
+  TbLayoutList,
+  TbMilk,
+  TbReceipt,
+  TbSettings,
+  TbUser,
+  TbUserHeart,
+  TbWeight,
+} from 'react-icons/tb';
 
 const data = [
-  { name: 'Home', icon: FiHome },
+  { name: 'Trang chủ', icon: TbDashboard, path: '/' },
   {
-    name: 'Order',
-    icon: FiUser,
+    name: 'Đơn hàng',
+    icon: TbReceipt,
     subItems: [
       {
-        name: 'Order List',
+        name: 'Danh sách',
         path: '/manage/order',
-        icon: FiDatabase,
-      },
-      {
-        name: 'Stats',
-        path: '/manage/order/stats',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
   {
-    name: 'Product',
-    icon: FiUser,
+    name: 'Sản phẩm',
+    icon: TbMilk,
     subItems: [
       {
-        name: 'Product List',
+        name: 'Danh sách',
         path: '/manage/product',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
       {
-        name: 'Attributes',
+        name: 'Thuộc tính',
         path: '/manage/attribute',
-        icon: FiDatabase,
+        icon: TbInfoCircle,
       },
       {
-        name: 'Categories',
+        name: 'Nhãn hàng',
+        path: '/manage/brand',
+        icon: TbColorSwatch,
+      },
+      {
+        name: 'Danh mục',
         path: '/manage/category',
-        icon: FiDatabase,
+        icon: TbCategory,
       },
       {
-        name: 'Statistics',
-        path: '/manage/stats',
-        icon: FiDatabase,
+        name: 'Đơn vị',
+        path: '/manage/unit',
+        icon: TbWeight,
       },
     ],
   },
   {
-    name: 'Staff',
-    icon: FiUser,
+    name: 'Nhân viên',
+    icon: TbUser,
     subItems: [
       {
-        name: 'Staff List',
+        name: 'Danh sách',
         path: '/manage/staff',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
 
   {
-    name: 'Customers',
+    name: 'Khách hàng',
     path: '/',
-    icon: FiUser,
+    icon: TbUserHeart,
     subItems: [
       {
-        name: 'Customer List',
+        name: 'Danh sách',
         path: '/manage/customer',
-        icon: FiDatabase,
-      },
-      {
-        name: 'Statistics',
-        path: '/manage/customer/stats',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
@@ -86,7 +93,8 @@ const data = [
     ],
   },
 
-  { name: 'Settings', icon: FiSettings },
+
+  { name: 'Cài đặt', icon: TbSettings },
 ];
 
 export default data;

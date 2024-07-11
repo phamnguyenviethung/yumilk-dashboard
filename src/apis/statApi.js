@@ -15,13 +15,10 @@ export const statApi = api.injectEndpoints({
       providesTags: ['Stat'],
     }),
     getOrderStats: build.query({
-      query: ({ fromDate, toDate }) => ({
+      query: ({ params }) => ({
         url: '/dashboard/orders/stats',
         method: 'GET',
-        params: {
-          FromOrderDate: fromDate,
-          ToOrderDate: toDate,
-        },
+        params: params,
       }),
       transformResponse: res => res.data,
       providesTags: ['Stat'],

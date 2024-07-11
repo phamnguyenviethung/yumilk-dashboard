@@ -3,7 +3,8 @@ export const userApi = api.injectEndpoints({
   endpoints: build => ({
     getAllUsers: build.query({
       query: params => ({
-        url: `/users?${params}`,
+        url: `/users`,
+        params,
       }),
       transformResponse: res => res.data,
       providesTags: ['User'],

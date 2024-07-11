@@ -1,10 +1,12 @@
-import { Box, Container, Stack, Text, VStack } from '@chakra-ui/react';
-import ProductInformation from './ProductInformation';
-import ChangeThumbnail from './ChangeThumbnail';
 import { useGetProductByIDQuery } from '@/apis/productApi';
-import ChangePrice from './ChangePrice';
+import { Box, Container, Stack, Text, VStack } from '@chakra-ui/react';
 import ChangeAttributes from './ChangeAttributes';
 import ChangeImages from './ChangeImages';
+import ChangePrice from './ChangePrice';
+import ChangeStatus from './ChangeStatus';
+import ChangeThumbnail from './ChangeThumbnail';
+import PreOrderInformation from './PreOrderInformation';
+import ProductInformation from './ProductInformation';
 
 const InfoSection = props => {
   const { children } = props;
@@ -13,7 +15,7 @@ const InfoSection = props => {
       w='full'
       flex='1'
       bgColor='brand.secondary'
-      minH='400px'
+      minH='250px'
       borderRadius='8px'
       p={8}
       {...props}
@@ -46,6 +48,12 @@ const EditProduct = ({ id }) => {
           <InfoSection title='Thông tin sản phẩm'>
             <ProductInformation data={data} />
           </InfoSection>
+          {data.statusId === 2 && (
+            <InfoSection title='Đặt trước'>
+              <PreOrderInformation data={data} />
+            </InfoSection>
+          )}
+
           <InfoSection title='Ảnh thu nhỏ'>
             <ChangeThumbnail data={data} />
           </InfoSection>
@@ -56,9 +64,14 @@ const EditProduct = ({ id }) => {
             <ChangeAttributes data={data} />
           </InfoSection>
         </VStack>
-        <InfoSection title='Giá sản phẩm'>
-          <ChangePrice data={data} />
-        </InfoSection>
+        <VStack gap='4' flex='1' w='full'>
+          <InfoSection title='Giá sản phẩm'>
+            <ChangePrice data={data} />
+          </InfoSection>
+          <InfoSection title='Trạng thái sản phẩm'>
+            <ChangeStatus data={data} />
+          </InfoSection>
+        </VStack>
       </Stack>
     </Container>
   );

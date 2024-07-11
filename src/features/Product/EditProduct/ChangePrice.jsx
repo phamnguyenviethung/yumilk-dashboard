@@ -28,12 +28,16 @@ const ChangePrice = ({ data }) => {
     <VStack>
       <Formik
         validationSchema={validationSchema}
-        initialValues={{ ...data }}
+        initialValues={{
+          originalPrice: data.originalPrice * 1,
+          salePrice: data.salePrice * 1,
+        }}
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
               id: data.id,
-              data: d,
+              originalPrice: d.originalPrice * 1,
+              salePrice: d.salePrice * 1,
             });
             if (res.error) throw res.error.data;
             toast({
@@ -83,8 +87,9 @@ const ChangePrice = ({ data }) => {
                 colorScheme='pink'
                 size='md'
                 isLoading={isLoading}
+                w='full'
               >
-                Gửi
+                Cập nhật giá
               </Button>
             </VStack>
           );

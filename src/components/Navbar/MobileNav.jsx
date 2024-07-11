@@ -34,7 +34,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       alignItems='center'
       bg='brand.secondary'
       borderBottomWidth='1px'
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      borderBottomColor='brand.secondary'
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >
