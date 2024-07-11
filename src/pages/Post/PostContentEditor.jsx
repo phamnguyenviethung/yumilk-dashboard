@@ -14,14 +14,22 @@ import {
     Heading,
     useToast
 } from '@chakra-ui/react';
+import axios from 'axios';
+import ImageUploader from 'quill-image-uploader';
+import ReactQuill, { Quill } from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
+import { useRef } from 'react';
+
+Quill.register('modules/imageUploader', ImageUploader);
 
 const PostContentEditor = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // Create navigate function
+    const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const { data: posts } = useGetPostListQuery();
     const [updatePost, { isLoading }] = useUpdatePostMutation(id);
     const toast = useToast();
+    const inputRef = useRef(null);
 
     useEffect(() => {
         if (posts) {
@@ -79,6 +87,59 @@ const PostContentEditor = () => {
         }
     };
 
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [
+                { list: 'ordered' },
+                { list: 'bullet' },
+                { indent: '-1' },
+                { indent: '+1' },
+            ],
+            ['link', 'image'],
+            ['clean'],
+        ],
+        imageUploader: {
+            upload: async file => {
+                try {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('title', 'file');
+                    formData.append('description', 'file');
+
+                    const res = await axios.post(
+                        import.meta.env.VITE_API_ENDPOINT + '/api/image',
+                        formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                Authorization: `Client-ID ${import.meta.env.VITE_IMGUR_CLIENTID}`,
+                            },
+                        }
+                    );
+                    return res.data.data.link;
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+        },
+    };
+
+    const formats = [
+        'header',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'indent',
+        'link',
+        'image',
+    ];
+
     return (
         <Box p={5}>
             <Heading as="h2" size="lg" mb={5}>
@@ -89,9 +150,9 @@ const PostContentEditor = () => {
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
             >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, values }) => (
                     <Form>
-                        <FormControl isInvalid={isSubmitting && isLoading}>
+                        <FormControl>
                             <FormLabel htmlFor="title">Title</FormLabel>
                             <Field as={Input} id="title" name="title" placeholder="Title" />
                             <ErrorMessage name="title" component={FormErrorMessage} />
@@ -99,7 +160,30 @@ const PostContentEditor = () => {
 
                         <FormControl mt={4}>
                             <FormLabel htmlFor="content">Content</FormLabel>
-                            <Field as={Textarea} id="content" name="content" placeholder="Content" />
+                            <Box w='full'
+                                minH='200px'
+                                border='1px solid'
+                                borderColor='gray.600'
+                                borderRadius='6px'
+                                _hover={{
+                                    borderColor: 'pink.400',
+                                    outline: 0,
+                                }}
+                                _focus={{
+                                    outline: 0,
+                                }} onClick={() => inputRef.current.focus()}>
+                                <ReactQuill
+                                    ref={inputRef}
+                                    theme="bubble"
+                                    value={values.content}
+                                    onChange={(content, delta, source, editor) => {
+                                        setFieldValue('content', editor.getHTML());
+                                    }}
+                                    modules={modules}
+                                    formats={formats}
+                                    placeholder='Nhập nội dung....'
+                                />
+                            </Box>
                             <ErrorMessage name="content" component={FormErrorMessage} />
                         </FormControl>
 
@@ -115,7 +199,7 @@ const PostContentEditor = () => {
                             <ErrorMessage name="metaDescription" component={FormErrorMessage} />
                         </FormControl>
 
-                        <Button mt={4} colorScheme="blue" isLoading={isSubmitting} type="submit">
+                        <Button mt={4} colorScheme="blue" isLoading={isLoading} type="submit">
                             Update Post
                         </Button>
                     </Form>
