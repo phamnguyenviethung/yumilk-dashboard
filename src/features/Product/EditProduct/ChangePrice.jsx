@@ -87,8 +87,9 @@ const ChangePrice = ({ data }) => {
                 colorScheme='pink'
                 size='md'
                 isLoading={isLoading}
+                w='full'
               >
-                Gửi
+                Cập nhật giá
               </Button>
             </VStack>
           );

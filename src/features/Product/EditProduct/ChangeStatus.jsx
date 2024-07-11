@@ -93,7 +93,7 @@ const ChangeStatus = ({ data }) => {
                   w='full'
                   isLoading={isLoading}
                 >
-                  Gửi
+                  Cập nhật trạng thái
                 </Button>
               </Flex>
             </VStack>

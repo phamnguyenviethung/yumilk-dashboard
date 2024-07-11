@@ -153,13 +153,14 @@ const ProductInformation = ({ data }) => {
                 />
 
                 <Button
+                  w='full'
                   type='submit'
                   mt='4'
                   alignSelf='flex-end'
                   colorScheme='pink'
                   isLoading={updateLoading}
                 >
-                  Gửi
+                  Cập nhật thông tin
                 </Button>
               </VStack>
             </Form>
