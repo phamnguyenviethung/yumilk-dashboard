@@ -32,7 +32,10 @@ const RecentOrder = ({ data }) => {
       field: 'createdDate',
       headerName: 'Ngày tạo',
       filter: true,
-      valueFormatter: p => dayjs(p.value).format('HH:mm DD/MM/YYYY'),
+      valueFormatter: p =>
+        dayjs(p.value)
+          .add(dayjs().utcOffset(), 'minutes')
+          .format('HH:mm DD/MM/YYYY'),
     },
     {
       field: 'totalAmount',
