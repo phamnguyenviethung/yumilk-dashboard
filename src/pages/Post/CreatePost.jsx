@@ -14,6 +14,13 @@ import {
     Heading,
     useToast
 } from '@chakra-ui/react';
+import axios from 'axios';
+import ImageUploader from 'quill-image-uploader';
+import ReactQuill, { Quill } from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
+import { useRef } from 'react';
+
+Quill.register('modules/imageUploader', ImageUploader);
 
 const CreatePost = () => {
     const initialValues = {
@@ -67,11 +74,66 @@ const CreatePost = () => {
         }
     };
 
+    const inputRef = useRef(null);
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [
+                { list: 'ordered' },
+                { list: 'bullet' },
+                { indent: '-1' },
+                { indent: '+1' },
+            ],
+            ['link', 'image'],
+            ['clean'],
+        ],
+        imageUploader: {
+            upload: async file => {
+                try {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('title', 'file');
+                    formData.append('description', 'file');
+
+                    const res = await axios.post(
+                        import.meta.env.VITE_API_ENDPOINT + '/api/image',
+                        formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                Authorization: `Client-ID ${import.meta.env.VITE_IMGUR_CLIENTID}`,
+                            },
+                        }
+                    );
+                    return res.data.data.link;
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+        },
+    };
+
+    const formats = [
+        'header',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'indent',
+        'link',
+        'image',
+    ];
+
+
     return (
         <Box p={5}>
             <Heading as="h2" size="lg" mb={5}>Create Post</Heading>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-                {({ errors, touched }) => (
+                {({ errors, touched, setFieldValue, values }) => (
                     <Form>
                         <FormControl isInvalid={errors.title && touched.title}>
                             <FormLabel htmlFor="title">Title</FormLabel>
@@ -80,8 +142,17 @@ const CreatePost = () => {
                         </FormControl>
                         <FormControl isInvalid={errors.content && touched.content} mt={4}>
                             <FormLabel htmlFor="content">Content</FormLabel>
-                            <Field as={Textarea} id="content" name="content" />
-                            <ErrorMessage name="content" component={FormErrorMessage} />
+                            <Box w='full' minH='200px' border='1px solid' borderColor='gray.600' borderRadius='6px'>
+                                <ReactQuill
+                                    ref={inputRef}
+                                    theme="bubble"
+                                    value={values.content}
+                                    onChange={value => setFieldValue('content', value)}
+                                    modules={modules}
+                                    formats={formats}
+                                    placeholder='Enter content...'
+                                />
+                            </Box>
                         </FormControl>
                         <FormControl isInvalid={errors.metaTitle && touched.metaTitle} mt={4}>
                             <FormLabel htmlFor="metaTitle">Meta Title</FormLabel>
