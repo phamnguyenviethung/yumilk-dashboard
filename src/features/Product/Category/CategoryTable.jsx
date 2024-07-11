@@ -1,7 +1,7 @@
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import { useState } from 'react';
-import { Tag } from '@chakra-ui/react';
+import { Tag, Text } from '@chakra-ui/react';
 import CategoryModal from './CategoryModal';
 
 const CategoryTable = ({ data }) => {
@@ -14,6 +14,20 @@ const CategoryTable = ({ data }) => {
       field: 'name',
       headerName: 'Tên sản phẩm',
       filter: true,
+    },
+    {
+      field: 'parentName',
+      headerName: 'Danh mục cha',
+      filter: true,
+      cellRenderer: props => {
+        if (!props.value) return <Text color='gray.400'>N/A</Text>;
+
+        return (
+          <Tag mt={2} colorScheme='teal'>
+            {props.value}
+          </Tag>
+        );
+      },
     },
     {
       field: 'isActive',
