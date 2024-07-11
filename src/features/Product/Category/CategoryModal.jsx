@@ -1,11 +1,15 @@
 import {
   useAddCategoryMutation,
+  useGetAllCategoryQuery,
   useGetCategoryByIDQuery,
   useUpdateCategoryByIDMutation,
 } from '@/apis/productApi';
 import InputField from '@/components/Fields/Input';
+import SelectField from '@/components/Fields/Select';
+import CircleLoading from '@/components/Loading/CircleLoading';
 import {
   Button,
+  Center,
   HStack,
   Modal,
   ModalBody,
@@ -28,6 +32,11 @@ function CategoryModal({ id, isAdd }) {
   const { data, isLoading } = useGetCategoryByIDQuery(id, {
     skip: isAdd || !isOpen,
   });
+  const { data: categoryData, isLoading: categoryLoading } =
+    useGetAllCategoryQuery({
+      isActive: true,
+      pageSize: 1000000,
+    });
   const [updateCategoryAPI, { isLoading: updateLoading }] =
     useUpdateCategoryByIDMutation();
   const [addCatrogyAPI, { isLoading: addLoading }] = useAddCategoryMutation();
@@ -71,6 +80,13 @@ function CategoryModal({ id, isAdd }) {
       });
     }
   };
+
+  if (categoryLoading)
+    return (
+      <Center>
+        <CircleLoading />
+      </Center>
+    );
   return (
     <>
       <Button
@@ -124,6 +140,27 @@ function CategoryModal({ id, isAdd }) {
                         name='description'
                         size='lg'
                         mb={2}
+                      />
+                      <FastField
+                        component={SelectField}
+                        value={formik.values.parentId}
+                        onChange={e =>
+                          formik.setFieldValue('parentId', e.target.value * 1)
+                        }
+                        label='Danh mục cha'
+                        name='parentId'
+                        required={true}
+                        size='lg'
+                        mb={2}
+                        w='98%'
+                        options={categoryData.items
+                          .filter(c => c.id !== id)
+                          .map(category => {
+                            return {
+                              name: category.name,
+                              value: String(category.id),
+                            };
+                          })}
                       />
                       <HStack w='full' mt={2}>
                         <Text>Trạng thái</Text>

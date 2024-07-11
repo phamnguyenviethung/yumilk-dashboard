@@ -141,7 +141,10 @@ const ProductInformation = ({ data }) => {
                     w='98%'
                     options={categoryData.items.map(category => {
                       return {
-                        name: category.name,
+                        name:
+                          (category?.parentName
+                            ? category?.parentName + ' / '
+                            : ' - ') + category.name,
                         value: String(category.id),
                       };
                     })}
