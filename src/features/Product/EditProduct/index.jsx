@@ -7,6 +7,7 @@ import ChangeAttributes from './ChangeAttributes';
 import ChangeImages from './ChangeImages';
 import ChangeStatus from './ChangeStatus';
 import PreOrderInformation from './PreOrderInformation';
+import { PRODUCT_STATUS } from '@/constants/product';
 
 const InfoSection = props => {
   const { children } = props;
@@ -48,9 +49,12 @@ const EditProduct = ({ id }) => {
           <InfoSection title='Thông tin sản phẩm'>
             <ProductInformation data={data} />
           </InfoSection>
-          <InfoSection title='Đặt trước'>
-            <PreOrderInformation data={data} />
-          </InfoSection>
+          {data.statusId === 2 && (
+            <InfoSection title='Đặt trước'>
+              <PreOrderInformation data={data} />
+            </InfoSection>
+          )}
+
           <InfoSection title='Ảnh thu nhỏ'>
             <ChangeThumbnail data={data} />
           </InfoSection>
