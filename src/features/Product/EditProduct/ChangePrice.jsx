@@ -29,14 +29,15 @@ const ChangePrice = ({ data }) => {
       <Formik
         validationSchema={validationSchema}
         initialValues={{
-          originalPrice: data.originalPrice,
-          salePrice: data.salePrice,
+          originalPrice: data.originalPrice * 1,
+          salePrice: data.salePrice * 1,
         }}
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
               id: data.id,
-              ...d,
+              originalPrice: d.originalPrice * 1,
+              salePrice: d.salePrice * 1,
             });
             if (res.error) throw res.error.data;
             toast({

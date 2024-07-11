@@ -44,8 +44,6 @@ const ProductInformation = ({ data }) => {
           name: data.name,
           description: data.description ?? '',
           quantity: data.quantity,
-          originalPrice: data.originalPrice,
-          salePrice: data.salePrice,
           categoryId: data.categoryId,
           brandId: data.brandId,
         }}
@@ -54,8 +52,7 @@ const ProductInformation = ({ data }) => {
             const res = await updateProductAPI({
               ...d,
               quantity: d.quantity * 1,
-              salePrice: d.salePrice * 1,
-              originalPrice: d.originalPrice * 1,
+
               id: data.id,
             });
 
