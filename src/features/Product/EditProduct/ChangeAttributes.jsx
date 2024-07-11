@@ -58,7 +58,6 @@ const AddAttribute = ({ productAttributeIDData, productId }) => {
       }}
       onSubmit={async d => {
         try {
-          console.log(d);
           const res = await addNewAttributeToProduct({
             data: d,
             id: productId,
@@ -134,11 +133,16 @@ const AddAttribute = ({ productAttributeIDData, productId }) => {
   );
 };
 
-function DeleteDialog({ isOpen, onClose, data }) {
+function DeleteDialog({ data }) {
   const cancelRef = useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [deleteProductAttribute] = useDeleteAttributeValueByIdMutation();
   return (
     <>
+      <Button size='lg' variant='ghost' colorScheme='red' onClick={onOpen}>
+        <Icon as={TrashIcon} fontSize='1.2rem' color='red.400' />
+      </Button>
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
@@ -182,7 +186,6 @@ function DeleteDialog({ isOpen, onClose, data }) {
 const AttributeList = ({ data }) => {
   const [updateProductAttribute] = useUpdateAttributeValueByIdMutation();
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const validationSchema = yup.object().shape({
     value: yup.string().required('Vui lòng không bỏ trống'),
@@ -193,14 +196,6 @@ const AttributeList = ({ data }) => {
       {data.items.map(attr => {
         return (
           <Box key={attr.attributeId}>
-            <DeleteDialog
-              isOpen={isOpen}
-              onClose={onClose}
-              data={{
-                attributeId: attr.attributeId,
-                id: attr.productId,
-              }}
-            />
             <Formik
               validationSchema={validationSchema}
               initialValues={{
@@ -272,18 +267,12 @@ const AttributeList = ({ data }) => {
                                   color={!formikProps.dirty ? 'gray' : 'white'}
                                 />
                               </Button>
-                              <Button
-                                size='lg'
-                                variant='ghost'
-                                colorScheme='red'
-                                onClick={onOpen}
-                              >
-                                <Icon
-                                  as={TrashIcon}
-                                  fontSize='1.2rem'
-                                  color='red.400'
-                                />
-                              </Button>
+                              <DeleteDialog
+                                data={{
+                                  attributeId: attr.attributeId,
+                                  id: attr.productId,
+                                }}
+                              />
                             </Flex>
                           }
                         />
@@ -301,14 +290,18 @@ const AttributeList = ({ data }) => {
 };
 
 const ChangeAttributes = ({ data }) => {
-  const { data: productAttributeData, isLoading } =
-    useGetAttributeValueByIdQuery(data.id);
+  const {
+    data: productAttributeData,
+    isLoading,
+    refetch,
+  } = useGetAttributeValueByIdQuery(data.id);
   if (isLoading) return <p>Loading...</p>;
 
   return (
     <VStack w='full' gap='8'>
       <Box w='full'>
         <AddAttribute
+          refetch={refetch}
           productId={data.id}
           productAttributeIDData={productAttributeData.items.map(
             item => item.attributeId

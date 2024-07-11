@@ -71,7 +71,7 @@ const DropdownItem = ({ data, ...rest }) => {
                   location
                 )
                   ? 'pink.500'
-                  : 'brand.primary'
+                  : 'whiteAlpha.100'
               }
               _hover={{
                 bg: 'pink.600',
