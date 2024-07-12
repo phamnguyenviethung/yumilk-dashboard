@@ -46,14 +46,23 @@ const OrderTable = ({ data }) => {
     {
       field: 'paymentMethod',
       headerName: 'Thanh toán',
-      cellRenderer: p => (
-        <Text
-          color={p.value === 'COD' ? 'green.400' : 'blue.400'}
-          fontWeight={600}
-        >
-          {p.value}
-        </Text>
-      ),
+      cellRenderer: p => {
+        if (p.data.isPreOrder) {
+          return (
+            <Text color='purple' fontWeight={600}>
+              {p.value}
+            </Text>
+          );
+        }
+        return (
+          <Text
+            color={p.value === 'COD' ? 'green.400' : 'blue.400'}
+            fontWeight={600}
+          >
+            {p.value}
+          </Text>
+        );
+      },
     },
     {
       field: 'orderStatus',
