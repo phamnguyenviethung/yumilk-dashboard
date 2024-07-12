@@ -31,7 +31,7 @@ export default {
     text: 'Đã huỷ',
     color: 'red',
   },
-  RETURNED: {
+  PREORDERED: {
     name: 'Preordered',
     text: 'Đặt trước',
     color: 'cyan',
