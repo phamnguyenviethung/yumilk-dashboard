@@ -23,6 +23,23 @@ export const statApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Stat'],
     }),
+    getOrderStatsByDate: build.query({
+      query: params => ({
+        url: '/dashboard/orders/stats/orders-by-date',
+        method: 'GET',
+        params: params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Stat'],
+    }),
+    getRevenueStatsByMonth: build.query({
+      query: (year = 2024) => ({
+        url: `/dashboard/orders/stats/${year}/revenue-by-month`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Stat'],
+    }),
     getCustomerStats: build.query({
       query: ({ fromDate, toDate }) => ({
         url: '/dashboard/customers/stats',
@@ -35,10 +52,22 @@ export const statApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Stat'],
     }),
+    getPaymentStats: build.query({
+      query: params => ({
+        url: '/dashboard/payment/stats/payment-methods',
+        method: 'GET',
+        params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Stat'],
+    }),
   }),
 });
 export const {
   useGetProductStatsQuery,
   useGetOrderStatsQuery,
   useGetCustomerStatsQuery,
+  useGetPaymentStatsQuery,
+  useGetOrderStatsByDateQuery,
+  useGetRevenueStatsByMonthQuery,
 } = statApi;

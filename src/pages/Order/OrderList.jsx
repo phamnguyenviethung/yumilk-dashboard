@@ -2,7 +2,8 @@ import { useGetOrderListQuery } from '@/apis/orderApi';
 import { useGetOrderStatsQuery } from '@/apis/statApi';
 import BoxStats from '@/components/Stats/BoxStat';
 import OrderTable from '@/features/Order/OrderTable';
-import { Box, Stack, VStack } from '@chakra-ui/react';
+import { Box, HStack, Stack, Switch, Text, VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import {
   TbPackage,
   TbShoppingBagEdit,
@@ -45,6 +46,7 @@ const statList = [
 ];
 
 const OrderList = () => {
+  const [isPreorder, setIsPreorder] = useState(false);
   const { data: stats, isLoading: statsLoading } = useGetOrderStatsQuery({
     params: {},
   });
@@ -52,6 +54,7 @@ const OrderList = () => {
     pageSize: 999999,
     sortColumn: 'createdAt',
     sortOrder: 'desc',
+    isPreorder,
   });
   if (isLoading || statsLoading) return <p>loading..</p>;
 
@@ -82,6 +85,14 @@ const OrderList = () => {
         })}
       </Stack>
       <Box flex='1' w='full'>
+        <HStack gap='2' my='2'>
+          <Switch
+            colorScheme='pink'
+            isChecked={isPreorder}
+            onChange={() => setIsPreorder(prev => !prev)}
+          />
+          <Text>Đơn hàng đặt trước</Text>
+        </HStack>
         <OrderTable data={data} />
       </Box>
     </VStack>

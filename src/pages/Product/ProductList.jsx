@@ -13,6 +13,14 @@ const ProductList = () => {
       <Flex my={4} justifyContent='flex-end'>
         <AddProductButton />
       </Flex>
+      {/* <HStack gap='2' my='2'>
+        <Switch
+          colorScheme='pink'
+          isChecked={isPreorder}
+          onChange={() => setIsPreorder(prev => !prev)}
+        />
+        <Text>Sản phẩm đặt trước</Text>
+      </HStack> */}
       <ProductTable data={data} />
     </>
   );

@@ -1,15 +1,23 @@
-import { Text } from '@chakra-ui/react';
+import { useGetOrderStatsByDateQuery } from '@/apis/statApi';
+import CircleLoading from '@/components/Loading/CircleLoading';
+import { Center, Text } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { AgCharts } from 'ag-charts-react';
-import { useState } from 'react';
 function formatNumber(value) {
   return `${value}`;
 }
 
 const WeeklyChart = () => {
   const theme = useTheme();
+  const { data, isLoading } = useGetOrderStatsByDateQuery();
+  if (isLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
 
-  const [options] = useState({
+  const options = {
     container: document.getElementById('myChart'),
     theme: {
       palette: {
@@ -17,15 +25,7 @@ const WeeklyChart = () => {
         strokes: ['gray'],
       },
     },
-    data: [
-      { year: 'Thứ 2', visitors: 200 },
-      { year: 'Thứ 3', visitors: 215 },
-      { year: 'Thứ 4', visitors: 111 },
-      { year: 'Thứ 5', visitors: 21 },
-      { year: 'Thứ 6', visitors: 55 },
-      { year: 'Thứ 7', visitors: 102 },
-      { year: 'Chủ Nhật', visitors: 109 },
-    ],
+    data: data?.orderPerDayOfWeek ?? [],
     background: {
       fill: theme.colors.brand.secondary,
     },
@@ -33,24 +33,23 @@ const WeeklyChart = () => {
       text: 'Lượt mua sản phẩm theo các ngày trong tuần',
       color: 'white',
     },
-    legend: {
-      item: {
-        label: {
-          fontSize: 14,
-          color: 'white',
-          maxLength: 12,
-          formatter: props => {
-            console.log(props);
-            return props.value;
-          },
-        },
-      },
-    },
+    // legend: {
+    //   item: {
+    //     label: {
+    //       fontSize: 14,
+    //       color: 'white',
+    //       maxLength: 12,
+    //       formatter: props => {
+    //         return props.value;
+    //       },
+    //     },
+    //   },
+    // },
     series: [
       {
         type: 'bar',
-        xKey: 'year',
-        yKey: 'visitors',
+        xKey: 'dateTime',
+        yKey: 'count',
         label: {
           formatter: ({ value }) => formatNumber(value),
           color: 'white',
@@ -67,7 +66,7 @@ const WeeklyChart = () => {
         type: 'category',
         position: 'bottom',
         title: {
-          text: 'Ngày trong tuần',
+          text: 'Các ngày trong tuần',
           color: 'white',
         },
         label: {
@@ -93,7 +92,7 @@ const WeeklyChart = () => {
         },
       },
     ],
-  });
+  };
 
   return <AgCharts options={options} />;
 };

@@ -2,7 +2,11 @@ import { api } from './api';
 export const customerApi = api.injectEndpoints({
   endpoints: build => ({
     getAllCustomers: build.query({
-      query: () => '/customers',
+      query: params => ({
+        url: `/customers`,
+        method: 'GET',
+        params,
+      }),
       transformResponse: res => res.data,
       providesTags: ['Customer'],
     }),

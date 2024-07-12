@@ -1,14 +1,20 @@
 import { useGetOrderListQuery } from '@/apis/orderApi';
+import CircleLoading from '@/components/Loading/CircleLoading';
 import HomePageBoxStats from '@/features/Widget/HomePageBoxStats';
 import PaymentPieChart from '@/features/Widget/PaymentPieChart';
 import RecentOrder from '@/features/Widget/RecentOrder';
 import WeeklyChart from '@/features/Widget/WeeklyChart';
-import { Box, Heading, Stack, VStack } from '@chakra-ui/react';
+import { Box, Center, Heading, Stack, VStack } from '@chakra-ui/react';
 const Home = () => {
   const { data, isLoading } = useGetOrderListQuery({
     pageSize: 10,
   });
-  if (isLoading) return <p>loading..</p>;
+  if (isLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
   return (
     <VStack w='full' gap='4'>
       <HomePageBoxStats />

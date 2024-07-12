@@ -11,6 +11,7 @@ const NavItem = ({ path, icon, children, ...rest }) => {
         py='4'
         px='2'
         mx='4'
+        my={2}
         borderRadius='lg'
         role='group'
         cursor='pointer'

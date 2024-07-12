@@ -16,6 +16,7 @@ import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
 import UnitList from '@/pages/Product/UnitList';
 import StaffList from '@/pages/Staff/StaffList';
+import Stat from '@/pages/Stat';
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
         path: '/',
         isIndex: true,
         component: Home,
+      },
+      {
+        path: '/stats',
+        isIndex: true,
+        component: Stat,
       },
       {
         path: '/manage/staff',

@@ -1,16 +1,27 @@
+import { useGetPaymentStatsQuery } from '@/apis/statApi';
+import CircleLoading from '@/components/Loading/CircleLoading';
+import { Center } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { AgCharts } from 'ag-charts-react';
-import { useState } from 'react';
 
 const PaymentPieChart = () => {
   const theme = useTheme();
-  const [options] = useState({
+  const { data, isLoading } = useGetPaymentStatsQuery();
+
+  if (isLoading)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
+
+  const options = {
     data: [
-      { name: 'COD', percent: 60 },
-      { name: 'Ngân hàng', percent: 40 },
+      { name: 'COD', percent: data?.percentCod },
+      { name: 'Ngân hàng', percent: data?.percentPayos },
     ],
     title: {
-      text: 'Phương thức thanh toán',
+      text: 'Tỷ lệ sử dụng các phương thức thanh toán',
       color: 'white',
       fontSize: 14,
     },
@@ -42,7 +53,7 @@ const PaymentPieChart = () => {
         },
       },
     ],
-  });
+  };
 
   return <AgCharts options={options} />;
 };

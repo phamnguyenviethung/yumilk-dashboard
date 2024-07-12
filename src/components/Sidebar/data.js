@@ -1,5 +1,6 @@
 import {
   TbCategory,
+  TbChartLine,
   TbColorSwatch,
   TbDashboard,
   TbInfoCircle,
@@ -15,6 +16,7 @@ import {
 
 const data = [
   { name: 'Trang chủ', icon: TbDashboard, path: '/' },
+  { name: 'Thống kê', icon: TbChartLine, path: '/stats' },
   {
     name: 'Đơn hàng',
     icon: TbReceipt,

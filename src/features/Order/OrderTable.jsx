@@ -32,7 +32,7 @@ const OrderTable = ({ data }) => {
     {
       field: 'createdDate',
       headerName: 'Ngày tạo',
-      filter: true,
+      filter: 'agDateColumnFilter',
       valueFormatter: p =>
         dayjs(p.value)
           .add(dayjs().utcOffset(), 'minutes')
