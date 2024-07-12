@@ -9,8 +9,10 @@ const shouldCancel = [
   order.PENDING.name,
   order.PROCESSING.name,
   order.SHIPPED.name,
+  order.PREORDERED.name,
 ];
 const shouldConfirm = [order.PENDING.name];
+const shouldCreateShip = [order.PROCESSING.name, order.PREORDERED.name];
 
 const ChangeStatusButton = ({ data, id }) => {
   const [cancelOrderAPI, { isLoading: cancelLoading }] =
@@ -76,7 +78,7 @@ const ChangeStatusButton = ({ data, id }) => {
             Xác nhận đơn hàng
           </Button>
         )}
-      {data.orderStatus === order.PROCESSING.name && (
+      {shouldCreateShip.includes(data.orderStatus) && (
         <Button
           flex='2'
           size={{

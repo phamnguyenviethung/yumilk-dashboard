@@ -41,6 +41,10 @@ function SelectField(props) {
         _focus={{
           outline: 0,
         }}
+        size={{
+          base: 'md',
+          lg: 'lg',
+        }}
       >
         {props?.options?.map(opt => {
           return (

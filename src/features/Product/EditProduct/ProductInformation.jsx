@@ -52,6 +52,19 @@ const ProductInformation = ({ data }) => {
       .required('Vui lòng không bỏ trống'),
     startDate: yup.date(),
     endDate: yup.date().min(yup.ref('startDate')),
+    originalPrice: yup
+      .number('Vui lòng nhập vào 1 số')
+      .min(0, 'Vui lòng nhập 1 số từ 0 trở lên')
+      .required('Vui lòng không bỏ trống'),
+    salePrice: yup
+      .number('Vui lòng nhập vào 1 số')
+      .min(0, 'Vui lòng nhập 1 số từ 0 trở lên')
+      .test(
+        'max',
+        'Giá giảm giá không được vượt quá giá gốc',
+        (value, context) => value <= context.parent.originalPrice
+      )
+      .required('Vui lòng không bỏ trống'),
   });
 
   return (
@@ -65,13 +78,16 @@ const ProductInformation = ({ data }) => {
           categoryId: data.categoryId,
           brandId: data.brandId,
           unitId: data.unitId,
+          originalPrice: data.originalPrice * 1,
+          salePrice: data.salePrice * 1,
         }}
         onSubmit={async d => {
           try {
             const res = await updateProductAPI({
               ...d,
               quantity: d.quantity * 1,
-
+              originalPrice: d.originalPrice * 1,
+              salePrice: d.salePrice * 1,
               id: data.id,
             });
 
@@ -121,6 +137,26 @@ const ProductInformation = ({ data }) => {
                   required={true}
                   size='lg'
                   mb={2}
+                />
+
+                <FastField
+                  component={InputField}
+                  placeholder='Giá gốc'
+                  label='Giá gốc'
+                  name='originalPrice'
+                  required={true}
+                  size='lg'
+                  mb={2}
+                />
+                <FastField
+                  component={InputField}
+                  placeholder='Giá giảm giá'
+                  label='Giá giảm giá'
+                  name='salePrice'
+                  required={true}
+                  size='lg'
+                  mb={2}
+                  helper='Để giá trị là 0 nếu như không muốn giảm giá'
                 />
 
                 <InputGroup>

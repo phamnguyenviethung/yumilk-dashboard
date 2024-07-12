@@ -48,11 +48,6 @@ const EditProduct = ({ id }) => {
           <InfoSection title='Thông tin sản phẩm'>
             <ProductInformation data={data} />
           </InfoSection>
-          {data.statusId === 2 && (
-            <InfoSection title='Đặt trước'>
-              <PreOrderInformation data={data} />
-            </InfoSection>
-          )}
 
           <InfoSection title='Ảnh thu nhỏ'>
             <ChangeThumbnail data={data} />
@@ -64,10 +59,12 @@ const EditProduct = ({ id }) => {
             <ChangeAttributes data={data} />
           </InfoSection>
         </VStack>
-        <VStack gap='4' flex='1' w='full'>
-          <InfoSection title='Giá sản phẩm'>
-            <ChangePrice data={data} />
-          </InfoSection>
+        <VStack gap='4' flex='1'>
+          {data.statusId === 2 && (
+            <InfoSection title='Đặt trước'>
+              <PreOrderInformation data={data} />
+            </InfoSection>
+          )}
           <InfoSection title='Trạng thái sản phẩm'>
             <ChangeStatus data={data} />
           </InfoSection>

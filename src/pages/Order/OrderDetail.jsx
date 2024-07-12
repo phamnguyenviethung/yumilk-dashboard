@@ -1,5 +1,6 @@
 import { useGetOrderDetailQuery } from '@/apis/orderApi';
 import { useGetAllReviewsQuery } from '@/apis/reviewApi';
+import CircleLoading from '@/components/Loading/CircleLoading';
 import ChangeStatusButton from '@/features/Order/OrderDetail/ChangeStatusButton';
 import CustomerInfo from '@/features/Order/OrderDetail/CustomerInfo';
 import OrderInfo from '@/features/Order/OrderDetail/OrderInfo';
@@ -8,6 +9,7 @@ import ProductList from '@/features/Order/OrderDetail/ProductList';
 import ReviewDetail from '@/features/Order/OrderDetail/ReviewDetail';
 import {
   Box,
+  Center,
   Container,
   Flex,
   Heading,
@@ -20,11 +22,17 @@ import { useParams } from 'react-router-dom';
 
 const OrderDetail = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetOrderDetailQuery(id);
+  const { data, isLoading, isError } = useGetOrderDetailQuery(id);
   const { data: reviewData, isLoading: loadingReview } = useGetAllReviewsQuery({
     OrderId: id,
   });
-  if (isLoading || loadingReview) return <p>loading</p>;
+  if (isLoading || loadingReview)
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
+  if (isError) return <p>Có lỗi xảy ra</p>;
   return (
     <Container maxW='container.xl' pb='16'>
       <Box w='full' p='2' mb='4'>

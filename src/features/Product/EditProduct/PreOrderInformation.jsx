@@ -1,6 +1,6 @@
 import { useUpdatePreOrderProductMutation } from '@/apis/productApi';
 import InputField from '@/components/Fields/Input';
-import { Box, Button, InputGroup, VStack, useToast } from '@chakra-ui/react';
+import { Box, Button, Stack, VStack, useToast } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -66,60 +66,72 @@ const PreOrderInformation = ({ data }) => {
       >
         {formik => {
           return (
-            <Form>
-              <VStack>
+            <VStack
+              as={Form}
+              boxSize='full'
+              alignItems='flex-start'
+              mt={4}
+              gap='4'
+              w='full'
+            >
+              <FastField
+                component={InputField}
+                placeholder='Số ngày dự kiến có hàng'
+                label='Số ngày dự kiến có hàng'
+                name='expectedPreOrderDays'
+                required={true}
+                size='lg'
+                mb={2}
+              />
+              <FastField
+                component={InputField}
+                placeholder='Số lượt đặt'
+                label='Số lượt đặt'
+                name='maxPreOrderQuantity'
+                required={true}
+                size='lg'
+                mb={2}
+              />
+              <Stack
+                w='full'
+                flexDirection={{
+                  base: 'column',
+                  lg: 'column',
+                }}
+                gap='2'
+              >
                 <FastField
                   component={InputField}
-                  placeholder='Số ngày dự kiến có hàng'
-                  label='Số ngày dự kiến có hàng'
-                  name='expectedPreOrderDays'
+                  placeholder='Ngày bắt đầu'
+                  label='Ngày bắt đầu'
+                  name='startDate'
                   required={true}
                   size='lg'
+                  type='datetime-local'
                   mb={2}
                 />
                 <FastField
                   component={InputField}
-                  placeholder='Số lượt đặt'
-                  label='Số lượt đặt'
-                  name='maxPreOrderQuantity'
+                  placeholder='Ngày kết thúc'
+                  label='Ngày kết thúc'
+                  name='endDate'
                   required={true}
                   size='lg'
+                  type='datetime-local'
                   mb={2}
                 />
-                <InputGroup gap='2'>
-                  <FastField
-                    component={InputField}
-                    placeholder='Ngày bắt đầu'
-                    label='Ngày bắt đầu'
-                    name='startDate'
-                    required={true}
-                    size='lg'
-                    type='datetime-local'
-                    mb={2}
-                  />
-                  <FastField
-                    component={InputField}
-                    placeholder='Ngày kết thúc'
-                    label='Ngày kết thúc'
-                    name='endDate'
-                    required={true}
-                    size='lg'
-                    type='datetime-local'
-                    mb={2}
-                  />
-                </InputGroup>
-                <Button
-                  type='submit'
-                  onClick={formik.handleSubmit}
-                  mt='4'
-                  alignSelf='flex-end'
-                  colorScheme='pink'
-                  isLoading={updatePreOrderLoading}
-                >
-                  Gửi
-                </Button>
-              </VStack>
-            </Form>
+              </Stack>
+              <Button
+                type='submit'
+                onClick={formik.handleSubmit}
+                mt='4'
+                alignSelf='flex-end'
+                colorScheme='pink'
+                isLoading={updatePreOrderLoading}
+              >
+                Gửi
+              </Button>
+            </VStack>
           );
         }}
       </Formik>
