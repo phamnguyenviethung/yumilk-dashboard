@@ -10,6 +10,14 @@ export const postApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Post'],
     }),
+    getPostDetail: build.query({
+      query: id => ({
+        url: `/posts/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Post'],
+    }),
     createPost: build.mutation({
       query: data => ({
         url: '/posts',
@@ -20,8 +28,8 @@ export const postApi = api.injectEndpoints({
       invalidatesTags: ['Post'],
     }),
     updatePost: build.mutation({
-      query: ({ postId, data }) => ({
-        url: `/posts/${postId}`,
+      query: data => ({
+        url: `/posts/${data.id}`,
         method: 'PATCH',
         body: data,
       }),
@@ -39,6 +47,7 @@ export const postApi = api.injectEndpoints({
 });
 export const {
   useGetPostListQuery,
+  useGetPostDetailQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,

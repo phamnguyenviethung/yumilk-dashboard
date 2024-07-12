@@ -5,6 +5,7 @@ import {
   TbInfoCircle,
   TbLayoutList,
   TbMilk,
+  TbNews,
   TbReceipt,
   TbSettings,
   TbUser,
@@ -82,17 +83,16 @@ const data = [
   },
 
   {
-    name: 'Posts',
-    icon: FiUser,
+    name: 'Bài viết',
+    icon: TbNews,
     subItems: [
       {
-        name: 'Post List',
+        name: 'Danh sách',
         path: '/manage/post',
-        icon: FiDatabase,
+        icon: TbLayoutList,
       },
     ],
   },
-
 
   { name: 'Cài đặt', icon: TbSettings },
 ];
