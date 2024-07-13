@@ -73,6 +73,7 @@ export const api = createApi({
     'Stat',
     'Post',
     'Order',
+    'Voucher',
   ],
   endpoints: () => ({}),
 });

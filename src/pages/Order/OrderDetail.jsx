@@ -4,6 +4,7 @@ import CircleLoading from '@/components/Loading/CircleLoading';
 import ChangeStatusButton from '@/features/Order/OrderDetail/ChangeStatusButton';
 import CustomerInfo from '@/features/Order/OrderDetail/CustomerInfo';
 import OrderInfo from '@/features/Order/OrderDetail/OrderInfo';
+import OrderLog from '@/features/Order/OrderDetail/OrderLog';
 import PriceInfo from '@/features/Order/OrderDetail/PriceInfo';
 import ProductList from '@/features/Order/OrderDetail/ProductList';
 import ReviewDetail from '@/features/Order/OrderDetail/ReviewDetail';
@@ -101,6 +102,7 @@ const OrderDetail = () => {
           </VStack>
         </Box>
       </Stack>
+      <OrderLog data={data} />
     </Container>
   );
 };
