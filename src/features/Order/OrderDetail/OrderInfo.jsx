@@ -72,7 +72,7 @@ const OrderInfo = ({ data, id }) => {
     },
     {
       name: 'Tổng tiền',
-      value: formatMoney(data.totalPrice),
+      value: formatMoney(data.totalAmount),
       isTag: true,
       tagColor: 'pink',
     },

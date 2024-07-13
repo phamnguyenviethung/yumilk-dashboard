@@ -12,7 +12,7 @@ const PriceInfo = ({ data }) => {
           <Text fontWeight='400' fontSize='0.95rem'>
             Tạm tính:
           </Text>
-          <Text>{formatMoney(data.totalPrice)}</Text>
+          <Text>{formatMoney(data.totalPriceBeforeDiscount)}</Text>
         </Flex>
         <Flex w='full' justifyContent='space-between'>
           <Text fontWeight='400' fontSize='0.95rem'>
@@ -20,11 +20,23 @@ const PriceInfo = ({ data }) => {
           </Text>
           <Text>{formatMoney(data.shippingFee)}</Text>
         </Flex>
+        <Flex w='full' justifyContent='space-between'>
+          <Text fontWeight='400' fontSize='0.95rem'>
+            Sử dụng voucher:
+          </Text>
+          <Text color='red.400'>-{formatMoney(data.voucherDiscount)}</Text>
+        </Flex>
+        <Flex w='full' justifyContent='space-between'>
+          <Text fontWeight='400' fontSize='0.95rem'>
+            Sử dụng xu:
+          </Text>
+          <Text color='red.400'>-{formatMoney(data.pointDiscount)}</Text>
+        </Flex>
         <Divider />
         <Flex w='full' justifyContent='space-between'>
           <Text fontWeight='600'>Tổng tiền:</Text>
           <Text fontSize='1.4rem' fontWeight='700' color='pink.400'>
-            {formatMoney(data.totalPrice)}
+            {formatMoney(data.totalAmount)}
           </Text>
         </Flex>
       </VStack>

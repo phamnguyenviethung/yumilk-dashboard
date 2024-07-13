@@ -10,7 +10,7 @@ export default {
   PROCESSING: {
     id: 2,
     name: 'Processing',
-    text: 'Đang xử lý',
+    text: 'Đang đóng gói',
     color: 'purple',
   },
   SHIPPED: {

@@ -41,7 +41,20 @@ const OrderTable = ({ data }) => {
     {
       field: 'totalAmount',
       headerName: 'Tổng tiền',
-      valueFormatter: p => formatMoney(p.value),
+      cellRenderer: p => (
+        <Text
+          fontWeight={600}
+          color={
+            p.value < 500000
+              ? 'blue.400'
+              : p.value > 1500000
+              ? 'red.400'
+              : 'pink.300'
+          }
+        >
+          {formatMoney(p.value)}
+        </Text>
+      ),
     },
     {
       field: 'paymentMethod',
