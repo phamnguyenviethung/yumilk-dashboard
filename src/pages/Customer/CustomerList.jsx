@@ -4,8 +4,7 @@ import CustomerTable from '@/features/Customer/CustomerTable';
 const CustomerList = () => {
   const { data, isLoading } = useGetAllCustomersQuery({
     pageSize: 9999999,
-    RoleIds: '1,2',
-    SortColumn: 'createdAt',
+    SortColumn: 'username',
   });
   if (isLoading) return <p>loading...........</p>;
   return (

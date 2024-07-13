@@ -47,7 +47,7 @@ const ChangeStatusButton = ({ data, id }) => {
       console.log(error);
     }
   };
-  const handleSetToDelivered = async statusId => {
+  const handleSetToDelivered = async () => {
     try {
       const res = await setToDeliveredAPI(id);
       if (res.error) throw res.error.data;

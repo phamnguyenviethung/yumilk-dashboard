@@ -1,6 +1,6 @@
 import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
-import { Box, Link as ChakraLink, Flex, Tag } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Flex, Tag, Text } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import '@/assets/table.css';
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
@@ -15,7 +15,7 @@ const Status = ({ data }) => {
   return (
     <Flex alignItems='center' boxSize='full'>
       <Tag colorScheme={order[data.value.toUpperCase()].color}>
-        {data.value}
+        {order[data.value.toUpperCase()].text}
       </Tag>
     </Flex>
   );
@@ -31,7 +31,7 @@ const RecentOrder = ({ data }) => {
     {
       field: 'createdDate',
       headerName: 'Ngày tạo',
-      filter: true,
+      filter: 'agDateColumnFilter',
       valueFormatter: p =>
         dayjs(p.value)
           .add(dayjs().utcOffset(), 'minutes')
@@ -40,9 +40,42 @@ const RecentOrder = ({ data }) => {
     {
       field: 'totalAmount',
       headerName: 'Tổng tiền',
-      valueFormatter: p => formatMoney(p.value),
+      cellRenderer: p => (
+        <Text
+          fontWeight={600}
+          color={
+            p.value < 500000
+              ? 'blue.400'
+              : p.value > 1500000
+              ? 'red.400'
+              : 'pink.300'
+          }
+        >
+          {formatMoney(p.value)}
+        </Text>
+      ),
     },
-    { field: 'paymentMethod', headerName: 'Thanh toán' },
+    {
+      field: 'paymentMethod',
+      headerName: 'Thanh toán',
+      cellRenderer: p => {
+        if (p.data.isPreOrder) {
+          return (
+            <Text color='purple' fontWeight={600}>
+              {p.value}
+            </Text>
+          );
+        }
+        return (
+          <Text
+            color={p.value === 'COD' ? 'green.400' : 'blue.400'}
+            fontWeight={600}
+          >
+            {p.value}
+          </Text>
+        );
+      },
+    },
     {
       field: 'orderStatus',
       headerName: 'Trạng thái',

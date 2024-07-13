@@ -37,6 +37,10 @@ function UnitModal({ id, isAdd }) {
   const validationSchema = yup.object().shape({
     name: yup.string().required('Vui lòng không bỏ trống'),
     description: yup.string(),
+    gram: yup
+      .number()
+      .min(1, 'Tối thiểu phải là gì 1')
+      .required('Vui lòng không bỏ trống'),
   });
   const handleSubmit = async val => {
     try {
@@ -47,7 +51,10 @@ function UnitModal({ id, isAdd }) {
       } else {
         const res = await updateUnitAPI({
           id,
-          body: val,
+          body: {
+            ...val,
+            gram: val.gram * 1,
+          },
         });
         if (res.error) throw res.error.data;
         onClose();
@@ -113,6 +120,14 @@ function UnitModal({ id, isAdd }) {
                         label='Tên thuộc tính'
                         name='name'
                         required={true}
+                        size='lg'
+                        mb={2}
+                      />
+                      <FastField
+                        component={InputField}
+                        placeholder='Giá trị (gram)'
+                        label='Giá trị (gram)'
+                        name='gram'
                         size='lg'
                         mb={2}
                       />
