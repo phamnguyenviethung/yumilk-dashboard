@@ -53,6 +53,14 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Order'],
     }),
+    setOrderToDelivered: build.mutation({
+      query: id => ({
+        url: `/dashboard/orders/${id}/status/delivered`,
+        method: 'PATCH',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Order'],
+    }),
   }),
 });
 
@@ -63,4 +71,5 @@ export const {
   useChangeOrderStatusMutation,
   useCancelGHNOrderMutation,
   useGetShippingDetailQuery,
+  useSetOrderToDeliveredMutation,
 } = orderApi;

@@ -2,6 +2,7 @@ import {
   useCancelGHNOrderMutation,
   useCancelOrderMutation,
   useChangeOrderStatusMutation,
+  useSetOrderToDeliveredMutation,
 } from '@/apis/orderApi';
 import order from '@/constants/order';
 import { Button, ButtonGroup } from '@chakra-ui/react';
@@ -35,9 +36,20 @@ const ChangeStatusButton = ({ data, id }) => {
     }
   };
 
+  const [setToDeliveredAPI, { isLoading: deliveredLoading }] =
+    useSetOrderToDeliveredMutation();
+
   const handleChangeStatus = async statusId => {
     try {
       const res = await changeOrderStatusAPI({ id, statusId });
+      if (res.error) throw res.error.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleSetToDelivered = async statusId => {
+    try {
+      const res = await setToDeliveredAPI(id);
       if (res.error) throw res.error.data;
     } catch (error) {
       console.log(error);
@@ -59,7 +71,22 @@ const ChangeStatusButton = ({ data, id }) => {
           onClick={handleCancel}
           isLoading={changeLoading || cancelLoading || cancelGHNLoading}
         >
-          Hủy
+          Hủy đơn hàng
+        </Button>
+      )}
+      {data.orderStatus === order.SHIPPED.name && (
+        <Button
+          flex='1'
+          size={{
+            base: 'sm',
+            lg: 'md',
+          }}
+          w='full'
+          colorScheme='green'
+          onClick={handleSetToDelivered}
+          isLoading={deliveredLoading || cancelLoading || cancelGHNLoading}
+        >
+          Đã nhận hàng
         </Button>
       )}
       {shouldConfirm.includes(data.orderStatus) &&
