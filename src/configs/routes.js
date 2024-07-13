@@ -17,6 +17,7 @@ import ProductList from '@/pages/Product/ProductList';
 import UnitList from '@/pages/Product/UnitList';
 import StaffList from '@/pages/Staff/StaffList';
 import Stat from '@/pages/Stat';
+import VoucherList from '@/pages/Voucher/VoucherList';
 
 const routes = [
   {
@@ -73,6 +74,10 @@ const routes = [
       {
         path: '/manage/order',
         component: OrderList,
+      },
+      {
+        path: '/manage/voucher',
+        component: VoucherList,
       },
       {
         path: '/manage/order/:id',

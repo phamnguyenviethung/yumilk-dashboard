@@ -61,6 +61,7 @@ function InputField(props) {
       <InputGroup w='full'>
         <Input
           w='full'
+          maxW='full'
           _hover={{
             borderColor: 'pink.400',
             outline: 0,

@@ -19,8 +19,13 @@ const PreOrderInformation = ({ data }) => {
       .min(0)
       .max(30)
       .required('Vui lòng không bỏ trống'),
-    startDate: yup.date(),
-    endDate: yup.date().min(yup.ref('startDate')),
+    startDate: yup.date().required('Vui lòng không bỏ trống'),
+    endDate: yup
+      .date()
+      .min(
+        yup.ref('startDate'),
+        'Phải lớn hơn ngày bắt đầu'.required('Vui lòng không bỏ trống')
+      ),
   });
 
   return (

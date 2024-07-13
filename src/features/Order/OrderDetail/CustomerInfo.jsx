@@ -39,7 +39,7 @@ const CustomerInfo = ({ data }) => {
   const customerInfo = [
     {
       name: 'Người nhận',
-      value: data.recieverName,
+      value: data.receiverName,
     },
     {
       name: 'Số điện thoại',

@@ -4,7 +4,7 @@ export default {
   PENDING: {
     id: 1,
     name: 'Pending',
-    text: 'Đang chờ thanh toán',
+    text: 'Đang chờ xác nhận',
     color: 'blue',
   },
   PROCESSING: {
