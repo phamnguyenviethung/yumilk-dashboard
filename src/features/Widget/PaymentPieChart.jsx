@@ -18,7 +18,7 @@ const PaymentPieChart = () => {
   const options = {
     data: [
       { name: 'COD', percent: data?.percentCod },
-      { name: 'Ngân hàng', percent: data?.percentPayos },
+      { name: 'Ngân hàng', percent: data?.percentPayOs },
     ],
     title: {
       text: 'Tỷ lệ sử dụng các phương thức thanh toán',
