@@ -1,3 +1,4 @@
+import { HiOutlineStar } from 'react-icons/hi';
 import {
   TbCategory,
   TbChartLine,
@@ -42,6 +43,11 @@ const data = [
         name: 'Danh sách',
         path: '/manage/product',
         icon: TbLayoutList,
+      },
+      {
+        name: 'Đánh giá',
+        path: '/manage/review',
+        icon: HiOutlineStar,
       },
       {
         name: 'Thuộc tính',

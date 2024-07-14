@@ -15,6 +15,7 @@ import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
 import UnitList from '@/pages/Product/UnitList';
+import ReviewList from '@/pages/Review/ReviewList';
 import StaffList from '@/pages/Staff/StaffList';
 import Stat from '@/pages/Stat';
 import VoucherList from '@/pages/Voucher/VoucherList';
@@ -62,7 +63,10 @@ const routes = [
         path: '/manage/brand',
         component: BrandList,
       },
-
+      {
+        path: '/manage/review',
+        component: ReviewList,
+      },
       {
         path: '/manage/customer',
         component: CustomerList,
