@@ -3,6 +3,7 @@ import CircleLoading from '@/components/Loading/CircleLoading';
 import HomePageBoxStats from '@/features/Widget/HomePageBoxStats';
 import PaymentPieChart from '@/features/Widget/PaymentPieChart';
 import RecentOrder from '@/features/Widget/RecentOrder';
+import RevenueMonthLineChart from '@/features/Widget/RevenueMonthLineChart';
 import WeeklyChart from '@/features/Widget/WeeklyChart';
 import { Box, Center, Heading, Stack, VStack } from '@chakra-ui/react';
 const Home = () => {
@@ -32,6 +33,9 @@ const Home = () => {
           <WeeklyChart />
         </Box>
       </Stack>
+      <Box w='full'>
+        <RevenueMonthLineChart />
+      </Box>
       <Box h='600px' w='full'>
         <Heading as='h4' fontSize='1.4rem' color='pink.400' my={4}>
           Đơn hàng gần đây

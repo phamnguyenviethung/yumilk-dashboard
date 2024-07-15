@@ -19,7 +19,7 @@ import {
 
 const data = [
   { name: 'Trang chủ', icon: TbDashboard, path: '/' },
-  { name: 'Thống kê', icon: TbChartLine, path: '/stats' },
+  // { name: 'Thống kê', icon: TbChartLine, path: '/stats' },
   {
     name: 'Đơn hàng',
     icon: TbReceipt,

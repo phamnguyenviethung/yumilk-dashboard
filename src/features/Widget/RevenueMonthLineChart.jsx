@@ -3,7 +3,7 @@ import CircleLoading from '@/components/Loading/CircleLoading';
 import { Center } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { AgCharts } from 'ag-charts-react';
-
+import numeral from 'numeral';
 const RevenueMonthLineChart = () => {
   const theme = useTheme();
 
@@ -17,12 +17,18 @@ const RevenueMonthLineChart = () => {
 
   const options = {
     container: document.getElementById('orderPerDay'),
+    theme: {
+      palette: {
+        fills: ['#B794F4'],
+        strokes: ['gray'],
+      },
+    },
     data: data ?? [],
     background: {
       fill: theme.colors.brand.secondary,
     },
     title: {
-      text: 'Các lượt mua hàng',
+      text: 'Doanh thu',
       color: 'white',
     },
 
@@ -31,9 +37,9 @@ const RevenueMonthLineChart = () => {
         type: 'line',
         xKey: 'month',
         yKey: 'revenue',
-        color: 'white',
         label: {
           color: 'white',
+          formatter: ({ value }) => numeral(value).format('-0a'),
         },
       },
     ],
@@ -52,7 +58,7 @@ const RevenueMonthLineChart = () => {
         position: 'left',
         type: 'number',
         title: {
-          text: 'Số lượng đơn',
+          text: 'Doanh thu',
         },
       },
     ],
