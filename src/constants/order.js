@@ -32,6 +32,7 @@ export default {
     color: 'red',
   },
   PREORDERED: {
+    id: 6,
     name: 'Preordered',
     text: 'Đặt trước',
     color: 'cyan',

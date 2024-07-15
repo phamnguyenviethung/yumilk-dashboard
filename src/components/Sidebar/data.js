@@ -1,7 +1,6 @@
 import { HiOutlineStar } from 'react-icons/hi';
 import {
   TbCategory,
-  TbChartLine,
   TbColorSwatch,
   TbDashboard,
   TbDiscount,

@@ -142,7 +142,7 @@ const OrderLog = ({ data }) => {
                   }}
                   fontWeight={600}
                 >
-                  {info.text}
+                  {info?.text}
                 </Text>
               </HStack>
             );
