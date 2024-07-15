@@ -20,6 +20,7 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -37,7 +38,6 @@ function VoucherModal({ id, isAdd }) {
   if (isLoading) return <p>Loading...</p>;
 
   const validationSchema = yup.object().shape({
-    code: yup.string().required('Vui lòng không bỏ trống'),
     description: yup.string(),
     quantity: yup
       .number()
@@ -56,9 +56,9 @@ function VoucherModal({ id, isAdd }) {
       .min(5, 'Tối thiểu là 5')
       .max(50, 'Tối đa là 50')
       .required('Vui lòng không bỏ trống'),
-    startDate: yup.date().required('Vui lòng không bỏ trống'),
+    startDate: yup.date('Sai định dạng').required('Vui lòng không bỏ trống'),
     endDate: yup
-      .date()
+      .date('Sai định dạng')
       .min(yup.ref('startDate'), 'Phải lớn hơn ngày bắt đầu')
       .required('Vui lòng không bỏ trống'),
   });
@@ -96,14 +96,13 @@ function VoucherModal({ id, isAdd }) {
   };
 
   const initialValues = {
-    code: '',
     description: '',
-    quantity: 0,
+    quantity: 10,
     minPriceCondition: 1000,
     maxDiscount: 1000,
     percent: 5,
-    startDate: Date.now(),
-    endDate: Date.now(),
+    startDate: dayjs().toISOString(),
+    endDate: dayjs().toISOString(),
     isActive: false,
   };
 
@@ -246,6 +245,7 @@ function VoucherModal({ id, isAdd }) {
                       type='submit'
                       colorScheme='pink'
                       isLoading={updateLoading || addLoading}
+                      onClick={formik.handleSubmit}
                     >
                       {isAdd ? 'Thêm' : 'Cập nhật'}
                     </Button>

@@ -50,8 +50,6 @@ const ProductInformation = ({ data }) => {
       .number('Vui lòng nhập vào 1 số')
       .min(0, 'Vui lòng nhập 1 số từ 0 trở lên')
       .required('Vui lòng không bỏ trống'),
-    startDate: yup.date(),
-    endDate: yup.date().min(yup.ref('startDate')),
     originalPrice: yup
       .number('Vui lòng nhập vào 1 số')
       .min(0, 'Vui lòng nhập 1 số từ 0 trở lên')
