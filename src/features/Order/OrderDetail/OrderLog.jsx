@@ -65,9 +65,9 @@ function OrderStep({ data, currentStatusID }) {
           return <></>;
         }
         if (
-          (!data.some(i => i.status === step.name) &&
-            currentStatusID === orderConstant.CANCELLED.id) ||
-          currentStatusID === orderConstant.DELIVERED.id
+          !data.some(i => i.status === step.name) &&
+          (currentStatusID === orderConstant.CANCELLED.id ||
+            currentStatusID === orderConstant.DELIVERED.id)
         ) {
           return <></>;
         }
