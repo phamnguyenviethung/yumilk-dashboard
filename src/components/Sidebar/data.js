@@ -5,6 +5,7 @@ import {
   TbColorSwatch,
   TbDashboard,
   TbDiscount,
+  TbFlag,
   TbInfoCircle,
   TbLayoutList,
   TbMilk,
@@ -48,6 +49,11 @@ const data = [
         name: 'Đánh giá',
         path: '/manage/review',
         icon: HiOutlineStar,
+      },
+      {
+        name: 'Báo cáo',
+        path: '/manage/report',
+        icon: TbFlag,
       },
       {
         name: 'Thuộc tính',

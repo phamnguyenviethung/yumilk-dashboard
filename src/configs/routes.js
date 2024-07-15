@@ -15,6 +15,7 @@ import CategoryList from '@/pages/Product/CategoryList';
 import ProductDetailsEdit from '@/pages/Product/ProductDetailEdit';
 import ProductList from '@/pages/Product/ProductList';
 import UnitList from '@/pages/Product/UnitList';
+import ReportList from '@/pages/Report/ReportList';
 import ReviewList from '@/pages/Review/ReviewList';
 import StaffList from '@/pages/Staff/StaffList';
 import Stat from '@/pages/Stat';
@@ -54,6 +55,10 @@ const routes = [
       {
         path: '/manage/category',
         component: CategoryList,
+      },
+      {
+        path: '/manage/report',
+        component: ReportList,
       },
       {
         path: '/manage/attribute',
