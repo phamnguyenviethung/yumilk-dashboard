@@ -10,7 +10,6 @@ import {
   TbMilk,
   TbNews,
   TbReceipt,
-  TbSettings,
   TbUser,
   TbUserHeart,
   TbWeight,
@@ -78,6 +77,7 @@ const data = [
   },
   {
     name: 'Nhân viên',
+    forAdmin: true,
     icon: TbUser,
     subItems: [
       {
@@ -112,8 +112,6 @@ const data = [
       },
     ],
   },
-
-  { name: 'Cài đặt', icon: TbSettings },
 ];
 
 export default data;

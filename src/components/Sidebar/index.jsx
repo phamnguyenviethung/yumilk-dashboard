@@ -21,6 +21,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {data.map(link => {
+        if (link.forAdmin) return <></>;
+
         if (link.subItems) {
           return <DropdownItem key={link.name} data={link} />;
         } else {

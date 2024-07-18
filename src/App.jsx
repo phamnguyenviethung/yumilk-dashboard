@@ -25,7 +25,7 @@ function App() {
           <Route key={i} element={<Layout />}>
             {route.data.map(item => {
               const Component = item.component;
-              const PermissionComponent = item.needLogin
+              const PermissionComponent = item.forAdmin
                 ? PermissionCheck
                 : Fragment;
 

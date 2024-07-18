@@ -38,7 +38,7 @@ const routes = [
       {
         path: '/manage/staff',
         component: StaffList,
-        needLogin: true,
+        forAdmin: true,
       },
       {
         path: 'manage/customer/:id',
