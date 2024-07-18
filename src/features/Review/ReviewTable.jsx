@@ -26,7 +26,8 @@ const Stars = ({ rate }) => {
   );
 };
 
-const ReviewTable = ({ data }) => {
+const ReviewTable = props => {
+  const { data } = props;
   const [colDefs] = useState([
     {
       field: 'productName',
