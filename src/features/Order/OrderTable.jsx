@@ -60,10 +60,10 @@ const OrderTable = ({ data }) => {
       field: 'paymentMethod',
       headerName: 'Thanh toán',
       cellRenderer: p => {
-        if (p.data.isPreOrder) {
+        if (p.data.isPreorder) {
           return (
             <Text color='purple' fontWeight={600}>
-              {p.value}
+              Đặt trước
             </Text>
           );
         }

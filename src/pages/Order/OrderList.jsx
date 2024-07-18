@@ -1,8 +1,17 @@
 import { useGetOrderListQuery } from '@/apis/orderApi';
 import { useGetOrderStatsQuery } from '@/apis/statApi';
+import CircleLoading from '@/components/Loading/CircleLoading';
 import BoxStats from '@/components/Stats/BoxStat';
 import OrderTable from '@/features/Order/OrderTable';
-import { Box, HStack, Stack, Switch, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  HStack,
+  Stack,
+  Switch,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import {
   TbPackage,
@@ -50,14 +59,27 @@ const OrderList = () => {
   const { data: stats, isLoading: statsLoading } = useGetOrderStatsQuery({
     params: {},
   });
-  const { data, isLoading } = useGetOrderListQuery({
+  const { data, isLoading, isError } = useGetOrderListQuery({
     pageSize: 999999,
     sortColumn: 'createdAt',
     sortOrder: 'desc',
     isPreorder,
   });
-  if (isLoading || statsLoading) return <p>loading..</p>;
+  if (isLoading || statsLoading) {
+    return (
+      <Center boxSize='full'>
+        <CircleLoading />
+      </Center>
+    );
+  }
 
+  if (isError) {
+    return (
+      <Center boxSize='full'>
+        <Text>Có lỗi xảy ra</Text>
+      </Center>
+    );
+  }
   return (
     <VStack boxSize='full' gap='6'>
       <Stack

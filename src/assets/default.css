@@ -1,3 +1,17 @@
 .chakra-modal__content {
   background-color: var(--chakra-colors-brand-primary) !important;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background-color: var(--chakra-colors-blackAlpha-400);
+  border: 0.25px solid var(--chakra-colors-blackAlpha-500);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: var(--chakra-colors-pink-300);
+}
