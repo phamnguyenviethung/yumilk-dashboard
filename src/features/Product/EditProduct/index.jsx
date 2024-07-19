@@ -1,8 +1,6 @@
-import { useGetProductByIDQuery } from '@/apis/productApi';
-import { Box, Container, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Stack, Text, VStack } from '@chakra-ui/react';
 import ChangeAttributes from './ChangeAttributes';
 import ChangeImages from './ChangeImages';
-import ChangePrice from './ChangePrice';
 import ChangeStatus from './ChangeStatus';
 import ChangeThumbnail from './ChangeThumbnail';
 import PreOrderInformation from './PreOrderInformation';
@@ -30,11 +28,9 @@ const InfoSection = props => {
   );
 };
 
-const EditProduct = ({ id }) => {
-  const { data, isLoading } = useGetProductByIDQuery(id);
-  if (isLoading) return <p>Loading</p>;
+const EditProduct = ({ data }) => {
   return (
-    <Container maxW='container.xl' pt={4} pb={16}>
+    <Box w='full' pt={4} pb={16}>
       <Stack
         w='Full'
         gap='4'
@@ -53,7 +49,7 @@ const EditProduct = ({ id }) => {
             <ChangeThumbnail data={data} />
           </InfoSection>
           <InfoSection title='Ảnh sản phẩm'>
-            <ChangeImages id={id} />
+            <ChangeImages id={data.id} />
           </InfoSection>
           <InfoSection title='Mô tả sản phẩm'>
             <ChangeAttributes data={data} />
@@ -70,7 +66,7 @@ const EditProduct = ({ id }) => {
           </InfoSection>
         </VStack>
       </Stack>
-    </Container>
+    </Box>
   );
 };
 

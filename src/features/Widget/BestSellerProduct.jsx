@@ -31,7 +31,7 @@ const BestSellerProduct = () => {
         Sản phẩm bán chạy
       </Heading>
       <TableContainer bgColor='brand.secondary'>
-        <Table size={['sm', 'md', 'lg']}>
+        <Table size={['md', 'lg']}>
           <Thead>
             <Tr>
               <Th>Tên</Th>

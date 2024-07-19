@@ -8,7 +8,7 @@ const BoxStats = ({ color, icon, stat, name }) => {
       bgColor='brand.secondary'
       p={4}
       borderBottom='2px solid'
-      borderColor={color + '.400'}
+      borderColor={color + '.500'}
       borderRadius='4px'
     >
       <HStack gap={4} w='full' fontWeight='600'>
@@ -16,7 +16,7 @@ const BoxStats = ({ color, icon, stat, name }) => {
           as={icon}
           fontSize='3rem'
           p={3}
-          bgColor={color + '.400'}
+          bgColor={color + '.500'}
           color={color + '.100'}
           borderRadius='6px'
         />

@@ -209,7 +209,7 @@ const ProductInformation = ({ data }) => {
                   onChange={e =>
                     formikProps.setFieldValue('unitId', e.target.value * 1)
                   }
-                  label='Danh mục'
+                  label='Trọng lượng'
                   name='unitId'
                   required={true}
                   size='lg'

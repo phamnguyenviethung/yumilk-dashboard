@@ -30,7 +30,7 @@ const TopCustomer = () => {
         Khách hàng thân thiết
       </Heading>
       <TableContainer bgColor='brand.secondary'>
-        <Table size={['sm', 'md', 'lg']}>
+        <Table size={['md', 'lg']}>
           <Thead>
             <Tr>
               <Th>Tên</Th>
