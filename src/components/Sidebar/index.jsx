@@ -5,7 +5,9 @@ import { matchRoutes } from 'react-router-dom';
 import DropdownItem from '../Navbar/DropdownItem';
 import NavItem from '../Navbar/NavItem';
 import data from './data';
+import { useSelector } from 'react-redux';
 const SidebarContent = ({ onClose, ...rest }) => {
+  const authState = useSelector(state => state.auth);
   return (
     <Box
       bg={'brand.secondary'}
@@ -22,7 +24,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {data.map(link => {
-        if (link.forAdmin) return <></>;
+        if (link.forAdmin && authState?.userData?.role !== 'Admin') {
+          return <></>;
+        }
 
         if (link.subItems) {
           return <DropdownItem key={link.name} data={link} />;
