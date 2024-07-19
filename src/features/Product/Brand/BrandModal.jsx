@@ -116,8 +116,8 @@ function BrandModal({ id, isAdd }) {
                       />
                       <FastField
                         component={InputField}
-                        placeholder='name'
-                        label='Tên danh mục'
+                        placeholder='Tên nhãn hàng'
+                        label='Tên nhãn hàng'
                         name='name'
                         required={true}
                         size='lg'

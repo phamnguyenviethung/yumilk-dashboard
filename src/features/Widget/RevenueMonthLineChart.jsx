@@ -28,7 +28,7 @@ const RevenueMonthLineChart = () => {
       fill: theme.colors.brand.secondary,
     },
     title: {
-      text: 'Doanh thu',
+      text: 'Doanh thu của các tháng',
       color: 'white',
     },
 
@@ -38,8 +38,9 @@ const RevenueMonthLineChart = () => {
         xKey: 'month',
         yKey: 'revenue',
         label: {
-          color: 'white',
+          color: '#fff',
           formatter: ({ value }) => numeral(value).format('-0a'),
+          fontWeight: 500,
         },
       },
     ],
@@ -48,17 +49,21 @@ const RevenueMonthLineChart = () => {
       {
         position: 'bottom',
         type: 'category',
-
         label: {
-          format: '%b',
+          formatter: ({ value }) => 'T' + value,
           color: 'white',
         },
       },
       {
         position: 'left',
         type: 'number',
+        label: {
+          color: 'white',
+          formatter: ({ value }) => numeral(value).format('-0a'),
+        },
         title: {
           text: 'Doanh thu',
+          color: 'white',
         },
       },
     ],

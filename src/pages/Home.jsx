@@ -2,6 +2,7 @@ import { useGetOrderListQuery } from '@/apis/orderApi';
 import CircleLoading from '@/components/Loading/CircleLoading';
 import HomePageBoxStats from '@/features/Widget/HomePageBoxStats';
 import PaymentPieChart from '@/features/Widget/PaymentPieChart';
+import QuarterChart from '@/features/Widget/QuarterChart';
 import RecentOrder from '@/features/Widget/RecentOrder';
 import RecentReview from '@/features/Widget/RecentReview';
 import RevenueMonthLineChart from '@/features/Widget/RevenueMonthLineChart';
@@ -20,6 +21,9 @@ const Home = () => {
   return (
     <VStack w='full' gap='4'>
       <HomePageBoxStats />
+      <Box w='full'>
+        <WeeklyChart />
+      </Box>
       <Stack
         direction={{
           base: 'column',
@@ -32,9 +36,10 @@ const Home = () => {
           <PaymentPieChart />
         </Box>
         <Box flex='4'>
-          <WeeklyChart />
+          <QuarterChart />
         </Box>
       </Stack>
+
       <Box w='full'>
         <RevenueMonthLineChart />
       </Box>

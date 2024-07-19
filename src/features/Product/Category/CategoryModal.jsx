@@ -126,7 +126,7 @@ function CategoryModal({ id, isAdd }) {
                     <VStack w='full' p={2}>
                       <FastField
                         component={InputField}
-                        placeholder='name'
+                        placeholder='Tên danh mục'
                         label='Tên danh mục'
                         name='name'
                         required={true}

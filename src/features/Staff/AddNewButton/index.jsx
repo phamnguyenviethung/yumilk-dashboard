@@ -83,7 +83,7 @@ const AddNewButton = () => {
       <Modal isOpen={isOpen} onClose={onClose} size='xl'>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add New User</ModalHeader>
+          <ModalHeader>Thêm mới người dùngr</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={initialValues}

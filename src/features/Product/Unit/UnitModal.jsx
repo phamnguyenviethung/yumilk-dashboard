@@ -116,8 +116,8 @@ function UnitModal({ id, isAdd }) {
                     <VStack w='full' p={2}>
                       <FastField
                         component={InputField}
-                        placeholder='Tên'
-                        label='Tên thuộc tính'
+                        placeholder='Tên đơn vị'
+                        label='Tên đơn vị'
                         name='name'
                         required={true}
                         size='lg'

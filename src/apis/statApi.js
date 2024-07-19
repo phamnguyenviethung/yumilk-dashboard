@@ -61,6 +61,24 @@ export const statApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Stat'],
     }),
+    getCustomerTotalPurchase: build.query({
+      query: params => ({
+        url: '/dashboard/customers/stats/total-purchase',
+        method: 'GET',
+        params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Stat'],
+    }),
+    getReturnCustomerStat: build.query({
+      query: params => ({
+        url: 'dashboard/customers/stats/2024/returning-customers',
+        method: 'GET',
+        params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Stat'],
+    }),
   }),
 });
 export const {
@@ -70,4 +88,6 @@ export const {
   useGetPaymentStatsQuery,
   useGetOrderStatsByDateQuery,
   useGetRevenueStatsByMonthQuery,
+  useGetReturnCustomerStatQuery,
+  useGetCustomerTotalPurchaseQuery,
 } = statApi;

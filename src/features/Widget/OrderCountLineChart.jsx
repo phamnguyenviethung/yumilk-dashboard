@@ -17,6 +17,8 @@ const OrderCountLineChart = () => {
 
   const options = {
     container: document.getElementById('orderPerDay'),
+    theme: 'ag-material-dark',
+
     data: data?.orderPerDay ?? [],
     background: {
       fill: theme.colors.brand.secondary,
