@@ -1,23 +1,19 @@
+import logo from '@/assets/logo.png';
 import { logout } from '@/features/Auth/authSlice';
 import {
   Avatar,
-  Box,
   Flex,
   HStack,
+  Icon,
   IconButton,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
+  Image,
   Text,
   VStack,
-  useColorModeValue,
 } from '@chakra-ui/react';
-import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
+import { FiMenu } from 'react-icons/fi';
+import { TbLogout } from 'react-icons/tb';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 const MobileNav = ({ onOpen, ...rest }) => {
   const dispatch = useDispatch();
   const authState = useSelector(state => state.auth);
@@ -46,65 +42,52 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
+      <Image
         display={{ base: 'flex', md: 'none' }}
-        fontSize='2xl'
-        fontFamily='monospace'
-        fontWeight='bold'
-      >
-        Logo
-      </Text>
+        src={logo}
+        boxSize='150px'
+      />
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size='lg'
-          variant='ghost'
-          aria-label='open menu'
-          icon={<FiBell />}
-        />
         <Flex alignItems={'center'}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition='all 0.3s'
-              _focus={{ boxShadow: 'none' }}
+          <HStack gap='2'>
+            <Avatar
+              colorScheme='pink'
+              size={'sm'}
+              name={authState?.userData?.lastName}
+            />
+            <VStack
+              display={{ base: 'none', md: 'flex' }}
+              alignItems='flex-start'
+              spacing='1px'
+              ml='2'
             >
-              <HStack>
-                <Avatar
-                  colorScheme='pink'
-                  size={'sm'}
-                  name={authState?.userData?.lastName}
-                />
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems='flex-start'
-                  spacing='1px'
-                  ml='2'
-                >
-                  <Text fontSize='sm'>
-                    {authState?.userData?.firstName +
-                      authState?.userData?.lastName}
-                  </Text>
-                  <Text fontSize='xs' color='gray.600'>
-                    Admin
-                  </Text>
-                </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}
-            >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem onClick={handleLogout}>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
+              <Text fontSize='sm' fontWeight={700}>
+                {authState?.userData?.firstName +
+                  ' ' +
+                  authState?.userData?.lastName}
+              </Text>
+              <Text
+                fontSize='xs'
+                fontWeight='600'
+                color={
+                  authState?.userData?.role === 'Admin'
+                    ? 'pink.300'
+                    : 'purple.400'
+                }
+              >
+                {authState?.userData?.role}
+              </Text>
+            </VStack>
+            <Icon
+              ml={2}
+              as={TbLogout}
+              fontSize='1.2rem'
+              color='red.400'
+              cursor='pointer'
+              onClick={handleLogout}
+            />
+          </HStack>
         </Flex>
       </HStack>
     </Flex>
