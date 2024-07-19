@@ -11,7 +11,6 @@ import ReviewDetail from '@/features/Order/OrderDetail/ReviewDetail';
 import {
   Box,
   Center,
-  Container,
   Flex,
   Heading,
   Stack,
@@ -35,7 +34,7 @@ const OrderDetail = () => {
     );
   if (isError) return <p>Có lỗi xảy ra</p>;
   return (
-    <Container maxW='container.xl' pb='16'>
+    <Box pb='16'>
       <Box w='full' p='2' mb='4'>
         <Stack
           flexDirection={{
@@ -103,7 +102,7 @@ const OrderDetail = () => {
         </Box>
       </Stack>
       <OrderLog data={data} />
-    </Container>
+    </Box>
   );
 };
 

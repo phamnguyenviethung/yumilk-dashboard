@@ -26,6 +26,21 @@ const Home = () => {
       <Box w='full'>
         <WeeklyChart />
       </Box>
+
+      <Stack
+        direction={{
+          base: 'column',
+          lg: 'row',
+        }}
+        w='full'
+        my={4}
+      >
+        <TopCustomer />
+        <BestSellerProduct />
+      </Stack>
+      <Box w='full'>
+        <RevenueMonthLineChart />
+      </Box>
       <Stack
         direction={{
           base: 'column',
@@ -41,20 +56,6 @@ const Home = () => {
           <QuarterChart />
         </Box>
       </Stack>
-      <Stack
-        direction={{
-          base: 'column',
-          lg: 'row',
-        }}
-        w='full'
-        my={4}
-      >
-        <TopCustomer />
-        <BestSellerProduct />
-      </Stack>
-      <Box w='full'>
-        <RevenueMonthLineChart />
-      </Box>
       <Box h='700px' w='full' my={6}>
         <Heading as='h4' fontSize='1.4rem' color='pink.400' my={4}>
           Đơn hàng gần đây

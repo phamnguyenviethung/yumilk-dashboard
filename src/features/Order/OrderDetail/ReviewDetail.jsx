@@ -24,6 +24,8 @@ const StarList = ({ star }) => {
 };
 
 const ReviewDetail = ({ data }) => {
+  if (data.items.length === 0) return <></>;
+
   return (
     <Box p='4' borderRadius='16px' boxSize='full' bgColor='brand.secondary'>
       <Heading as='h6' fontSize='1.2rem' fontWeight='600' mb='8'>

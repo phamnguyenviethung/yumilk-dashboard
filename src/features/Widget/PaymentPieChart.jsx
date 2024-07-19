@@ -3,6 +3,7 @@ import CircleLoading from '@/components/Loading/CircleLoading';
 import { Center } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { AgCharts } from 'ag-charts-react';
+import numeral from 'numeral';
 
 const PaymentPieChart = () => {
   const theme = useTheme();
@@ -19,7 +20,7 @@ const PaymentPieChart = () => {
     theme: {
       baseTheme: 'ag-material-dark',
       palette: {
-        fills: [theme.colors.cyan[400], theme.colors.red[400]],
+        fills: [theme.colors.purple[400], theme.colors.pink[400]],
         strokes: ['gray'],
       },
     },
@@ -54,9 +55,10 @@ const PaymentPieChart = () => {
           color: 'white',
         },
         sectorLabel: {
+          fontSize: 12,
           color: 'white',
           fontWeight: 'bold',
-          formatter: ({ value }) => `${value}%`,
+          formatter: ({ value }) => `${numeral(value).format('0,0')}%`,
         },
       },
     ],

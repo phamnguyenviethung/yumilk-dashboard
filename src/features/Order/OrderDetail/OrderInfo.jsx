@@ -53,6 +53,11 @@ const OrderInfo = ({ data, id }) => {
       value: id,
     },
     {
+      name: 'Mã thanh toán',
+      value: data?.paymentData?.orderCode,
+      needHide: data.paymentMethod === order.COD_PAYMENT,
+    },
+    {
       name: 'Ngày đặt hàng',
       value: dayjs(data.createdAt)
         .add(dayjs().utcOffset(), 'minutes')
@@ -85,6 +90,15 @@ const OrderInfo = ({ data, id }) => {
       tagVariant: 'outline',
     },
     {
+      name: 'Tên người chuyển',
+      value:
+        data?.paymentData?.transactions[0]?.counterAccountName ?? 'Không có',
+      needHide: !data?.paymentData,
+      isTag: true,
+      tagColor: 'teal',
+      tagVariant: 'solid',
+    },
+    {
       name: 'Trạng thái đơn hàng',
       value: order[data.orderStatus.toUpperCase()].text,
       isTag: true,
@@ -98,6 +112,7 @@ const OrderInfo = ({ data, id }) => {
       </Heading>
       <VStack gap='4' w='full'>
         {orderInfo.map(d => {
+          if (d.hide) return <></>;
           return <DetailsText key={d.name} data={d} {...d} />;
         })}
       </VStack>
