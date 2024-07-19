@@ -16,7 +16,13 @@ const PaymentPieChart = () => {
     );
 
   const options = {
-    theme: 'ag-material-dark',
+    theme: {
+      baseTheme: 'ag-material-dark',
+      palette: {
+        fills: [theme.colors.cyan[400], theme.colors.red[400]],
+        strokes: ['gray'],
+      },
+    },
     data: [
       { name: 'COD', percent: data?.percentCod },
       { name: 'Ngân hàng', percent: data?.percentPayOs },

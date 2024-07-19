@@ -1,11 +1,13 @@
 import { useGetOrderListQuery } from '@/apis/orderApi';
 import CircleLoading from '@/components/Loading/CircleLoading';
+import BestSellerProduct from '@/features/Widget/BestSellerProduct';
 import HomePageBoxStats from '@/features/Widget/HomePageBoxStats';
 import PaymentPieChart from '@/features/Widget/PaymentPieChart';
 import QuarterChart from '@/features/Widget/QuarterChart';
 import RecentOrder from '@/features/Widget/RecentOrder';
 import RecentReview from '@/features/Widget/RecentReview';
 import RevenueMonthLineChart from '@/features/Widget/RevenueMonthLineChart';
+import TopCustomer from '@/features/Widget/TopCustomer';
 import WeeklyChart from '@/features/Widget/WeeklyChart';
 import { Box, Center, Heading, Stack, VStack } from '@chakra-ui/react';
 const Home = () => {
@@ -39,7 +41,17 @@ const Home = () => {
           <QuarterChart />
         </Box>
       </Stack>
-
+      <Stack
+        direction={{
+          base: 'column',
+          lg: 'row',
+        }}
+        w='full'
+        my={4}
+      >
+        <TopCustomer />
+        <BestSellerProduct />
+      </Stack>
       <Box w='full'>
         <RevenueMonthLineChart />
       </Box>

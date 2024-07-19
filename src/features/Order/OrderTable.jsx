@@ -62,7 +62,7 @@ const OrderTable = ({ data }) => {
       cellRenderer: p => {
         if (p.data.isPreorder) {
           return (
-            <Text color='purple' fontWeight={600}>
+            <Text color='purple.400' fontWeight={600}>
               Đặt trước
             </Text>
           );

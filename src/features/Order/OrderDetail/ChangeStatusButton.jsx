@@ -5,7 +5,7 @@ import {
   useSetOrderToDeliveredMutation,
 } from '@/apis/orderApi';
 import order from '@/constants/order';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button, ButtonGroup, useToast } from '@chakra-ui/react';
 const shouldCancel = [
   order.PENDING.name,
   order.PROCESSING.name,
@@ -38,13 +38,20 @@ const ChangeStatusButton = ({ data, id }) => {
 
   const [setToDeliveredAPI, { isLoading: deliveredLoading }] =
     useSetOrderToDeliveredMutation();
-
+  const toast = useToast();
   const handleChangeStatus = async statusId => {
     try {
       const res = await changeOrderStatusAPI({ id, statusId });
       if (res.error) throw res.error.data;
     } catch (error) {
       console.log(error);
+      toast({
+        title: error.message || error.title,
+        status: 'error',
+        duration: 2500,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
   };
   const handleSetToDelivered = async () => {
@@ -53,6 +60,13 @@ const ChangeStatusButton = ({ data, id }) => {
       if (res.error) throw res.error.data;
     } catch (error) {
       console.log(error);
+      toast({
+        title: error.message || error.title,
+        status: 'error',
+        duration: 2500,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
   };
 

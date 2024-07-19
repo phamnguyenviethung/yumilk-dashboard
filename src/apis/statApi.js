@@ -2,13 +2,12 @@ import { api } from './api';
 export const statApi = api.injectEndpoints({
   endpoints: build => ({
     getProductStats: build.query({
-      query: ({ fromDate, toDate, parentId }) => ({
+      query: params => ({
         url: '/dashboard/products/stats',
         method: 'GET',
         params: {
-          from: fromDate,
-          to: toDate,
-          ParentId: parentId,
+          FromOrderDate: '2000-01-01',
+          ...params,
         },
       }),
       transformResponse: res => res.data,
@@ -72,7 +71,7 @@ export const statApi = api.injectEndpoints({
     }),
     getReturnCustomerStat: build.query({
       query: params => ({
-        url: 'dashboard/customers/stats/2024/returning-customers',
+        url: '/dashboard/customers/stats/2024/returning-customers',
         method: 'GET',
         params,
       }),
