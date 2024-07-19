@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import ChangeBrandLogo from './ChangeBrandLogo';
 
 function BrandModal({ id, isAdd }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -96,6 +97,7 @@ function BrandModal({ id, isAdd }) {
             initialValues={{
               name: '',
               isActive: false,
+              logo: '',
               ...data,
               description: data?.description ?? '',
             }}
@@ -108,6 +110,10 @@ function BrandModal({ id, isAdd }) {
                   <ModalCloseButton />
                   <ModalBody>
                     <VStack w='full' p={2}>
+                      <ChangeBrandLogo
+                        logo={formik.values.logo}
+                        setLogo={data => formik.setFieldValue('logo', data)}
+                      />
                       <FastField
                         component={InputField}
                         placeholder='name'

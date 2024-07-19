@@ -28,10 +28,10 @@ export const brandApi = api.injectEndpoints({
       invalidatesTags: ['Brand'],
     }),
     updateBrand: build.mutation({
-      query: ({ id, data }) => ({
+      query: ({ id, body }) => ({
         url: `/products/brands/${id}`,
         method: 'patch',
-        body: data,
+        body,
       }),
       transformResponse: res => res.data,
       invalidatesTags: ['Brand'],
