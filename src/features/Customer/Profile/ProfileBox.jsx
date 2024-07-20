@@ -1,7 +1,9 @@
+import { useUpdateUserMutation } from '@/apis/userApi';
 import formatMoney from '@/utils/formatMoney';
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   Flex,
   Icon,
@@ -108,7 +110,24 @@ const CustomerStat = ({ number, name, icon, bgColor }) => {
   );
 };
 
-const ProfileBox = ({ data }) => {
+const ProfileBox = ({ data, statData }) => {
+  const [updateUserAPI, { isLoading }] = useUpdateUserMutation();
+
+  const handleBanUser = async () => {
+    try {
+      const res = await updateUserAPI({
+        id: data.userID,
+        data: {
+          isBanned: !data.isBanned,
+        },
+      });
+
+      if (res.error) throw res.error.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Flex
       direction='column'
@@ -118,19 +137,19 @@ const ProfileBox = ({ data }) => {
     >
       <Avatar name={data.lastName} size='xl' />
       <Text fontSize='14px' fontWeight='600' color='gray.400' my={4}>
-        Customer ID: {data.userID}
+        ID: {data.userID}
       </Text>
       <Flex justifyContent='space-between'>
         <CustomerStat
           icon={MdOutlineShoppingCart}
           name='Đơn hàng'
-          number='100'
+          number={statData?.totalPurchase ?? 0}
           bgColor='pink.400'
         />
         <CustomerStat
           icon={MdOutlineAttachMoney}
           name='Chi tiêu'
-          number={formatMoney(1000000)}
+          number={formatMoney(statData?.totalRevenue ?? 0)}
           bgColor='green.400'
         />
       </Flex>
@@ -151,6 +170,15 @@ const ProfileBox = ({ data }) => {
             />
           );
         })}
+        <Button
+          mt={4}
+          w='full'
+          colorScheme={data?.isBanned ? 'green' : 'red'}
+          isLoading={isLoading}
+          onClick={handleBanUser}
+        >
+          {data?.isBanned ? 'Mở' : 'Khoá'} tài khoản
+        </Button>
       </VStack>
     </Flex>
   );

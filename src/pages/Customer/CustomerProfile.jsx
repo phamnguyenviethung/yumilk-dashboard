@@ -3,20 +3,11 @@ import {
   useGetCustomerByIDQuery,
   useGetCustomerOrderHistoryQuery,
 } from '@/apis/customerApi';
+import { useGetCustomerStatByIDQuery } from '@/apis/statApi';
 import CircleLoading from '@/components/Loading/CircleLoading';
 import ProfileBox from '@/features/Customer/Profile/ProfileBox';
 import OrderTable from '@/features/Order/OrderTable';
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  Box,
-  Center,
-  Flex,
-  Tag,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Center, Flex, Tag, Text, VStack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
 const CustomerProfile = () => {
@@ -31,22 +22,23 @@ const CustomerProfile = () => {
         pageSize: 999999999,
       },
     });
+  const { data: statData, isLoading: statLoading } =
+    useGetCustomerStatByIDQuery(id, {
+      skip: !id,
+    });
 
-  if (isLoading || addressLoading || orderLoading)
+  if (isLoading || addressLoading || orderLoading || statLoading)
     return (
-      <Center h='full'>
+      <Center boxSize='full'>
         <CircleLoading />
       </Center>
     );
 
   if (isError) {
     return (
-      <Box>
-        <Alert status='error'>
-          <AlertIcon />
-          <AlertTitle>Không có dữ liệu</AlertTitle>
-        </Alert>
-      </Box>
+      <Center boxSize='full'>
+        <Text>Không có dữ liệu</Text>
+      </Center>
     );
   }
 
@@ -70,7 +62,7 @@ const CustomerProfile = () => {
           py={8}
           px={4}
         >
-          <ProfileBox data={data} />
+          <ProfileBox data={data} statData={statData[0]} />
         </Box>
         <VStack w='full' flex='5' gap='4'>
           {addressData.map(address => {
@@ -112,7 +104,7 @@ const CustomerProfile = () => {
       </Flex>
 
       <Box boxSize='full' h='500px'>
-        <OrderTable data={orderData } />
+        <OrderTable data={orderData} />
       </Box>
     </VStack>
   );
