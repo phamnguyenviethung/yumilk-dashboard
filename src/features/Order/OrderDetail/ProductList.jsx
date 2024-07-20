@@ -16,7 +16,7 @@ const ProductList = ({ data }) => {
             py='4'
             bgColor='brand.primary'
             _hover={{
-              bgColor: 'gray.600',
+              bgColor: 'blackAlpha.600',
             }}
             mb='4'
             borderRadius='10px'

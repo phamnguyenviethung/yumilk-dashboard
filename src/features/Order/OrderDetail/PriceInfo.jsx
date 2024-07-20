@@ -1,5 +1,7 @@
+import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
 import { Box, Divider, Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import numeral from 'numeral';
 
 const PriceInfo = ({ data }) => {
   return (
@@ -14,12 +16,7 @@ const PriceInfo = ({ data }) => {
           </Text>
           <Text>{formatMoney(data.totalPriceBeforeDiscount)}</Text>
         </Flex>
-        <Flex w='full' justifyContent='space-between'>
-          <Text fontWeight='400' fontSize='0.95rem'>
-            Phí vận chuyển:
-          </Text>
-          <Text>{formatMoney(data.shippingFee)}</Text>
-        </Flex>
+
         <Flex w='full' justifyContent='space-between'>
           <Text fontWeight='400' fontSize='0.95rem'>
             Sử dụng voucher:
@@ -32,6 +29,18 @@ const PriceInfo = ({ data }) => {
           </Text>
           <Text color='red.400'>-{formatMoney(data.pointDiscount)}</Text>
         </Flex>
+        <Flex w='full' justifyContent='space-between'>
+          <Text fontWeight='400' fontSize='0.95rem'>
+            Giá sau giảm giá:
+          </Text>
+          <Text>{formatMoney(data.totalPriceAfterDiscount)}</Text>
+        </Flex>
+        <Flex w='full' justifyContent='space-between'>
+          <Text fontWeight='400' fontSize='0.95rem'>
+            Phí vận chuyển:
+          </Text>
+          <Text>{formatMoney(data.shippingFee)}</Text>
+        </Flex>
         <Divider />
         <Flex w='full' justifyContent='space-between'>
           <Text fontWeight='600'>Tổng tiền:</Text>
@@ -39,6 +48,16 @@ const PriceInfo = ({ data }) => {
             {formatMoney(data.totalAmount)}
           </Text>
         </Flex>
+        {data.orderStatus === order.DELIVERED.name && (
+          <Flex w='full' justifyContent='space-between'>
+            <Text fontWeight='600' fontSize='1.1rem'>
+              Số xu nhận được
+            </Text>
+            <Text color='green.400' fontWeight='600'>
+              {numeral(data.recievingPoint).format('+0,0')}
+            </Text>
+          </Flex>
+        )}
       </VStack>
     </Box>
   );

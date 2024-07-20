@@ -2,6 +2,12 @@ import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
 import { Box, HStack, Heading, Tag, Text, VStack } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+const STATUS_PAYMENT = {
+  PAID: 'Đã chuyển',
+  CANCELLED: 'Đã huỷ thanh toán',
+  PENDING: 'Đang chờ thanh toán',
+};
+
 const DetailsText = ({
   data,
   isTag,
@@ -76,20 +82,6 @@ const OrderInfo = ({ data, id }) => {
           : 'Thanh toán qua ngân hàng',
     },
     {
-      name: 'Tổng tiền',
-      value: formatMoney(data.totalAmount),
-      isTag: true,
-      tagColor: 'pink',
-    },
-    {
-      name: 'Trạng thái thanh toán',
-      value: data?.paymentData?.status,
-      needHide: !data?.paymentData,
-      isTag: true,
-      tagColor: order[data.orderStatus.toUpperCase()].color,
-      tagVariant: 'outline',
-    },
-    {
       name: 'Tên người chuyển',
       value:
         data?.paymentData?.transactions[0]?.counterAccountName ?? 'Không có',
@@ -98,6 +90,32 @@ const OrderInfo = ({ data, id }) => {
       tagColor: 'teal',
       tagVariant: 'solid',
     },
+    {
+      name: 'Số tài khoản',
+      value:
+        data?.paymentData?.transactions[0]?.counterAccountNumber ?? 'Không có',
+      needHide: !data?.paymentData,
+      isTag: true,
+      tagColor: 'yellow',
+      tagVariant: 'solid',
+    },
+
+    {
+      name: 'Tổng tiền',
+      value: formatMoney(data.totalAmount),
+      isTag: true,
+      tagColor: 'pink',
+    },
+    {
+      name: 'Trạng thái thanh toán',
+      value:
+        STATUS_PAYMENT[data?.paymentData?.status] ?? data?.paymentData?.status,
+      needHide: !data?.paymentData,
+      isTag: true,
+      tagColor: order[data.orderStatus.toUpperCase()].color,
+      tagVariant: 'outline',
+    },
+
     {
       name: 'Trạng thái đơn hàng',
       value: order[data.orderStatus.toUpperCase()].text,
