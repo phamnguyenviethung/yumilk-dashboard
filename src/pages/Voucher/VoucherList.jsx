@@ -2,10 +2,10 @@ import { useGetAllVouchersQuery } from '@/apis/voucherApi';
 import CircleLoading from '@/components/Loading/CircleLoading';
 import VoucherModal from '@/features/Voucher/VoucherModal';
 import VoucherTable from '@/features/Voucher/VoucherTable';
-import { Center, Flex, VStack } from '@chakra-ui/react';
+import { Center, Flex, Text, VStack } from '@chakra-ui/react';
 
 const VoucherList = () => {
-  const { data, isLoading } = useGetAllVouchersQuery({
+  const { data, isLoading, isError } = useGetAllVouchersQuery({
     pageSize: 999999,
     sortColumn: 'percent',
   });
@@ -15,6 +15,14 @@ const VoucherList = () => {
         <CircleLoading />
       </Center>
     );
+
+  if (isError) {
+    return (
+      <Center boxSize='full'>
+        <Text>Có lỗi xảy ra</Text>
+      </Center>
+    );
+  }
 
   return (
     <VStack boxSize='full' gap='6' w='full'>
