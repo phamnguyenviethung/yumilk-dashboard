@@ -5,7 +5,20 @@ import {
   useSetOrderToDeliveredMutation,
 } from '@/apis/orderApi';
 import order from '@/constants/order';
-import { Button, ButtonGroup, useToast } from '@chakra-ui/react';
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  ButtonGroup,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
+import { useRef } from 'react';
 const shouldCancel = [
   order.PENDING.name,
   order.PROCESSING.name,
@@ -14,6 +27,46 @@ const shouldCancel = [
 ];
 const shouldConfirm = [order.PENDING.name];
 const shouldCreateShip = [order.PROCESSING.name, order.PREORDERED.name];
+
+const CancelDialog = props => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
+  return (
+    <>
+      <Button {...props} onClick={onOpen}>
+        Hủy đơn hàng
+      </Button>
+      <AlertDialog
+        motionPreset='slideInBottom'
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Huỷ</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>Bạn có muốn huỷ đơn hàng này ko</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Quay lại
+            </Button>
+            <Button
+              colorScheme='red'
+              ml={3}
+              onClick={props.onClick}
+              isLoading={props.isLoading}
+            >
+              Huỷ
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+};
 
 const ChangeStatusButton = ({ data, id }) => {
   const [cancelOrderAPI, { isLoading: cancelLoading }] =
@@ -73,7 +126,7 @@ const ChangeStatusButton = ({ data, id }) => {
   return (
     <ButtonGroup w='full'>
       {shouldCancel.includes(data.orderStatus) && (
-        <Button
+        <CancelDialog
           flex='1'
           size={{
             base: 'sm',
@@ -86,7 +139,7 @@ const ChangeStatusButton = ({ data, id }) => {
           isLoading={changeLoading || cancelLoading || cancelGHNLoading}
         >
           Hủy đơn hàng
-        </Button>
+        </CancelDialog>
       )}
       {data.orderStatus === order.SHIPPED.name && (
         <Button
