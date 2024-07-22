@@ -14,7 +14,6 @@ const UnitTable = ({ data }) => {
   const [deleteUnitAPI, { isLoading }] = useDeleteUnitMutation();
 
   const [colDefs] = useState([
-    { field: 'id', headerName: 'ID' },
     { field: 'name', filter: true },
     {
       field: 'isActive',

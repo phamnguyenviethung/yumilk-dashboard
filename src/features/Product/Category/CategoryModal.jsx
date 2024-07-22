@@ -11,6 +11,7 @@ import {
   Button,
   Center,
   HStack,
+  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -25,6 +26,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
+import { TbEye } from 'react-icons/tb';
 import * as yup from 'yup';
 
 function CategoryModal({ id, isAdd }) {
@@ -96,7 +98,7 @@ function CategoryModal({ id, isAdd }) {
         onClick={onOpen}
         my={isAdd ? 2 : 0}
       >
-        {isAdd ? 'Thêm mới' : ' Xem chi tiết'}
+        {isAdd ? 'Thêm mới' : <Icon as={TbEye} fontSize='1.5rem' />}
       </Button>
 
       <Modal

@@ -1,10 +1,17 @@
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import { useState } from 'react';
-import { Tag, Text } from '@chakra-ui/react';
+import { Button, HStack, Icon, Tag, Text, useToast } from '@chakra-ui/react';
 import CategoryModal from './CategoryModal';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteCategoryMutation } from '@/apis/productApi';
+import DeleteDialog from '@/components/DeleteDialog';
+import { TbTrash } from 'react-icons/tb';
 
 const CategoryTable = ({ data }) => {
+  const toast = useToast();
+  const [deleteCategoryAPI, { isLoading }] = useDeleteCategoryMutation();
+  const navigate = useNavigate();
   const [colDefs] = useState([
     {
       field: 'id',
@@ -43,7 +50,47 @@ const CategoryTable = ({ data }) => {
     {
       field: 'id',
       headerName: 'Chi tiết',
-      cellRenderer: props => <CategoryModal id={props.value} />,
+      cellRenderer: props => (
+        <HStack gap='1'>
+          <CategoryModal id={props.value} />
+          <DeleteDialog
+            handleDelete={async () => {
+              try {
+                const res = await deleteCategoryAPI(props.value);
+                if (res.error) throw res.error.data;
+                toast({
+                  title: 'Xoá thành công',
+                  status: 'success',
+                  duration: 1000,
+                  isClosable: true,
+                  position: 'top-right',
+                  onCloseComplete: () => {
+                    navigate('/manage/category');
+                  },
+                });
+              } catch (error) {
+                toast({
+                  title: error?.message ?? 'Thất bại',
+                  status: 'error',
+                  duration: 2500,
+                  isClosable: true,
+                  position: 'top-right',
+                });
+              }
+            }}
+            isLoading={isLoading}
+          >
+            <Button
+              variant='ghost'
+              colorScheme='pink'
+              size='sm'
+              isLoading={isLoading}
+            >
+              <Icon as={TbTrash} fontSize='1.5rem' colorScheme='pink.400' />
+            </Button>
+          </DeleteDialog>
+        </HStack>
+      ),
     },
   ]);
   return (
