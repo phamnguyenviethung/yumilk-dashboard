@@ -27,6 +27,14 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Product'],
     }),
+    deleteProduct: build.mutation({
+      query: id => ({
+        url: `/products/${id}`,
+        method: 'DELETE',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product'],
+    }),
     updatePreOrderProduct: build.mutation({
       query: data => ({
         url: `/products/${data.id}/preorder`,
@@ -163,4 +171,5 @@ export const {
   useUpdateUnitMutation,
   useGetAllUnitQuery,
   useGetUnitByIDQuery,
+  useDeleteProductMutation,
 } = productApi;
