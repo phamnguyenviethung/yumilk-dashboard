@@ -207,7 +207,7 @@ const ChangeStatusButton = ({ data, id }) => {
             onClick={() => handleChangeStatus(order.SHIPPED.id)}
             isLoading={changeLoading || cancelLoading}
           >
-            Tạo đơn vận chuyển
+            Tạo đơn vận chuyển GHN
           </Button>
         )}
       </Box>
