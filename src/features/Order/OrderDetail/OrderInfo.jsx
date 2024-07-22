@@ -70,6 +70,13 @@ const OrderInfo = ({ data, id }) => {
         .format('HH:mm DD/MM/YYYY'),
     },
     {
+      name: 'Dự kiến giao hàng',
+      value: dayjs(data.expectedDeliveryDate)
+        .add(dayjs().utcOffset(), 'minutes')
+        .format('DD/MM/YYYY'),
+      needHide: data.expectedDeliveryDate == null,
+    },
+    {
       name: 'Ghi chú',
       value: data.note,
       color: 'red.500',
