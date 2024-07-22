@@ -9,6 +9,8 @@ import PriceInfo from '@/features/Order/OrderDetail/PriceInfo';
 import ProductList from '@/features/Order/OrderDetail/ProductList';
 import ReviewDetail from '@/features/Order/OrderDetail/ReviewDetail';
 import {
+  Alert,
+  AlertIcon,
   Box,
   Center,
   Flex,
@@ -32,7 +34,12 @@ const OrderDetail = () => {
         <CircleLoading />
       </Center>
     );
-  if (isError) return <p>Có lỗi xảy ra</p>;
+  if (isError)
+    return (
+      <Center boxSize='full'>
+        <Text>Có lỗi xảy ra</Text>
+      </Center>
+    );
   return (
     <Box pb='16'>
       <Box w='full' p='2' mb='4'>
@@ -72,11 +79,22 @@ const OrderDetail = () => {
               lg: 'flex-end',
             }}
             alignItems='center'
+            minH={{
+              base: '120px',
+              lg: '90px',
+            }}
             w='full'
           >
             <ChangeStatusButton id={id} data={data} />
           </Flex>
         </Stack>
+        <Alert status='warning' mb={2} mt={8}>
+          <AlertIcon />
+          <Text>
+            Nút <b> tạo đơn vận chuyển </b> dành cho các đơn hàng sử dụng dịch
+            vụ giao hàng bên ngoài.
+          </Text>
+        </Alert>
       </Box>
       <Stack
         w='full'

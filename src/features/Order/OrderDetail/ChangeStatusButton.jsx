@@ -13,10 +13,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Box,
   Button,
-  ButtonGroup,
+  HStack,
   useDisclosure,
   useToast,
+  VStack,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 const shouldCancel = [
@@ -124,70 +126,92 @@ const ChangeStatusButton = ({ data, id }) => {
   };
 
   return (
-    <ButtonGroup w='full'>
-      {shouldCancel.includes(data.orderStatus) && (
-        <CancelDialog
-          flex='1'
-          size={{
-            base: 'sm',
-            lg: 'md',
-          }}
-          w='full'
-          variant='outline'
-          colorScheme='red'
-          onClick={handleCancel}
-          isLoading={changeLoading || cancelLoading || cancelGHNLoading}
-        >
-          Hủy đơn hàng
-        </CancelDialog>
-      )}
-      {data.orderStatus === order.SHIPPED.name && (
-        <Button
-          flex='1'
-          size={{
-            base: 'sm',
-            lg: 'md',
-          }}
-          w='full'
-          colorScheme='green'
-          onClick={handleSetToDelivered}
-          isLoading={deliveredLoading || cancelLoading || cancelGHNLoading}
-        >
-          Đã nhận hàng
-        </Button>
-      )}
-      {shouldConfirm.includes(data.orderStatus) &&
-        data.paymentMethod === order.COD_PAYMENT && (
+    <VStack w='full'>
+      <Box w='full'>
+        <HStack w='full'>
+          {shouldCancel.includes(data.orderStatus) && (
+            <CancelDialog
+              flex='1'
+              size={{
+                base: 'sm',
+                lg: 'md',
+              }}
+              w='full'
+              variant='outline'
+              colorScheme='red'
+              onClick={handleCancel}
+              isLoading={changeLoading || cancelLoading || cancelGHNLoading}
+            >
+              Hủy đơn hàng
+            </CancelDialog>
+          )}
+          {data.orderStatus === order.SHIPPED.name && (
+            <Button
+              flex='1'
+              size={{
+                base: 'sm',
+                lg: 'md',
+              }}
+              w='full'
+              colorScheme='green'
+              onClick={handleSetToDelivered}
+              isLoading={deliveredLoading || cancelLoading || cancelGHNLoading}
+            >
+              Đã nhận hàng
+            </Button>
+          )}
+          {shouldConfirm.includes(data.orderStatus) &&
+            data.paymentMethod === order.COD_PAYMENT && (
+              <Button
+                flex='2'
+                size={{
+                  base: 'sm',
+                  lg: 'md',
+                }}
+                w='full'
+                colorScheme='pink'
+                onClick={() => handleChangeStatus(order.PROCESSING.id)}
+                isLoading={changeLoading || cancelLoading}
+              >
+                Xác nhận đơn hàng
+              </Button>
+            )}
+
+          {shouldCreateShip.includes(data.orderStatus) && (
+            <Button
+              flex='2'
+              size={{
+                base: 'sm',
+                lg: 'md',
+              }}
+              w='full'
+              variant='outline'
+              colorScheme='green'
+              onClick={() => handleChangeStatus(order.SHIPPED.id)}
+              isLoading={changeLoading || cancelLoading}
+            >
+              Đóng gói thành công
+            </Button>
+          )}
+        </HStack>
+        {shouldCreateShip.includes(data.orderStatus) && (
           <Button
-            flex='2'
+            mt={4}
+            flex='3'
             size={{
               base: 'sm',
               lg: 'md',
             }}
             w='full'
             colorScheme='pink'
-            onClick={() => handleChangeStatus(order.PROCESSING.id)}
+            onClick={() => handleChangeStatus(order.SHIPPED.id)}
             isLoading={changeLoading || cancelLoading}
           >
-            Xác nhận đơn hàng
+            Tạo đơn vận chuyển
           </Button>
         )}
-      {shouldCreateShip.includes(data.orderStatus) && (
-        <Button
-          flex='2'
-          size={{
-            base: 'sm',
-            lg: 'md',
-          }}
-          w='full'
-          colorScheme='pink'
-          onClick={() => handleChangeStatus(order.SHIPPED.id)}
-          isLoading={changeLoading || cancelLoading}
-        >
-          Tạo đơn vận chuyển
-        </Button>
-      )}
-    </ButtonGroup>
+      </Box>
+    </VStack>
   );
 };
 
