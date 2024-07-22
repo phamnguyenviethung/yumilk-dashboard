@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 
-function DeleteDialog({ handleDelete, children }) {
+function DeleteDialog({ handleDelete, children, isLoading }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   return (
@@ -34,10 +34,15 @@ function DeleteDialog({ handleDelete, children }) {
           <AlertDialogCloseButton />
           <AlertDialogBody>Bạn có muốn xoá không ?</AlertDialogBody>
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
+            <Button ref={cancelRef} onClick={onClose} isLoading={isLoading}>
               Huỷ
             </Button>
-            <Button colorScheme='red' ml={3} onClick={handleDelete}>
+            <Button
+              colorScheme='red'
+              ml={3}
+              onClick={handleDelete}
+              isLoading={isLoading}
+            >
               Xoá
             </Button>
           </AlertDialogFooter>

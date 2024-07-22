@@ -7,6 +7,7 @@ import InputField from '@/components/Fields/Input';
 import {
   Button,
   HStack,
+  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -23,6 +24,7 @@ import {
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import ChangeBrandLogo from './ChangeBrandLogo';
+import { TbEye } from 'react-icons/tb';
 
 function BrandModal({ id, isAdd }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,7 +36,7 @@ function BrandModal({ id, isAdd }) {
   const [addNewBrandAPI, { isLoading: addLoading }] = useAddNewBrandMutation();
   const toast = useToast();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <></>;
 
   const validationSchema = yup.object().shape({
     name: yup.string().required('Vui lòng không bỏ trống'),
@@ -81,7 +83,7 @@ function BrandModal({ id, isAdd }) {
         onClick={onOpen}
         my={isAdd ? 2 : 0}
       >
-        {isAdd ? 'Thêm mới' : ' Xem chi tiết'}
+        {isAdd ? 'Thêm mới' : <Icon as={TbEye} fontSize='1.5rem' />}
       </Button>
 
       <Modal
@@ -106,7 +108,7 @@ function BrandModal({ id, isAdd }) {
             {formik => {
               return (
                 <Form>
-                  <ModalHeader>Danh mục</ModalHeader>
+                  <ModalHeader>Nhãn hàng</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
                     <VStack w='full' p={2}>

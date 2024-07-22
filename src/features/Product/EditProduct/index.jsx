@@ -97,7 +97,7 @@ const EditProduct = ({ data }) => {
             <ChangeStatus data={data} />
           </InfoSection>
           <InfoSection title='Xoá sản phẩm'>
-            <DeleteDialog handleDelete={handleDelete}>
+            <DeleteDialog handleDelete={handleDelete} isLoading={isLoading}>
               <Button w='full' colorScheme='red' isLoading={isLoading}>
                 Xoá sản phẩm
               </Button>
