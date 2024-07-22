@@ -2,6 +2,7 @@ import orderConstant from '@/constants/order';
 import {
   Box,
   HStack,
+  Stack,
   Step,
   StepIcon,
   StepIndicator,
@@ -94,61 +95,116 @@ function OrderStep({ data, currentStatusID }) {
   );
 }
 
-const OrderLog = ({ data }) => {
+const OrderLog = ({ data, ghnData }) => {
   return (
     <Box my={8}>
       <OrderStep
         data={data.logs}
         currentStatusID={orderConstant[data.orderStatus.toUpperCase()].id}
       />
-      <Box
-        w='full'
-        mt={16}
-        bgColor='brand.secondary'
-        p='4'
-        borderRadius={10}
-        minH='400px'
+      <Stack
+        flexDirection={{
+          base: 'column',
+          lg: 'row',
+        }}
+        gap='1'
       >
-        <Text
-          mt={10}
-          my={5}
-          fontSize='1.5rem'
-          color='pink.200'
-          fontWeight={700}
+        <Box
+          w='full'
+          mt={16}
+          bgColor='brand.secondary'
+          p='4'
+          borderRadius={10}
+          minH='400px'
         >
-          Lịch sử
-        </Text>
-        <VStack w='full' spacing={8}>
-          {data.logs.map(l => {
-            const info = orderConstant[l.status.toUpperCase()];
-            return (
-              <HStack key={l.createdAt} w='full' spacing={[1, 2, 4]}>
-                <Text
-                  color='gray.400'
-                  fontStyle='italic'
-                  fontSize={{
-                    base: '0.8rem',
-                    lg: '0.85rem',
-                  }}
-                >
-                  {dayjs(l.createdAt)
-                    .add(dayjs().utcOffset(), 'minutes')
-                    .format('HH:mm:ss DD/MM/YYYY')}
-                </Text>
-                <Text
-                  fontSize={{
-                    base: '1rem',
-                    lg: '1.1rem',
-                  }}
-                  fontWeight={600}
-                >
-                  {info?.text}
-                </Text>
-              </HStack>
-            );
-          })}
-        </VStack>
-      </Box>
+          <Text
+            mt={10}
+            my={5}
+            fontSize='1.5rem'
+            color='pink.200'
+            fontWeight={700}
+          >
+            Lịch sử đơn hàng
+          </Text>
+          <VStack w='full' spacing={8}>
+            {data.logs.map(l => {
+              const info = orderConstant[l.status.toUpperCase()];
+              return (
+                <HStack key={l.createdAt} w='full' spacing={[1, 2, 4]}>
+                  <Text
+                    color='gray.400'
+                    fontStyle='italic'
+                    fontSize={{
+                      base: '0.8rem',
+                      lg: '0.85rem',
+                    }}
+                  >
+                    {dayjs(l.createdAt)
+                      .add(dayjs().utcOffset(), 'minutes')
+                      .format('HH:mm:ss DD/MM/YYYY')}
+                  </Text>
+                  <Text
+                    fontSize={{
+                      base: '1rem',
+                      lg: '1.1rem',
+                    }}
+                    fontWeight={600}
+                  >
+                    {info?.text}
+                  </Text>
+                </HStack>
+              );
+            })}
+          </VStack>
+        </Box>
+        <Box
+          w='full'
+          mt={16}
+          bgColor='brand.secondary'
+          p='4'
+          borderRadius={10}
+          minH='400px'
+        >
+          <Text
+            mt={10}
+            my={5}
+            fontSize='1.5rem'
+            color='pink.200'
+            fontWeight={700}
+          >
+            Lịch sử vận chuyển
+          </Text>
+          <VStack w='full' spacing={8}>
+            {ghnData?.logs.map(l => {
+              return (
+                <HStack key={l.actionStatus} w='full' spacing={[1, 2, 4]}>
+                  <Text
+                    color='gray.400'
+                    fontStyle='italic'
+                    fontSize={{
+                      base: '0.8rem',
+                      lg: '0.85rem',
+                    }}
+                  >
+                    {dayjs(l.actionStatus)
+                      .add(dayjs().utcOffset(), 'minutes')
+                      .format('HH:mm:ss DD/MM/YYYY')}
+                  </Text>
+                  <Text
+                    fontSize={{
+                      base: '1rem',
+                      lg: '1.1rem',
+                    }}
+                    fontWeight={600}
+                  >
+                    {l?.statusName}
+                  </Text>
+                </HStack>
+              );
+            })}
+          </VStack>
+        </Box>
+      </Stack>
     </Box>
   );
 };

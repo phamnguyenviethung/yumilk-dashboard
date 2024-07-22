@@ -1,4 +1,4 @@
-import { useGetOrderDetailQuery } from '@/apis/orderApi';
+import { useGetGHNOrderQuery, useGetOrderDetailQuery } from '@/apis/orderApi';
 import { useGetAllReviewsQuery } from '@/apis/reviewApi';
 import CircleLoading from '@/components/Loading/CircleLoading';
 import ChangeStatusButton from '@/features/Order/OrderDetail/ChangeStatusButton';
@@ -28,7 +28,8 @@ const OrderDetail = () => {
   const { data: reviewData, isLoading: loadingReview } = useGetAllReviewsQuery({
     OrderId: id,
   });
-  if (isLoading || loadingReview)
+  const { data: ghnData, isLoading: ghnLoading } = useGetGHNOrderQuery(id);
+  if (isLoading || loadingReview || ghnLoading)
     return (
       <Center boxSize='full'>
         <CircleLoading />
@@ -119,7 +120,7 @@ const OrderDetail = () => {
           </VStack>
         </Box>
       </Stack>
-      <OrderLog data={data} />
+      <OrderLog data={data} ghnData={ghnData} />
     </Box>
   );
 };

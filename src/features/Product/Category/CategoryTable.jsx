@@ -14,10 +14,6 @@ const CategoryTable = ({ data }) => {
   const navigate = useNavigate();
   const [colDefs] = useState([
     {
-      field: 'id',
-      headerName: 'ID',
-    },
-    {
       field: 'name',
       headerName: 'Tên sản phẩm',
       filter: true,

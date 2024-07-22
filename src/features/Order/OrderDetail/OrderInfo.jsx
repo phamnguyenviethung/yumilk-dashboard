@@ -64,6 +64,11 @@ const OrderInfo = ({ data, id }) => {
       needHide: data.paymentMethod === order.COD_PAYMENT,
     },
     {
+      name: 'Mã vận chuyển',
+      value: data?.shippingCode,
+      needHide: data.shippingCode === null,
+    },
+    {
       name: 'Ngày đặt hàng',
       value: dayjs(data.createdAt)
         .add(dayjs().utcOffset(), 'minutes')

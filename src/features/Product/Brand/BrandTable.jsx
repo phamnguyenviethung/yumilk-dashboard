@@ -15,10 +15,6 @@ const BrandTable = ({ data }) => {
 
   const [colDefs] = useState([
     {
-      field: 'id',
-      headerName: 'ID',
-    },
-    {
       field: 'name',
       headerName: 'Tên',
       filter: true,
