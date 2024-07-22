@@ -25,7 +25,7 @@ export const userApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'Customer'],
     }),
   }),
 });
