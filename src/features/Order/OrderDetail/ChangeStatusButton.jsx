@@ -2,6 +2,7 @@ import {
   useCancelGHNOrderMutation,
   useCancelOrderMutation,
   useChangeOrderStatusMutation,
+  useCreateGHNOrderMutation,
   useSetOrderToDeliveredMutation,
 } from '@/apis/orderApi';
 import order from '@/constants/order';
@@ -77,6 +78,8 @@ const ChangeStatusButton = ({ data, id }) => {
     useCancelGHNOrderMutation();
   const [changeOrderStatusAPI, { isLoading: changeLoading }] =
     useChangeOrderStatusMutation();
+  const [createGHNOrderAPI, { isLoading: createGHNLoading }] =
+    useCreateGHNOrderMutation();
   const handleCancel = async () => {
     try {
       if (data.orderStatus === order.SHIPPED.name) {
@@ -125,6 +128,22 @@ const ChangeStatusButton = ({ data, id }) => {
     }
   };
 
+  const handleCreateOrderGHN = async () => {
+    try {
+      const res = await createGHNOrderAPI(id);
+      if (res.error) throw res.error.data;
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: error.message || error.title,
+        status: 'error',
+        duration: 2500,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+  };
+
   return (
     <VStack w='full'>
       <Box w='full'>
@@ -140,7 +159,12 @@ const ChangeStatusButton = ({ data, id }) => {
               variant='outline'
               colorScheme='red'
               onClick={handleCancel}
-              isLoading={changeLoading || cancelLoading || cancelGHNLoading}
+              isLoading={
+                changeLoading ||
+                cancelLoading ||
+                createGHNLoading ||
+                cancelGHNLoading
+              }
             >
               Hủy đơn hàng
             </CancelDialog>
@@ -171,7 +195,7 @@ const ChangeStatusButton = ({ data, id }) => {
                 w='full'
                 colorScheme='pink'
                 onClick={() => handleChangeStatus(order.PROCESSING.id)}
-                isLoading={changeLoading || cancelLoading}
+                isLoading={changeLoading || cancelLoading || createGHNLoading}
               >
                 Xác nhận đơn hàng
               </Button>
@@ -188,7 +212,7 @@ const ChangeStatusButton = ({ data, id }) => {
               variant='outline'
               colorScheme='green'
               onClick={() => handleChangeStatus(order.SHIPPED.id)}
-              isLoading={changeLoading || cancelLoading}
+              isLoading={changeLoading || cancelLoading || createGHNLoading}
             >
               Đóng gói thành công
             </Button>
@@ -204,8 +228,8 @@ const ChangeStatusButton = ({ data, id }) => {
             }}
             w='full'
             colorScheme='pink'
-            onClick={() => handleChangeStatus(order.SHIPPED.id)}
-            isLoading={changeLoading || cancelLoading}
+            onClick={handleCreateOrderGHN}
+            isLoading={changeLoading || cancelLoading || createGHNLoading}
           >
             Tạo đơn vận chuyển GHN
           </Button>

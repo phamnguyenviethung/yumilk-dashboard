@@ -34,6 +34,14 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Order'],
     }),
+    createGHNOrder: build.mutation({
+      query: id => ({
+        url: `/shipping/order/create/${id}`,
+        method: 'POST',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Order'],
+    }),
     cancelGHNOrder: build.mutation({
       query: id => ({
         url: `/shipping/order/cancel/${id}`,
@@ -72,4 +80,5 @@ export const {
   useCancelGHNOrderMutation,
   useGetShippingDetailQuery,
   useSetOrderToDeliveredMutation,
+  useCreateGHNOrderMutation,
 } = orderApi;
