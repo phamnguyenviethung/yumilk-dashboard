@@ -124,7 +124,14 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Product', 'Units'],
     }),
-
+    deleteUnit: build.mutation({
+      query: id => ({
+        url: `/products/units/${id}`,
+        method: 'DELETE',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Product', 'Units'],
+    }),
     getProductImages: build.query({
       query: id => ({
         url: `/products/${id}/images`,
@@ -172,4 +179,5 @@ export const {
   useGetAllUnitQuery,
   useGetUnitByIDQuery,
   useDeleteProductMutation,
+  useDeleteUnitMutation,
 } = productApi;
