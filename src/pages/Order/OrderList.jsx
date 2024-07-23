@@ -57,7 +57,9 @@ const statList = [
 const OrderList = () => {
   const [isPreorder, setIsPreorder] = useState(false);
   const { data: stats, isLoading: statsLoading } = useGetOrderStatsQuery({
-    params: {},
+    params: {
+      FromOrderDate: '2000-01-01',
+    },
   });
   const { data, isLoading, isError } = useGetOrderListQuery({
     pageSize: 999999,
