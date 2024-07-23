@@ -82,7 +82,7 @@ const ChangeStatusButton = ({ data, id }) => {
     useCreateGHNOrderMutation();
   const handleCancel = async () => {
     try {
-      if (data.orderStatus === order.SHIPPED.name) {
+      if (data.orderStatus === order.SHIPPED.name && data?.shippingCode) {
         const resGHN = await cancelGHNOrderAPI(id);
         if (resGHN.error) throw resGHN.error.data;
       }

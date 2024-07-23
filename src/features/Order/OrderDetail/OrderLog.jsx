@@ -186,9 +186,7 @@ const OrderLog = ({ data, ghnData }) => {
                       lg: '0.85rem',
                     }}
                   >
-                    {dayjs(l.actionStatus)
-                      .add(dayjs().utcOffset(), 'minutes')
-                      .format('HH:mm:ss DD/MM/YYYY')}
+                    {dayjs(l.actionStatus).format('HH:mm:ss DD/MM/YYYY')}
                   </Text>
                   <Text
                     fontSize={{
