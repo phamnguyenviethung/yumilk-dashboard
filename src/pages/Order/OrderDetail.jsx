@@ -92,8 +92,8 @@ const OrderDetail = () => {
         <Alert status='warning' mb={2} mt={8}>
           <AlertIcon />
           <Text>
-            Nút <b> tạo đơn vận chuyển </b> dành cho các đơn hàng sử dụng dịch
-            vụ giao hàng bên ngoài.
+            Nút <b> tạo đơn vận chuyển GHN </b> dành cho các đơn hàng sử dụng
+            dịch vụ Giao Hàng Nhanh.
           </Text>
         </Alert>
       </Box>
