@@ -1,5 +1,5 @@
 import { useDeletePostMutation } from '@/apis/postApi';
-import { Button, Icon, useToast } from '@chakra-ui/react';
+import { Box, Button, Icon, useToast } from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css';
 import { AgGridReact } from 'ag-grid-react';
 import dayjs from 'dayjs';
@@ -78,7 +78,7 @@ const PostTable = ({ data }) => {
   ]);
 
   return (
-    <div className='ag-theme-yumilk' style={{ height: '95%' }}>
+    <Box className='ag-theme-yumilk' style={{ height: '95%' }}>
       <AgGridReact
         rowData={data.items}
         columnDefs={colDefs}
@@ -88,7 +88,7 @@ const PostTable = ({ data }) => {
           type: 'fitGridWidth',
         }}
       />
-    </div>
+    </Box>
   );
 };
 

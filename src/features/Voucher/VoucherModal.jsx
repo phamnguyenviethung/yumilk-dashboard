@@ -7,6 +7,7 @@ import InputField from '@/components/Fields/Input';
 import {
   Button,
   HStack,
+  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -22,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { FastField, Form, Formik } from 'formik';
+import { TbEye } from 'react-icons/tb';
 import * as yup from 'yup';
 
 function VoucherModal({ id, isAdd }) {
@@ -115,7 +117,7 @@ function VoucherModal({ id, isAdd }) {
         onClick={onOpen}
         my={isAdd ? 2 : 0}
       >
-        {isAdd ? 'Thêm mới' : ' Xem chi tiết'}
+        {isAdd ? 'Thêm mới' : <Icon as={TbEye} fontSize='1.5rem' />}
       </Button>
 
       <Modal

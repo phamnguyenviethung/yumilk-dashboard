@@ -1,4 +1,12 @@
-import { Box, Tag, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  HStack,
+  Icon,
+  Tag,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import dayjs from 'dayjs';
@@ -6,10 +14,18 @@ import 'dayjs/locale/vi';
 import utc from 'dayjs/plugin/utc'; // ES 2015
 import { useState } from 'react';
 import VoucherModal from './VoucherModal';
+import DeleteDialog from '@/components/DeleteDialog';
+import { useDeleteVoucherMutation } from '@/apis/voucherApi';
+import { useNavigate } from 'react-router-dom';
+import { TbTrash } from 'react-icons/tb';
 dayjs.locale('vi');
 dayjs.extend(utc);
 
 const VoucherTable = ({ data }) => {
+  const toast = useToast();
+  const [deleteVoucherAPI, { isLoading }] = useDeleteVoucherMutation();
+  const navigate = useNavigate();
+
   const [colDefs] = useState([
     {
       field: 'code',
@@ -90,7 +106,47 @@ const VoucherTable = ({ data }) => {
     {
       field: 'id',
       headerName: 'Chi tiết',
-      cellRenderer: props => <VoucherModal id={props.value} />,
+      cellRenderer: props => (
+        <HStack gap='1'>
+          <VoucherModal id={props.value} />
+          <DeleteDialog
+            handleDelete={async () => {
+              try {
+                const res = await deleteVoucherAPI(props.value);
+                if (res.error) throw res.error.data;
+                toast({
+                  title: 'Xoá thành công',
+                  status: 'success',
+                  duration: 1000,
+                  isClosable: true,
+                  position: 'top-right',
+                  onCloseComplete: () => {
+                    navigate('/manage/voucher');
+                  },
+                });
+              } catch (error) {
+                toast({
+                  title: error?.message ?? 'Thất bại',
+                  status: 'error',
+                  duration: 2500,
+                  isClosable: true,
+                  position: 'top-right',
+                });
+              }
+            }}
+            isLoading={isLoading}
+          >
+            <Button
+              variant='ghost'
+              colorScheme='red'
+              size='sm'
+              isLoading={isLoading}
+            >
+              <Icon as={TbTrash} fontSize='1.5rem' colorScheme='pink.400' />
+            </Button>
+          </DeleteDialog>
+        </HStack>
+      ),
     },
   ]);
   return (

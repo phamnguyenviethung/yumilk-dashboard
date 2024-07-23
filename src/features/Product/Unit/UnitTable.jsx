@@ -62,7 +62,7 @@ const UnitTable = ({ data }) => {
           >
             <Button
               variant='ghost'
-              colorScheme='pink'
+              colorScheme='red'
               size='sm'
               isLoading={isLoading}
             >
